@@ -1,0 +1,6 @@
+#http://eslint.org/docs/user-guide/configuring
+dist
+node_modules
+coverage
+webpack.*.js
+*server.js
