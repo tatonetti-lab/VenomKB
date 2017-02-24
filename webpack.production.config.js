@@ -9,6 +9,7 @@ var StatsPlugin = require('stats-webpack-plugin');
 module.exports = {
     // The entry file. All your app roots fromn here.
     entry: [
+        'babel-polyfill',
         path.join(__dirname, 'venomkb.js')
     ],
     // Where you want the output to go
@@ -81,13 +82,16 @@ module.exports = {
             test: /\.scss$/,
             // we extract the styles into their own .css file instead of having
             // them inside the js.
-            loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!sass')
+            //loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!sass')
+            loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
         }, {
             test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/,
-            loader: 'url?limit=10000&mimetype=application/font-woff'
+            //loader: 'url?limit=10000&mimetype=application/font-woff'
+            loader: "url-loader?limit=10000&minetype=application/font-woff"
         }, {
             test: /\.(ttf|eot|svg)(\?[a-z0-9#=&.]+)?$/,
-            loader: 'file'
+            //loader: 'file'
+            loader: "file-loader"
         }]
     },
     postcss: [
