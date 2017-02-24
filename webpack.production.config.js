@@ -15,7 +15,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/index/dist/'),
         filename: '[name]-[hash].min.js',
-        publicPath: '/'
+        publicPath: './'
     },
     plugins: [
         // webpack gives your modules and chunks ids to identify them. Webpack can vary the
@@ -27,7 +27,7 @@ module.exports = {
         // change name because the hash part changes. We want hash name changes to bust cache
         // on client browsers.
         new HtmlWebpackPlugin({
-            template: 'venomkb.tpl.html',
+            template: 'venomkb.html',
             inject: 'body',
             filename: 'venomkb.html'
         }),
