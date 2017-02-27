@@ -1,0 +1,15 @@
+# VenomKB history
+
+_author: Joseph D. Romano_
+_last updated: 02-26-2017_
+
+#### VenomKB v1.0
+This document is written and distributed as part of VenomKB's second major release (v2.0). The first version of VenomKB was a utility that accompanied a set of three SQL database tables: `manual_venoms`, `vextractor_records`, and `semantic_vextractor_records`. The full details of VenomKB v1.0 can be found by reading the [data descriptor](http://www.nature.com/articles/sdata201565), published in the journal Scientific Data.
+
+In short, VenomKB v1.0 was a set of three techniques used to extract knowledge related to the therapeutic use of venoms from titles and abstracts in the MEDLINE database. `manual_venoms` served as a reference standard, produced by manually reviewing a subset of articles of interest, and recording the venoms described and the therapeutic effects they were reported to exhibit. `vextractor_records` was the output of a utility named `vextractor`, which passed titles and abstracts through the [NCBO Annotator service](https://www.bioontology.org/annotator-service), filtering for terms relevant to venoms and therapeutic effects. Finally, `semantic_vextractor_records` was the output of another utility (`semantic_vextractor`), which scraped [SemMedDB](https://skr3.nlm.nih.gov/SemMedDB/) for biomedical predications describing venoms and their effects. Taken together, these three databases can serve as a surrogate for the current knowledge regarding venom therapies in the biomedical literature.
+
+#### Venom Ontology
+The next obvious tool required to study venom therapeutics was an ontology that could be used to represent and structure venom knowledge in a standardized way that would focus on individual venom components and drugs derived from them. This took place in the form of [Venom Ontology](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5001765/). Venom Ontology was created by first building a class structure based on knowledge of the domain of venoms, and then populating the class instances with data sourced from UniProtKB/SwissProt's [ToxProt](http://www.uniprot.org/program/Toxins) venom protein annotation program. The utility of Venom Ontology was demonstrated in the original study by means of a number of case studies, which can be read about in the manuscript.
+
+#### Restructuring VenomKB (VenomKB v2.0)
+VenomKB v2.0 is the current major release of VenomKB. It aims to take the knowledge of Venom Ontology, expand upon it, and then make it accessible in a format similar to that of VenomKB v1.0. VenomKB v2.0 is being built using modern web app technology, and will be much more rigorously structured than the previous tools. The main goal of VenomKB is now twofold: (1) Characterize the features of venom components that predict therapeutic effects in humans, and (2) characterize the differences between the original venom peptides and their safe, therapeutically optimized synthetic counterparts that are marketed as legal drugs.

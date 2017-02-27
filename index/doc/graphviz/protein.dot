@@ -1,0 +1,19 @@
+digraph G {
+	fontname = "Bitstream Vera Sans"
+	fontsize = 8
+
+	node [
+		fontname = "Bitstream Vera Sans"
+		fontsize = 8
+		shape = "record"
+	]
+
+	edge [
+		fontname = "Bitstream Vera Sans"
+		fontsize = 8
+	]
+
+	Protein [
+		label = "{Protein|+ _id : string\l+ venomkb_id : string\l+ name: string\l+ venom: string\l+ species: string\l+ drugs : list(string)\l+ summary: string\l+ ribbon_diagram_url : string\l+ chemical_structure_diagram_url : string\l+ aa_sequence : string\l+ molecular_effects : list(string)\l+ phenotypic_effects : list(string)\l+ out_links: DbLinks\l}"
+	]
+}

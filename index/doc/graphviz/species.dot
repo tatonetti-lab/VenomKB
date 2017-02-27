@@ -1,0 +1,19 @@
+digraph G {
+	fontname = "Bitstream Vera Sans"
+	fontsize = 8
+
+	node [
+		fontname = "Bitstream Vera Sans"
+		fontsize = 8
+		shape = "record"
+	]
+
+	edge [
+		fontname = "Bitstream Vera Sans"
+		fontsize = 8
+	]
+
+	Species [
+		label = "{Species|+ _id : string\l+ venomkb_id : string\l+ scientific_name : string\l+ common_name : string\l+ taxonomic_hierarchy : list(string)\l+ description : string\l+ venom : string\l}"
+	]
+}
