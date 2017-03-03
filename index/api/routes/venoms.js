@@ -5,7 +5,7 @@ const Venom = require('../models/Venom.js');
 
 /* GET /venoms listing. */
 router.get('/', (req, res, next) => {
-  Venom.find().sort({ updatedAt: -1 }).exec((err, venoms) => {
+  Venom.find({}).sort({ updatedAt: -1 }).exec((err, venoms) => {
     if (err) return next(err);
     res.json(venoms);
   });
