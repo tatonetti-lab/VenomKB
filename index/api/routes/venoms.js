@@ -5,7 +5,8 @@ const Venom = require('../models/Venom.js');
 
 /* GET /venoms listing. */
 router.get('/', (req, res, next) => {
-  Venom.find({}).sort({ updatedAt: -1 }).exec((err, venoms) => {
+  //Venom.find({}).sort({ updatedAt: -1 }).exec((err, venoms) => {
+  Venom.find({}).exec((err, venoms) => {
     if (err) return next(err);
     res.json(venoms);
   });
@@ -23,6 +24,7 @@ router.post('/', (req, res, next) => {
 
 /* GET /venoms/id */
 router.get('/:id', (req, res, next) => {
+  console.log("Find by id");
   Venom.findById(req.params.id, (err, venoms) => {
     if (err) return next(err);
     res.json(venoms);

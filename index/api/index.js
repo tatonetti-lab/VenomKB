@@ -15,9 +15,30 @@ const app = express();
 // MongoDB
 mongoose.Promise = global.Promise;
 //mongoose.connect('mongodb://localhost/todo-api')
-mongoose.connect('mongodb://54.198.136.17/venomkb_test')
+mongoose.connect('mongodb://54.198.136.17/venomkb-staging')
   .then(() =>  console.log('connection to MongoDB succesful'))
   .catch((err) => console.error(err));
+
+
+// Test to see if we can connect and get Venoms
+// const VenomSchema = new mongoose.Schema({
+//   _id: String,
+//   venomkb_id: String,
+//   species: String
+// });
+
+// // the schema is useless so far
+// // we need to create a model using it
+// var Venom = mongoose.model('Venom', VenomSchema, 'venoms');
+
+// // get all the venoms
+// Venom.find({}, function(err, venoms) {
+//   if (err) throw err;
+//   // object of all the users
+//   console.log('find all venoms');
+//   console.log(venoms);
+// });
+
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));

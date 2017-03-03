@@ -6,11 +6,21 @@ A web app version of VenomKB knowledge base for aggregating and identifying ther
 0. ```npm install```
 0. Configure mongo
 
+## Mongo DB setup
+
+Local mongo
+
+Mongo in the cloud
+Don't do this step 
+
+schema definitions
+
+
 
 ## Running the app
 
 0. ```npm start```
-0. ```mongod``` to start the mongo service if you are using a local server.
+0. ```mongod``` to start the mongo service if you are using a local server. ... add configuration file ... goto mongodb setup 
 0. ```npm run "api"``` to start the api.
 
 ## Test it
