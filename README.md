@@ -38,3 +38,14 @@ npm run "build" and the files will be deposited into the /index/dist/ folder
 Folder contains .eslintrc, .eslintignore and .babelrc files in addition to .gitignore. These fiels are to provide linting instructions, ignore files for linting and ensure babel uses ES2015 and React transforms respectively. 
 
 http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/
+
+
+Features:
+
+* ES6 - 7 Support with Babel
+* Redux dev tools to help you keep track of the app's state
+* Routing
+* hot module replacement support so you can change modules or react components without having to reload the browser
+* a webpack production config so you can build the app and make it ready for production
+* Sass support, just import your styles wherever you need them (and to add Bootstrap support)
+* ESLINT to keep your js readable
