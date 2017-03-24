@@ -1,22 +1,31 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-// import { browserHistory } from 'react-router';
-// import { syncHistoryWithStore } from 'react-router-redux';
-// import { AppContainer } from 'react-hot-loader';
-// import configureStore from './store/configureStore';
-// import Root from './containers/Root';
+import { browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { AppContainer } from 'react-hot-loader';
 
-// const store = configureStore();
-// const history = syncHistoryWithStore(browserHistory, store);
+import configureStore from './index/store/configureStore';
+import Root from './index/containers/Root';
 
-const Hello = React.createClass({
-    render: function() {
-        return <div>Hello world!</div>;
-    }
-});
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
 render(
-    <Hello />,
-    document.getElementById('root')
+    <AppContainer>
+        <Root store={store} history={history} />
+    </AppContainer>,
+    document.getElementById('venomkb_root')
 );
+
+if (module.hot) {
+    module.hot.accept('./index/containers/Root', () => {
+        const NewRoot = require('./index/containers/Root').default;
+        render(
+            <AppContainer>
+                <NewRoot store={store} history={history} />
+            </AppContainer>,
+            document.getElementById('venomkb_root')
+        );
+    });
+}

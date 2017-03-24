@@ -22,7 +22,7 @@ module.exports = {
         new HtmlWebpackPlugin({
           template: 'venomkb.html',
           inject: 'body',
-          filename: 'venomkb.html'
+          filename: 'index.html'
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
