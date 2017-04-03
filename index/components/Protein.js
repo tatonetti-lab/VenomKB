@@ -23,6 +23,7 @@ const testProtein = [
 
 const Protein = () =>
     <div>
+        <h2>TEST: {testProtein.name}</h2>
         <h1>Protein</h1>
         <ul className="nav nav-tabs">
             <li className="active"><a href="#">Basic view</a></li>

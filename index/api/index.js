@@ -9,6 +9,7 @@ const cors = require('cors');
 
 const routes = require('./routes/index');
 const venoms = require('./routes/venoms');
+const proteins = require('./routes/proteins');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(cors());
 
 app.use('/', routes);
 app.use('/venoms', venoms);
+app.use('/proteins', proteins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
