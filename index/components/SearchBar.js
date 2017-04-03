@@ -9,7 +9,6 @@ let options = [
 const SearchBar = () =>
     <div>
         <Select
-        	multi={true}
         	simpleValue
             name="form-field-name"
             options={options}
