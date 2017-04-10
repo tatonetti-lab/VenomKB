@@ -19,6 +19,8 @@ schema definitions
 
 ## Running the app
 
+There are two ways to run the app.
+
 0. ```npm start```
 0. ```mongod``` to start the mongo service if you are using a local server. ... add configuration file ... goto mongodb setup 
 0. ```npm run "api"``` to start the api.
@@ -27,6 +29,9 @@ schema definitions
 ```
 npm test
 ```
+
+## View It
+http://localhost:3000/protein
 
 ## Build it
 ```
