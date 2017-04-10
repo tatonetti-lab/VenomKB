@@ -8,24 +8,30 @@ import { AppContainer } from 'react-hot-loader';
 import configureStore from './index/store/configureStore';
 import Root from './index/containers/Root';
 
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+// handle api calls from within app
+import { getProteins } from './index/helpers/api_fetch';
 
-render(
-    <AppContainer>
-        <Root store={store} history={history} />
-    </AppContainer>,
-    document.getElementById('venomkb_root')
-);
+getProteins().then((proteins) => {
+    const store = configureStore({proteins});
+    const history = syncHistoryWithStore(browserHistory, store);
 
-if (module.hot) {
-    module.hot.accept('./index/containers/Root', () => {
-        const NewRoot = require('./index/containers/Root').default;
-        render(
-            <AppContainer>
-                <NewRoot store={store} history={history} />
-            </AppContainer>,
-            document.getElementById('venomkb_root')
-        );
-    });
+    render(
+        <AppContainer>
+            <Root store={store} history={history} />
+        </AppContainer>,
+        document.getElementById('venomkb_root')
+    );
+
+    if (module.hot) {
+        module.hot.accept('./index/containers/Root', () => {
+            const NewRoot = require('./index/containers/Root').default;
+            render(
+                <AppContainer>
+                    <NewRoot store={store} history={history} />
+                </AppContainer>,
+                document.getElementById('venomkb_root')
+            );
+        });
+    }
+
 }
