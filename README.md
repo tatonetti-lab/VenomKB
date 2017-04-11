@@ -1,41 +1,40 @@
 # README
-A web app version of VenomKB knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.
+A web app version of VenomKB - a knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.
 
 ## Installing the app
 
 0. ```npm install```
 0. Configure mongo
 
-## Mongo DB setup
+## MongoDB setup
 
-Local mongo
+Currently, the database is on an unsecured AWS EC2 server located at mongodb://54.198.136.17/venomkb-staging
 
-Mongo in the cloud
-Don't do this step 
-
-schema definitions
+Once things are tightened up a bit, we will secure this.
 
 
 
 ## Running the app
 
-There are two ways to run the app.
+There are two ways to run the app:
 
 0. ```npm start```
 0. ```mongod``` to start the mongo service if you are using a local server. ... add configuration file ... goto mongodb setup 
 0. ```npm run "api"``` to start the api.
 
-## Test it
+## Run tests
 ```
 npm test
 ```
 
-## View It
+## View a sample database record
+
 http://localhost:3000/protein
 
 ## Build it
+
 ```
-npm run "build" and the files will be deposited into the /index/dist/ folder
+`npm run build` and the files will be deposited into the /index/dist/ folder
 ```
 
 ## Reserved Files
@@ -45,7 +44,7 @@ Folder contains .eslintrc, .eslintignore and .babelrc files in addition to .giti
 http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/
 
 
-Features:
+### Features
 
 * ES6 - 7 Support with Babel
 * Redux dev tools to help you keep track of the app's state
