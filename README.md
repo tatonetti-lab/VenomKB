@@ -27,9 +27,10 @@ There are two ways to run the app:
 npm test
 ```
 
-## View a sample database record
+## View database records
 
-http://localhost:3000/protein
+List of proteins - http://localhost:3000/proteins
+Single protein - http://localhost:3000/proteins/P000001745 {issue: throws error for a runtime error}
 
 ## Build it
 

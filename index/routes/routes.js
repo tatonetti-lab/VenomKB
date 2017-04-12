@@ -8,7 +8,10 @@ import Contact from '../components/Contact';
 import Publications from '../components/Publications';
 import Data from '../components/Data';
 import Download from '../components/Download';
-import Protein from '../components/Protein';
+
+import ProteinsContainer from '../containers/ProteinsContainer';
+import ProteinDetailContainer from '../containers/ProteinDetailContainer';
+
 
 export default (
 	<Route path="/" component={App}>
@@ -18,7 +21,8 @@ export default (
 		<Route path="/publications" component={Publications} />
 		<Route path="/data" component={Data} />
 		<Route path="/download" component={Download} />
-		<Route path="/protein" component={Protein} />
+		<Route path="/proteins" component={ProteinsContainer} />
+		<Route path="/proteins/:index" component={ProteinDetailContainer} />
 		<Route path="/table" component={FilterableTable} />
 	</Route>
 );
