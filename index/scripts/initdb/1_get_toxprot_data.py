@@ -41,7 +41,7 @@ for t in tqdm(toxprot):
         # Get protein data
         for elem in d[0]:
             # Process database references
-            if (elem.tag == "{http://uniprot.org/uniprot}dbReference"):
+            if elem.tag == "{http://uniprot.org/uniprot}dbReference":
                 db_type = elem.attrib['type']
                 props = {}
                 props['id'] = elem.attrib['id']
@@ -50,21 +50,21 @@ for t in tqdm(toxprot):
                 peptides[t]['out_links'][db_type] = props
                 continue
             # Fetch sequence data
-            if (elem.tag == "{http://uniprot.org/uniprot}sequence"):
+            if elem.tag == "{http://uniprot.org/uniprot}sequence":
                 peptides[t]['aa_sequence'] = elem.text.lstrip().strip().replace('\n', '')
                 continue
             # Update species info
-            if (elem.tag == "{http://uniprot.org/uniprot}organism"):
+            if elem.tag == "{http://uniprot.org/uniprot}organism":
                 spec_data = {'taxid': None,
                              'scientific': None,
                              'common': None}
                 for e2 in elem:
                     try:
-                        if (e2.attrib['type'] == "NCBI Taxonomy"):
+                        if e2.attrib['type'] == "NCBI Taxonomy":
                             spec_data['taxid'] = e2.attrib['id']
-                        if (e2.attrib['type'] == "scientific"):
+                        if e2.attrib['type'] == "scientific":
                             spec_data['scientific'] = e2.text
-                        if (e2.attrib['type'] == "common"):
+                        if e2.attrib['type'] == "common":
                             spec_data['common'] = e2.text
                     except KeyError:
                         pass
