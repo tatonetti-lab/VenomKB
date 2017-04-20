@@ -2,6 +2,7 @@ from __future__ import print_function, division
 import os
 import sys
 import json
+import ipdb
 from pymongo import MongoClient
 from tqdm import tqdm
 import dbinit_helpers
@@ -26,53 +27,21 @@ class OutLinks(object):
         self.links.append(OutLink(db_name, foreign_id))
 
 
-class Database(object):
-    """Holds all data records for VenomKB and supports searching"""
-    def __init__(self):
-        self.proteins = []
-        self.venoms = []
-        self.species = []
-        self.molecular_effects = []
-        self.systemic_effects = []
-
-    def find_record_by_venomkb_id(self, query):
-        pass
-
-    def load_database(self):
-        db = CLIENT['venomkb-staging']
-        mongo_collections = {
-            'proteins': db['proteins'],
-            'species': db['species'],
-            'venoms': db['venoms']
-        }
-        for k, v in mongo_collections.iteritems():
-            cur = v.find()
-            if k == 'proteins':
-                
-            elif k == 'species':
-                cur = v.find
-            elif k == 'venoms':
-                cur = v.find()
-    
-    def overwrite_database(self):
-        pass
-
-    def update_database(self):
-        pass
-
-
 class Collection(object):
     """Generic container for a data record in VenomKB"""
-    def __init__(self):
-        self.venomkb_id = ""
-        self.name = ""
-        self.out_links = OutLinks()
-        self._mongo_id = ""
+    def __init__(self, vkbid=None, name=None, ols=OutLinks(),
+                 mongoid=None):
+        self.venomkb_id = vkbid
+        self.name = name
+        self.out_links = ols
+        self._mongo_id = mongoid
 
     def to_json(self):
+        """Write a single data record to JSON format"""
         pass
 
     def validate_attributes(self):
+        """Check that all attributes are a valid format"""
         pass
 
 
@@ -80,9 +49,10 @@ class Protein(Collection):
     """Container class for holding Protein objects"""
     def __init__(self,
                  description=None,
-                 aa_sequence=None):
+                 aa_sequence=None,
+                 **kwargs):
         """Most attributes have default initialization to None"""
-        super(Protein, self).__init__()
+        super(Protein, self).__init__(**kwargs)
         self.description = description
         self.aa_sequence = aa_sequence
         self.venom_ref = None
@@ -115,3 +85,48 @@ class SystemicEffect(Collection):
     def __init__(self):
         super(SystemicEffect, self).__init__()
         self.proteins_caused_by = []
+
+
+class Database(object):
+    """Holds all data records for VenomKB and supports searching"""
+    def __init__(self):
+        self.proteins = []
+        self.venoms = []
+        self.species = []
+        self.molecular_effects = []
+        self.systemic_effects = []
+
+    def find_record_by_venomkb_id(self, query):
+        """Find a record given semi-semantic VenomKB identifier"""
+        pass
+
+    def add_new_entry(self, objtype=Collection, vkbid=None, name=None,
+                      ols=OutLinks(), mongoid=None):
+        """Initialize an arbitrary record and add it to the database model"""
+        new_entry = objtype(vkbid=vkbid, name=name, ols=ols, mongoid=mongoid)
+        if objtype == Protein:
+            #new_entry = Protein(vkbid=vkbid, name=name, ols=ols, mongoid=mongoid)
+            self.proteins.append(new_entry)
+
+    def load_database(self):
+        """Read mongodb contents into local memory"""
+        venomkb = CLIENT['venomkb-staging']
+        mongo_collections = {
+            'proteins': venomkb['proteins'],
+            'species': venomkb['species'],
+            'venoms': venomkb['venoms']
+        }
+        for k, val in mongo_collections.iteritems():
+            cur = val.find()
+            if k == 'proteins':
+                ipdb.set_trace()
+                for prot in cur:
+                    self.proteins.append(Protein())
+    
+    def overwrite_database(self):
+        """Delete mongodb data and write local data to empty database"""
+        pass
+
+    def update_database(self):
+        """Update mongodb records that differ from local records"""
+        pass
