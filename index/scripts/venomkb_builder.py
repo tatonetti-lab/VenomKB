@@ -2,8 +2,11 @@ from __future__ import print_function, division
 import os
 import sys
 import json
+from pymongo import MongoClient
 from tqdm import tqdm
 import dbinit_helpers
+
+CLIENT = MongoClient('mongodb://54.198.136.17:27017')
 
 
 class OutLink(object):
@@ -33,6 +36,28 @@ class Database(object):
         self.systemic_effects = []
 
     def find_record_by_venomkb_id(self, query):
+        pass
+
+    def load_database(self):
+        db = CLIENT['venomkb-staging']
+        mongo_collections = {
+            'proteins': db['proteins'],
+            'species': db['species'],
+            'venoms': db['venoms']
+        }
+        for k, v in mongo_collections.iteritems():
+            cur = v.find()
+            if k == 'proteins':
+                
+            elif k == 'species':
+                cur = v.find
+            elif k == 'venoms':
+                cur = v.find()
+    
+    def overwrite_database(self):
+        pass
+
+    def update_database(self):
         pass
 
 
