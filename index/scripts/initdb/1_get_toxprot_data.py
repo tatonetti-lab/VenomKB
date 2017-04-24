@@ -68,7 +68,8 @@ for t in tqdm(toxprot):
                             spec_data['common'] = e2.text
                     except KeyError:
                         pass
-                species[spec_data['taxid']] = {'scientific_name': spec_data['scientific'], 'common_name': spec_data['common']}
+                species[spec_data['taxid']] = {'scientific_name': spec_data['scientific'], 
+                                               'common_name': spec_data['common']}
     except:
         print("skipping {0}".format(t))
 ## NEXT UP: Link the two related fields
