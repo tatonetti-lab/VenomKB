@@ -112,17 +112,17 @@ class Protein(Collection):
 
 class Venom(Collection):
     """Container class for a Venom object"""
-    def __init__(self, prot_list=[], **kwargs):
+    def __init__(self, prot_list=[], species_ref=None, **kwargs):
         super(Venom, self).__init__(**kwargs)
-        self.species_ref = None
+        self.species_ref = species_ref
         self.proteins = prot_list
 
 
 class Species(Collection):
     """Container class for a Species in VenomKB"""
-    def __init__(self, prot_list=[], **kwargs):
+    def __init__(self, common_name=None, **kwargs):
         super(Species, self).__init__(**kwargs)
-        self.proteins = prot_list
+        self.common_name = common_name
         self.venom_ref = None
 
 
