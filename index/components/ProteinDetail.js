@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
-import handleUpdateProtein from '../helpers/handleUpdateProtein';
-import withExit from '../helpers/withExit';
-import * as rules from '../rules';
+// import handleUpdateProtein from '../helpers/handleUpdateProtein';
+// import withExit from '../helpers/withExit';
 
-const handleSave = (router, nameInput, noteInput, params) => {
+/* const handleSave = (router, nameInput, noteInput, params) => {
     const newName = nameInput.value;
     const newNote = noteInput.value;
 
@@ -16,61 +15,25 @@ const handleSave = (router, nameInput, noteInput, params) => {
     });
 
     withExit(handleUpdateProtein)(router, '/', params);
-};
+};*/
 
-const ProteinDetail = ({ protein, updateProtein, onRemove, router }) => {
-    const { name, note, _id, completed, updatedAt } = protein;
-    const time = new Date(updatedAt);
-
-    let nameInput;
-    let noteInput;
+const ProteinDetail = ({ protein }) => {
+    console.log('Protein: ', protein);
 
     return (
-        <div className={`protein protein-detail ${ completed ? 'done' : ''}`}>
-            <form>
-                <input
-                    type="text"
-                    defaultValue={name}
-                    maxLength={`${rules.NAME_LENGTH}`}
-                    ref={(ref) => { nameInput = ref; }}/>
+        <div className={`protein protein-detail ${ protein.completed ? 'done' : ''}`}>
+            <h1>{protein.name}</h1>
+            <h3>VenomKB ID: {protein.venomkb_id}</h3>
+            <h4>Organism: {protein.venom_ref}</h4>
+            <p>
+                {protein.description}
+            </p>
 
-                <textarea
-                    rows="10"
-                    cols="50"
-                    defaultValue={note}
-                    maxLength={`${rules.NOTE_LENGTH}`}
-                    ref={(ref) => { noteInput = ref; }}/>
-            </form>
-
-            <div>
-                <button
-                    className="btn-status"
-                    onClick={(e) => handleUpdateProtein(e, updateProtein, _id, {
-                        completed: !completed
-                    })}>
-
-                    Status: { completed ? 'Done' : 'Not Done'}
-                </button>
-                <span className="datetime">
-                    Last Updated: { time.toLocaleString() }
-                </span>
-            </div>
-            <button
-                className="btn-save"
-                onClick={(e) => handleSave(router, nameInput, noteInput, [e, updateProtein, _id])}>
-
-                SAVE
-            </button>
-            <span
-                className="close-protein"
-                onClick={(e) => {
-                    e.preventDefault();
-                    onRemove(_id);
-                    router.push('/');
-                }}>
-
-                X
-            </span>
+            <div className="col-xs-12"></div>
+            <h4>Sequence:</h4>
+            <p>
+                {protein.aa_sequence}
+            </p>
         </div>
     );
 };

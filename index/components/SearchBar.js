@@ -6,8 +6,12 @@ let options = [
 	{ value: 'two', label: 'Two' }
 ];
 
+let style = {
+    paddingBottom: '15px'
+};
+
 const SearchBar = () =>
-    <div>
+    <div style={style}>
         <Select
         	simpleValue
             name="form-field-name"
