@@ -1,38 +1,27 @@
 import React, { PropTypes } from 'react';
-import Select from 'react-select';
-
-const OPTIONS = [
-	{ value: 'one', label: 'One' },
-	{ value: 'two', label: 'Two' }
-];
+import VirtualizedSelect from 'react-virtualized-select';
 
 class SearchBar extends React.Component {
-    displayName='MultiSelectField';
     constructor(props) {
         super(props);
-        this.state = {
-            disabled: false,
-            crazy: false,
-            options: OPTIONS,
-            value: []
-        };
+
+        this.state = {};
     }
-    handleSelectChange(value) {
-        console.log('You\'ve selected:', value);
-    }
+
     render() {
+        const options = [
+            { label: 'One', value: 1 },
+            { label: 'Two', value: 2 },
+            { label: 'Three', value: 3, disabled: true }
+        ];
+
         return (
             <div className="section">
-                <Select
-                  multi
-                  simpleValue
-                  disabled={this.state.disabled}
-                  value={this.state.value}
-                  placeholder="Select your desired data element"
-                  options={this.state.options}
-                  onChange={this.handleSelectChange}
+                <VirtualizedSelect
+                  options={options}
+                  onChange={(selectValue) => this.setState({ selectValue })}
+                  value={this.state.selectValue}
                 />
-
             </div>
         );
     }
