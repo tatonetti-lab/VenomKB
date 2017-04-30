@@ -8,6 +8,7 @@ export default function configureStore(initialState) {
         initialState,
         DevTools.instrument()
     );
+    console.log(store.getState());
 
     return store;
 }

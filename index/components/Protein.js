@@ -2,14 +2,13 @@ import React, { PropTypes } from 'react';
 
 const Protein = (props) => {
     const {
-        _id,
         venomkb_id,
         name
     } = props;
 
     return (
         <div>
-            <h2>{ _id } { venomkb_id } { name } </h2>
+            <input type="checkbox" /><h3>{ venomkb_id } { name } </h3>
         </div>
     );
 };

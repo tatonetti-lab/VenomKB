@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import Protein from './Protein';
-import CreateProtein from './CreateProtein';
+import SearchBar from './SearchBar';
 
 const handleMoveProtein = (proteins, moveProtein, indexes) => {
     const { dragIndex, hoverIndex } = indexes;
@@ -10,11 +10,12 @@ const handleMoveProtein = (proteins, moveProtein, indexes) => {
 
 class Proteins extends React.Component {
     render() {
-        const { proteins, onAddProtein, onRemoveProtein, updateProtein, moveProtein } = this.props;
+        const { proteins, onRemoveProtein, updateProtein, moveProtein } = this.props;
 
         return (
+            <div>
+            <SearchBar />
             <div className="proteins">
-                <CreateProtein onCreate={onAddProtein} style={{ display: 'none' }} />
                 {
                     <div>
                     	{ proteins.map((t, i) =>
@@ -33,6 +34,7 @@ class Proteins extends React.Component {
                         </div>)}
                     </div>
                 }
+            </div>
             </div>
         );
     }

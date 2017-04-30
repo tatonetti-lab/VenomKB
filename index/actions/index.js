@@ -6,3 +6,10 @@ export function filterTable(filter) {
         filter
     };
 }
+
+export function selectProtein(venomkb_id) {
+    return {
+        type: types.SELECT_PROTEIN,
+        venomkb_id
+    };
+}

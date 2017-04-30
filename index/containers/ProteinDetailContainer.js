@@ -5,7 +5,7 @@ import ProteinDetail from '../components/ProteinDetail';
 const getProteinFromVkbId = (proteins, id) => {
     let foundProtein;
 
-    proteins.forEach(function(curProtein) {
+    proteins.forEach(curProtein => {
         if(curProtein.venomkb_id === id) {
             foundProtein = curProtein;
         }
