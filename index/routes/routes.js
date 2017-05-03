@@ -6,7 +6,6 @@ import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
 import Publications from '../components/Publications';
-import Data from '../components/Data';
 import Download from '../components/Download';
 
 import ProteinsContainer from '../containers/ProteinsContainer';
@@ -19,7 +18,7 @@ export default (
 		<Route path="/about" component={About} />
 		<Route path="/contact" component={Contact} />
 		<Route path="/publications" component={Publications} />
-		<Route path="/data" component={Data} />
+		<Route path="/data" component={ProteinsContainer} />
 		<Route path="/download" component={Download} />
 		<Route path="/proteins" component={ProteinsContainer} />
 		<Route path="/proteins/:index" component={ProteinDetailContainer} />

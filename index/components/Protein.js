@@ -8,7 +8,7 @@ const Protein = (props) => {
 
     return (
         <div>
-            <input type="checkbox" /><h3>{ venomkb_id } { name } </h3>
+            <input type="checkbox" />{ venomkb_id } { name }
         </div>
     );
 };

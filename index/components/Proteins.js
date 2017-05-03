@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
-import Protein from './Protein';
 import SearchBar from './SearchBar';
+import ProteinsVirtualized from './ProteinsVirtualized';
 
+/*
 const handleMoveProtein = (proteins, moveProtein, indexes) => {
     const { dragIndex, hoverIndex } = indexes;
 
     return moveProtein(dragIndex, hoverIndex, proteins[dragIndex]);
 };
+*/
 
 class Proteins extends React.Component {
     render() {
-        const { proteins, onRemoveProtein, updateProtein, moveProtein } = this.props;
+        const { proteins } = this.props;
 
         return (
             <div>
@@ -20,20 +22,9 @@ class Proteins extends React.Component {
                 <div className="proteins">
                     {
                         <div>
-                            { proteins.map((t, i) =>
-                            <div>
-                            <Protein
-                                _id={t._id}
-                                venomkb_id={t.venomkb_id}
-                                name={t.name}
-                                index={i}
-                                onRemove={onRemoveProtein}
-                                updateProtein={updateProtein}
-                                moveProtein={(indexes) => {
-                                    handleMoveProtein(proteins, moveProtein, indexes);
-                                }}
-                                {...t}/>
-                            </div>)}
+                            <ProteinsVirtualized
+                                proteins={proteins}
+                            />
                         </div>
                     }
                 </div>

@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react';
 import VirtualizedSelect from 'react-virtualized-select';
 
-// import 'react-select/dist/react-select.css';
-// import 'react-virtualized/styles.css';
-// import 'react-virtualized-select/styles.css';
-
 const mapProteinIndexToSelect = (protein_idx) => {
     const select_data = protein_idx.map(function(obj) {
         const rObj = {
@@ -29,12 +25,6 @@ class SearchBar extends React.Component {
     }
 
     render() {
-        /* const options = [
-            { label: 'One', value: 1 },
-            { label: 'Two', value: 2 },
-            { label: 'Three', value: 3, disabled: true }
-        ]; */
-
         return (
             <div className="section">
                 <VirtualizedSelect
