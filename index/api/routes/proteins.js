@@ -24,6 +24,15 @@ router.post('/', (req, res, next) => {
   });
 });
 
+/* GET /proteins/index */
+router.get('/index', (req, res, next) => {
+  protein.find({}, {venomkb_id: 1, name: 1}).exec((err, proteins_ind) => {
+    if (err) return next(err);
+    res.json(proteins_ind);
+  });
+});
+
+
 /* GET /proteins/id */
 router.get('/:id', (req, res, next) => {
   if (vkbid_reg.test(req.params.id)) {

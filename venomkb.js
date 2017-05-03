@@ -9,9 +9,9 @@ import configureStore from './index/store/configureStore';
 import Root from './index/containers/Root';
 
 // handle api calls from within app
-import { getProteins } from './index/helpers/api_fetch';
+import { getProteinsIdx } from './index/helpers/api_fetch';
 
-getProteins().then((proteins) => {
+getProteinsIdx().then((proteins) => {
     const store = configureStore({proteins});
     const history = syncHistoryWithStore(browserHistory, store);
 

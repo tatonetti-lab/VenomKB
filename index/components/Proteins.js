@@ -14,27 +14,29 @@ class Proteins extends React.Component {
 
         return (
             <div>
-            <SearchBar />
-            <div className="proteins">
-                {
-                    <div>
-                    	{ proteins.map((t, i) =>
-                    	<div>
-                        <Protein
-                            _id={t._id}
-                            venomkb_id={t.venomkb_id}
-                            name={t.name}
-                            index={i}
-                            onRemove={onRemoveProtein}
-                            updateProtein={updateProtein}
-                            moveProtein={(indexes) => {
-                                handleMoveProtein(proteins, moveProtein, indexes);
-                            }}
-                            {...t}/>
-                        </div>)}
-                    </div>
-                }
-            </div>
+                <SearchBar
+                    allProteins={proteins}
+                />
+                <div className="proteins">
+                    {
+                        <div>
+                            { proteins.map((t, i) =>
+                            <div>
+                            <Protein
+                                _id={t._id}
+                                venomkb_id={t.venomkb_id}
+                                name={t.name}
+                                index={i}
+                                onRemove={onRemoveProtein}
+                                updateProtein={updateProtein}
+                                moveProtein={(indexes) => {
+                                    handleMoveProtein(proteins, moveProtein, indexes);
+                                }}
+                                {...t}/>
+                            </div>)}
+                        </div>
+                    }
+                </div>
             </div>
         );
     }
