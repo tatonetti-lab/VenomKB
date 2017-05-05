@@ -51,6 +51,7 @@
     "react-router": "^2.4.0",
     "react-router-redux": "^4.0.4",
     "react-select": "^1.0.0-rc.3",
+    "react-virtualized": "^9.7.4",
     "react-virtualized-select": "^3.0.1",
     "redux": "^3.5.2",
     "redux-saga": "^0.11.1",

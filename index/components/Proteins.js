@@ -2,14 +2,6 @@ import React, { PropTypes } from 'react';
 import SearchBar from './SearchBar';
 import ProteinsVirtualized from './ProteinsVirtualized';
 
-/*
-const handleMoveProtein = (proteins, moveProtein, indexes) => {
-    const { dragIndex, hoverIndex } = indexes;
-
-    return moveProtein(dragIndex, hoverIndex, proteins[dragIndex]);
-};
-*/
-
 class Proteins extends React.Component {
     render() {
         const { proteins } = this.props;

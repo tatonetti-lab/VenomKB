@@ -2,10 +2,11 @@ import React, { PropTypes } from 'react';
 import VirtualizedSelect from 'react-virtualized-select';
 
 const mapProteinIndexToSelect = (protein_idx) => {
-    const select_data = protein_idx.map(function(obj) {
+    const select_data = protein_idx.map(obj => {
         const rObj = {
             label: obj.name,
-            value: obj.venomkb_id
+            value: obj.venomkb_id,
+            id: obj._id
         };
         return rObj;
     });
@@ -20,8 +21,18 @@ class SearchBar extends React.Component {
         const select_data = mapProteinIndexToSelect(props.allProteins);
 
         this.state = {
-            proteins: select_data
+            proteins: select_data,
+            value: {}
         };
+
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+    }
+
+    handleSelectChange(value) {
+        this.setState({ value }, () =>{
+            console.log(value);
+            // TODO: filter table
+        });
     }
 
     render() {
@@ -30,7 +41,7 @@ class SearchBar extends React.Component {
                 <VirtualizedSelect
                   name="venomkb-search"
                   options={this.state.proteins}
-                  onChange={(selectValue) => this.setState({ selectValue })}
+                  onChange={this.handleSelectChange}
                   value={this.state.value}
                   placeholder="Begin typing to search for data records..."
                   noResultsText="No data found"
