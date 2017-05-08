@@ -24,15 +24,10 @@ class SearchBar extends React.Component {
             proteins: select_data,
             value: {}
         };
-
-        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
     handleSelectChange(value) {
-        this.setState({ value }, () =>{
-            console.log(value);
-            // TODO: filter table
-        });
+        console.log(value);
     }
 
     render() {

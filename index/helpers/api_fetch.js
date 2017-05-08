@@ -29,6 +29,19 @@ export async function getProteinsIdx() {
     }
 }
 
+export async function getProtein(venomkb_id) {
+    try {
+        // TODO: Validate venomkb_id
+        const options = { mode: 'cors', method: 'GET' };
+        const url = PROTEINS_URL + '/' + venomkb_id;
+        const response = await fetch(url, options);
+
+        return await response.json();
+    } catch (e) {
+        throw e;
+    }
+}
+
 export async function postProtein(protein) {
     try {
         const options = {

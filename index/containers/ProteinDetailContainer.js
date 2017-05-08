@@ -10,14 +10,12 @@ const getProteinFromVkbId = (proteins, id) => {
             foundProtein = curProtein;
         }
     }, this);
-    // console.log(foundProtein);
 
     return foundProtein;
 };
 
 const mapStateToProps = (state, props) => {
     const { index } = props.params;
-    // console.log(index);
 
     // we have the VenomKB id; find the protein that goes with it
     const singleProtein = getProteinFromVkbId(state.proteins, index);

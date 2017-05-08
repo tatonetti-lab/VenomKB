@@ -1,6 +1,8 @@
 import React, { PropTypes, PureComponent } from 'react';
 import { AutoSizer, Column, Table, SortDirection, SortIndicator } from 'react-virtualized';
 
+import LinkButton from './LinkButton';
+
 class ProteinsVirtualized extends PureComponent {
     constructor(props) {
         super(props);
@@ -23,24 +25,17 @@ class ProteinsVirtualized extends PureComponent {
         this._headerRenderer = this._headerRenderer.bind(this);
         this._isSortEnabled = this._isSortEnabled.bind(this);
         this._linkButtonRenderer = this._linkButtonRenderer.bind(this);
-        this._logCellData = this._logCellData.bind(this);
     }
 
-    _logCellData(cellData) {
-        console.log(cellData);
-    }
-
-    _linkButtonRenderer({ cellData, columnData, dataKey, rowData, rowIndex }) {
+    _linkButtonRenderer({ cellData }) {
         if(cellData === '') {
             return <div></div>;
         }
 
-        console.log(columnData, dataKey, rowData, rowIndex);
-
         return (
-            <button onClick={this._logCellData}>
-                {cellData}
-            </button>
+            <LinkButton
+                linkedId={cellData}
+            />
         );
     }
 
@@ -49,6 +44,7 @@ class ProteinsVirtualized extends PureComponent {
             <AutoSizer disableHeight>
                 {({ width }) => (
                     <Table
+                        disableHeader={this.state.disableHeader}
                         width={width}
                         height={this.state.height}
                         rowCount={this.state.proteins.length}
@@ -59,16 +55,19 @@ class ProteinsVirtualized extends PureComponent {
                             cellRenderer={this._linkButtonRenderer}
                             width={this.state.col1width}
                             dataKey="venomkb_id"
+                            headerRenderer={this._headerRenderer}
                         />
                         <Column
                             label="VenomKB ID"
                             dataKey="venomkb_id"
                             width={this.state.col2width}
+                            headerRenderer={this._headerRenderer}
                         />
                         <Column
                             label="Name"
                             dataKey="name"
                             width={this.state.col3width}
+                            headerRenderer={this._headerRenderer}
                         />
                     </Table>
                 )}
