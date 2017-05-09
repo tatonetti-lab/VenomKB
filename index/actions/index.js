@@ -13,3 +13,10 @@ export function selectProtein(venomkb_id) {
         venomkb_id
     };
 }
+
+export function fetchProtein(venomkb_id) {
+    return {
+        type: types.FETCH_PROTEIN,
+        venomkb_id
+    };
+}
