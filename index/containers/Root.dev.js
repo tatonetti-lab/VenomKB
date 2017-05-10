@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import DevTools from './DevTools';
 import { Router } from 'react-router';
@@ -16,7 +17,7 @@ export default class Root extends Component {
             <Provider store={store}>
                 <div>
                     <Router history={history} routes={routes} />
-                    window.devToolsExtension ? null : <DevTools />
+                    <DevTools />
                 </div>
             </Provider>
         );

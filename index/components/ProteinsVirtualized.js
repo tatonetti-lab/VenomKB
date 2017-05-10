@@ -1,5 +1,6 @@
-import React, { PropTypes, PureComponent } from 'react';
-import { AutoSizer, Column, Table, SortDirection, SortIndicator } from 'react-virtualized';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
 
 import LinkButton from './LinkButton';
 
