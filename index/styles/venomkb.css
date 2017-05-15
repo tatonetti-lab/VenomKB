@@ -481,7 +481,6 @@ footer {
 
 .ReactVirtualized__Table__headerRow {
   font-weight: 700;
-  text-transform: uppercase;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
@@ -495,6 +494,7 @@ footer {
      -moz-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-bottom: 1px solid #e0e0e0;
 }
 .ReactVirtualized__Table__row {
   display: -webkit-flex;
@@ -510,6 +510,7 @@ footer {
      -moz-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .ReactVirtualized__Table__headerTruncatedText {
@@ -596,6 +597,8 @@ footer {
 }
 
 
+/* Custom styles */
+
 #search-bar {
   margin: 10px;
   padding-top: 10px;
@@ -609,4 +612,8 @@ footer {
 
 #num-results {
   float: right;
+}
+
+#return-link {
+  margin-top: 10px;
 }

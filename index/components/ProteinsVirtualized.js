@@ -12,10 +12,11 @@ class ProteinsVirtualized extends PureComponent {
             proteins: props.proteins,
             disableHeader: false,
             headerHeight: 30,
-            height: 650,
-            col1width: 150,
+            height: 800,
+            col1width: 100,
             col2width: 100,
-            col3width: 300,
+            col3width: 500,
+            col4width: 100,
             rowHeight: 45,
             rowCount: this.props.proteins.length,
             sortBy: 'name', // 'venomkb_id'
@@ -40,12 +41,24 @@ class ProteinsVirtualized extends PureComponent {
         );
     }
 
+    _dataTypeRenderer({ cellData }) {
+        if (cellData.charAt(0) === 'P') {
+            return (
+                <div>Protein</div>
+            );
+        }
+        return (
+            <div>Unknown</div>
+        );
+    }
+
     render() {
         return (
             <AutoSizer disableHeight>
                 {({ width }) => (
                     <Table
                         disableHeader={this.state.disableHeader}
+                        headerHeight={this.state.headerHeight}
                         width={width}
                         height={this.state.height}
                         rowCount={this.state.proteins.length}
@@ -70,6 +83,13 @@ class ProteinsVirtualized extends PureComponent {
                             width={this.state.col3width}
                             headerRenderer={this._headerRenderer}
                         />
+                        <Column
+                            label="Data type"
+                            dataKey="venomkb_id"
+                            width={this.state.col4width}
+                            headerRenderer={this._headerRenderer}
+                            cellRenderer={this._dataTypeRenderer}
+                        />
                     </Table>
                 )}
             </AutoSizer>
@@ -83,7 +103,6 @@ class ProteinsVirtualized extends PureComponent {
         sortDirection
     }) {
         let displaySortDirection = sortDirection === 'ASC' ? 'DESC' : 'ASC';
-
         return (
             <div>
                 {label}

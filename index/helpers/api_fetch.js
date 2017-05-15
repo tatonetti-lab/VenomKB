@@ -6,6 +6,7 @@ const jsonHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 };
+const SPECIES_URL = 'http://localhost:3001/species';
 
 export async function getProteins() {
     try {
@@ -34,6 +35,19 @@ export async function getProtein(venomkb_id) {
         // TODO: Validate venomkb_id
         const options = { mode: 'cors', method: 'GET' };
         const url = PROTEINS_URL + '/' + venomkb_id;
+        const response = await fetch(url, options);
+
+        return await response.json();
+    } catch (e) {
+        throw e;
+    }
+}
+
+export async function getSpecies(venomkb_id) {
+    try {
+        // TODO: Validate venomkb_id
+        const options = { mode: 'cors', method: 'GET' };
+        const url = SPECIES_URL + '/' + venomkb_id;
         const response = await fetch(url, options);
 
         return await response.json();

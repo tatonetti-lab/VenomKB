@@ -8,9 +8,21 @@ class Proteins extends React.Component {
         super(props);
 
         this.state = {
-            proteins: props,
+            proteins: props.proteins,
             filteredProteins: []
         };
+
+        // this.handleSelectChange = this.handleSelectChange.bind(this);
+        // this.filterProteins = this.filterProteins.bind(this);
+    }
+
+    componentWillMount() {
+        this.setState((prevState) => {
+            return {
+                proteins: prevState.proteins,
+                filteredProteins: prevState.proteins
+            };
+        });
     }
 
     render() {
@@ -24,6 +36,7 @@ class Proteins extends React.Component {
                     <div id="search-bar">
                         <SearchBar
                             allProteins={proteins}
+                            proteinsToFilter={this.filteredProteins}
                             onChange={this.handleSearchChange}
                         />
 

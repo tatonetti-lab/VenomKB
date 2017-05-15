@@ -23,6 +23,7 @@ class SearchBar extends React.Component {
 
         this.state = {
             proteins: select_data,
+            proteinsToFilter: props.proteinsToFilter,
             value: {}
         };
     }
@@ -51,7 +52,8 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
     label: PropTypes.string,
-    allProteins: PropTypes.array
+    allProteins: PropTypes.array,
+    proteinsToFilter: PropTypes.array
 };
 
 export default (SearchBar);

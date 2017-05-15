@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectProtein, fetchProtein } from '../actions';
 import { Nav, NavItem, Image, Col } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 import SequenceBox from '../components/SequenceBox';
 import OutLinks from '../components/OutLinks';
@@ -49,6 +50,11 @@ class ProteinDetailContainer extends Component {
                     <NavItem eventKey="3">Class view</NavItem>
                     <NavItem eventKey="4">Download</NavItem>
                 </Nav>
+                <div id="return-link">
+                    <Link to={'/proteins'}>
+                        Return to list of proteins
+                    </Link>
+                </div>
                 <div>
                     {!isFetching &&
                         <div>
