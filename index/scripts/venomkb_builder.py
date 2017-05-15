@@ -137,11 +137,16 @@ class VenomKB(object):
         species = {}  # ORGANISMS INDEXED BY NCBI TAXID
         print("INFO: Parsing contents of ToxProt database")
         for t in tqdm(toxprot[:-1]):
-            peptides[t] = {'out_links': {'UniProtKB': t}}
-
-            uniprot_dump = requests.get(UNIPROT_BASE + t + '.xml')
-            #try:
-            dump_tree = etree.fromstring(uniprot_dump.content)
+            # If there's an XML error, retry
+            for attempt in range(10):
+                try:
+                    peptides[t] = {'out_links': {'UniProtKB': t}}
+                    uniprot_dump = requests.get(UNIPROT_BASE + t + '.xml')
+                    dump_tree = etree.fromstring(uniprot_dump.content)
+                except XMLSyntaxError:
+                    print("  WARN: Error retrieving valid XML for {0}, retrying (attempt {1} of 10".format(t, attempt))
+                    continue
+                break
 
             # get data for the protein
             for elem in dump_tree[0]:
