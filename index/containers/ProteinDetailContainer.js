@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { selectProtein, fetchProtein } from '../actions';
 import { Nav, NavItem, Image, Col } from 'react-bootstrap';
 
+// import SequenceBox from '../components/SequenceBox';
+import OutLinks from '../components/OutLinks';
+
 class ProteinDetailContainer extends Component {
     constructor(props) {
         super(props);
@@ -59,11 +62,16 @@ class ProteinDetailContainer extends Component {
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                 </p>
                             </Col>
+                            {/*
                             <Col xs={12} md={12}>
-                                <h4>Sequence:</h4>
-                                <p>
-                                    {json.aa_sequence}
-                                </p>
+                                <SequenceBox
+                                    aaSequence={json.aa_sequence}
+                                />
+                            </Col>
+                            */}
+                            <Col xs={12} md={12}>
+                                <h3>External databases</h3>
+                                <OutLinks links={json.out_links} />
                             </Col>
                         </div>
                     }
