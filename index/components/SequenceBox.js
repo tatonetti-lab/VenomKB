@@ -9,7 +9,6 @@ const breakString = (stringToBreak) => {
 class SequenceBox extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
 
         const brokenSequence = breakString(props.aaSequence);
 
