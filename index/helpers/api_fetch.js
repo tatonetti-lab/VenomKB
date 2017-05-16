@@ -7,6 +7,7 @@ const jsonHeaders = {
     'Content-Type': 'application/json'
 };
 const SPECIES_URL = 'http://localhost:3001/species';
+const SPECIES_IDX_URL = 'http://localhost:3001/species/index';
 
 export async function getProteins() {
     try {
@@ -23,6 +24,17 @@ export async function getProteinsIdx() {
     try {
         const options = { mode: 'cors', method: 'GET' };
         const response = await fetch(PROTEINS_IDX_URL, options);
+
+        return await response.json();
+    } catch (e) {
+        throw e;
+    }
+}
+
+export async function getSpeciesIdx() {
+    try {
+        const options = { mode: 'cors', method: 'GET' };
+        const response = await fetch(SPECIES_IDX_URL, options);
 
         return await response.json();
     } catch (e) {

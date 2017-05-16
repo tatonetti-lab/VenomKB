@@ -9,28 +9,30 @@ import configureStore from './index/store/configureStore';
 import Root from './index/containers/Root';
 
 // handle api calls from within app
-import { getProteinsIdx } from './index/helpers/api_fetch';
+import { getProteinsIdx, getSpeciesIdx } from './index/helpers/api_fetch';
 
 getProteinsIdx().then((proteins) => {
-    const store = configureStore({proteins});
-    const history = syncHistoryWithStore(browserHistory, store);
+    getSpeciesIdx().then((species) => {
+        const store = configureStore({proteins, species});
+        const history = syncHistoryWithStore(browserHistory, store);
 
-    render(
-        <AppContainer>
-            <Root store={store} history={history} />
-        </AppContainer>,
-        document.getElementById('venomkb_root')
-    );
+        render(
+            <AppContainer>
+                <Root store={store} history={history} />
+            </AppContainer>,
+            document.getElementById('venomkb_root')
+        );
 
-    if (module.hot) {
-        module.hot.accept('./index/containers/Root', () => {
-            const NewRoot = require('./index/containers/Root').default;
-            render(
-                <AppContainer>
-                    <NewRoot store={store} history={history} />
-                </AppContainer>,
-                document.getElementById('venomkb_root')
-            );
-        });
-    }
+        if (module.hot) {
+            module.hot.accept('./index/containers/Root', () => {
+                const NewRoot = require('./index/containers/Root').default;
+                render(
+                    <AppContainer>
+                        <NewRoot store={store} history={history} />
+                    </AppContainer>,
+                    document.getElementById('venomkb_root')
+                );
+            });
+        }
+    });
 });

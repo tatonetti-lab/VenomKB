@@ -45,6 +45,38 @@ const proteins = (state = [], action) => {
     }
 };
 
+// same thing for species
+const species = (state = [], action) => {
+    switch (action.type) {
+        case types.ADD_SPECIES_SUCCESS:
+            return [action.species, ...state];
+
+        case types.REMOVE_SPECIES_SUCCESS:
+            return state.filter((t) => t._id !== action.todo._id );
+
+        case types.UPDATE_SPECIES_SUCCESS:
+            const { updates, spec} = action;
+            return state.map(t => {
+                if (t._id === spec._id) {
+                    return Object.assign({}, spec, updates);
+                }
+                return t;
+            });
+
+        case types.MOVE_SPECIES:
+            const newState = [...state];
+            newState.splice(action.dragIndex, 1);
+            return [
+                ...newState.slice(0, action.hoverIndex),
+                action.species,
+                ...newState.slice(action.hoverIndex)
+            ];
+
+        default:
+            return state;
+    }
+};
+
 // Set venomkb_id to a new value
 function selectedProtein(state = 'P5453929', action) {
     switch (action.type) {
@@ -96,6 +128,7 @@ function currentProtein(state = { }, action) {
 
 const rootReducer = combineReducers({
     proteins,
+    species,
     filter,
     selectedProtein,
     currentProtein,
