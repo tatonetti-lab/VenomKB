@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
@@ -13,8 +14,8 @@ class ProteinsVirtualized extends PureComponent {
             disableHeader: false,
             headerHeight: 30,
             height: 800,
-            col1width: 100,
-            col2width: 100,
+            col1width: 80,
+            col2width: 120,
             col3width: 500,
             col4width: 100,
             rowHeight: 45,
@@ -27,6 +28,13 @@ class ProteinsVirtualized extends PureComponent {
         this._headerRenderer = this._headerRenderer.bind(this);
         this._isSortEnabled = this._isSortEnabled.bind(this);
         this._linkButtonRenderer = this._linkButtonRenderer.bind(this);
+        this._sort = this._sort.bind(this);
+
+        this.updateTable = this.updateTable.bind(this);
+    }
+
+    updateTable() {
+        this.setState({ rowCount: this.props.proteins.length });
     }
 
     _linkButtonRenderer({ cellData }) {
@@ -53,6 +61,20 @@ class ProteinsVirtualized extends PureComponent {
     }
 
     render() {
+        const list = List(this.props.proteins);
+
+        const sortedList = this._isSortEnabled()
+            ? list
+                .sortBy(item => item[this.state.sortBy])
+                .update(l =>
+                    this.state.sortDirection === SortDirection.ASC
+                        ? l.reverse()
+                        : l
+                )
+            : list;
+
+        const rowGetter = ({ index }) => this._getDatum(sortedList, index);
+
         return (
             <AutoSizer disableHeight>
                 {({ width }) => (
@@ -62,8 +84,11 @@ class ProteinsVirtualized extends PureComponent {
                         width={width}
                         height={this.state.height}
                         rowCount={this.state.proteins.length}
-                        rowGetter={({ index }) => this.state.proteins[index]}
+                        rowGetter={rowGetter}
                         rowHeight={this.state.rowHeight}
+                        sort={this._sort}
+                        sortBy={this.state.sortBy}
+                        sortDirection={this.state.sortDirection}
                     >
                         <Column
                             cellRenderer={this._linkButtonRenderer}
@@ -94,6 +119,14 @@ class ProteinsVirtualized extends PureComponent {
                 )}
             </AutoSizer>
         );
+    }
+
+    _getDatum(list, index) {
+        return list.get(index % list.size);
+    }
+
+    _sort({ sortBy, sortDirection }) {
+        this.setState({ sortBy, sortDirection });
     }
 
     _headerRenderer({
