@@ -7,7 +7,8 @@ export default createDevTools(
 	<DockMonitor
 		toggleVisibilityKey="ctrl-h"
 	    changePositionKey="ctrl-w"
-		defaultSize={0.1}>
+		defaultSize={0.25}
+		defaultIsVisible={false}>
 		<LogMonitor />
 	</DockMonitor>
 );

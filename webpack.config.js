@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -24,39 +25,45 @@ module.exports = {
           inject: 'body',
           filename: 'index.html'
         }),
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify('development')
         })
     ],
-    eslint: {
-        configFile: '.eslintrc',
-        failOnWarning: false,
-        failOnError: false
-    },
     module: {
-        preLoaders: [
+        rules: [
             {
+                enforce: "pre",
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'eslint'
-            }
-        ],
-        loaders: [
+                loader: 'eslint-loader',
+                options: {
+                    configFile: '.eslintrc',
+                    failOnWarning: false,
+                    failOnError: false
+                }
+            },
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
-                loader: 'babel'
+                loader: 'babel-loader'
             },
             {
-                test: /\.json?$/,
-                loader: 'json'
+                test: /\.css$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" }
+                ]
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!sass?modules&localIdentName=[name]---[local]---[hash:base64:5]'
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" },
+                    { loader: "sass-loader" }
+                ]
             },
             { 
                 test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/, 

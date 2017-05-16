@@ -15,8 +15,7 @@ const app = express();
 
 // MongoDB
 mongoose.Promise = global.Promise;
-//mongoose.connect('mongodb://localhost/todo-api')
-mongoose.connect('mongodb://54.198.136.17/venomkb-staging')
+mongoose.connect('mongodb://venomkb-admin:RambXyx6@54.221.23.226/venomkb-staging')
   .then(() =>  console.log('connection to MongoDB succesful'))
   .catch((err) => console.error(err));
 
