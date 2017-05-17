@@ -4,7 +4,8 @@ import Proteins from '../components/Proteins';
 
 const mapStateToProps = (state) => {
     return {
-        proteins: state.proteins
+        proteins: state.proteins,
+        species: state.species
     };
 };
 

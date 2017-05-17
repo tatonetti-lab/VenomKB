@@ -16,7 +16,6 @@ class LinkButton extends React.Component {
     }
 
     handleClick() {
-        console.log(this.props);
         this.props.dispatch(selectProtein(this.props.linkedId));
         this.props.dispatch(fetchProtein(this.props.linkedId));
     }

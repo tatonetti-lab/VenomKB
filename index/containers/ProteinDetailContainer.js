@@ -40,6 +40,13 @@ class ProteinDetailContainer extends Component {
         dispatch(fetchProtein(selectedProtein));
     }
 
+    speciesName(query_vkbid) {
+        const foundSpecies = this.props.species.find((element) => {
+            return element.venomkb_id === query_vkbid;
+        });
+        return foundSpecies.name;
+    }
+
     render() {
         const { selectedProtein, name, out_links, aa_sequence, description, venom_ref, isFetching } = this.props;
         return (
@@ -62,7 +69,7 @@ class ProteinDetailContainer extends Component {
                                 <Image className="pull-right" src={"http://www.rcsb.org/pdb/images/5MIM_bio_r_250.jpg"} thumbnail />
                                 <h1>{name}</h1>
                                 <h3>{selectedProtein}</h3>
-                                <h4>Organism: {venom_ref}</h4>
+                                <h4>Organism: {venom_ref.replace('V', 'S')} ({this.speciesName(venom_ref.replace('V', 'S'))})</h4>
                                 <p>
                                     {description}
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -106,12 +113,13 @@ ProteinDetailContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,
     name: PropTypes.string,
     aa_sequence: PropTypes.string,
-    venom_ref: PropTypes.string
+    venom_ref: PropTypes.string,
+    species: PropTypes.array
 };
 
 
 const mapStateToProps = (state) => {
-    const { selectedProtein, currentProtein } = state;
+    const { selectedProtein, currentProtein, species } = state;
     const {
         isFetching,
         lastUpdated,
@@ -137,7 +145,8 @@ const mapStateToProps = (state) => {
         lastUpdated,
         description,
         name,
-        venom_ref
+        venom_ref,
+        species
     };
 };
 

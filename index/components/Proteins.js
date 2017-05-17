@@ -9,6 +9,7 @@ class Proteins extends React.Component {
 
         this.state = {
             proteins: props.proteins,
+            species: props.species,
             filteredProteins: []
         };
 
@@ -59,6 +60,7 @@ class Proteins extends React.Component {
 
 Proteins.propTypes = {
     proteins: PropTypes.array,
+    species: PropTypes.array,
     onAddProtein: PropTypes.func,
     onRemoveProtein: PropTypes.func,
     updateProtein: PropTypes.func,
