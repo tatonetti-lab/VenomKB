@@ -11,6 +11,8 @@ import Root from './index/containers/Root';
 // handle api calls from within app
 import { getProteinsIdx, getSpeciesIdx } from './index/helpers/api_fetch';
 
+import './index/styles/venomkb.css';
+
 getProteinsIdx().then((proteins) => {
     getSpeciesIdx().then((species) => {
         const store = configureStore({proteins, species});

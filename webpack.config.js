@@ -30,7 +30,8 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify('development')
-        })
+        }),
+        new ExtractTextPlugin('styles.css')
     ],
     module: {
         rules: [
@@ -48,37 +49,25 @@ module.exports = {
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                use: 'babel-loader'
             },
             {
                 test: /\.css$/,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" }
-                ]
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader'
+                })
             },
             {
                 test: /\.scss$/,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" },
-                    { loader: "sass-loader" }
-                ]
-            },
-            { 
-                test: /\.woff(2)?(\?[a-z0-9#=&.]+)?$/, 
-                loader: 'url?limit=10000&mimetype=application/font-woff' 
-            },
-            { 
-                test: /\.(ttf|eot|svg)(\?[a-z0-9#=&.]+)?$/, 
-                loader: 'file' 
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader!sass-loader",
+                })
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    'url?limit=8192',
-                    'img'
-                ]
+                test: /\.(jpe?g|png|gif|svg|ico)$/i,
+                exclude: /node_modules/,
+                use: "file-loader?name=/public/icons/[name].[ext]"
             }
         ]
     }
