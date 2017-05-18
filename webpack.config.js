@@ -65,9 +65,11 @@ module.exports = {
                 })
             },
             {
-                test: /\.(jpe?g|png|gif|svg|ico)$/i,
+                test: /\.(jpe?g|png|gif|svg|ico)$/,
                 exclude: /node_modules/,
-                use: "file-loader?name=/public/icons/[name].[ext]"
+                use: [
+                    'file-loader'
+                ]
             }
         ]
     }
