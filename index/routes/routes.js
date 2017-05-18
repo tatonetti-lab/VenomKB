@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from '../components/App';
-import FilterableTable from '../containers/FilterableTable';
 import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
@@ -23,6 +22,5 @@ export default (
 		<Route path="/download" component={Download} />
 		<Route path="/proteins" component={ProteinsContainer} />
 		<Route path="/proteins/:index" component={ProteinDetailContainer} />
-		<Route path="/table" component={FilterableTable} />
 	</Route>
 );
