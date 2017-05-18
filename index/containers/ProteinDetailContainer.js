@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectProtein, fetchProtein } from '../actions';
-import { Nav, NavItem, Image, Col } from 'react-bootstrap';
+import { Nav, NavItem, Image, Col, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import SequenceBox from '../components/SequenceBox';
@@ -51,15 +51,17 @@ class ProteinDetailContainer extends Component {
         const { selectedProtein, name, out_links, aa_sequence, description, venom_ref, isFetching } = this.props;
         return (
             <div>
-                <Nav bsStyle="tabs" activeKey="1">
-                    <NavItem eventKey="1">Basic view</NavItem>
-                    <NavItem eventKey="2">Tabular</NavItem>
-                    <NavItem eventKey="3">Class view</NavItem>
-                    <NavItem eventKey="4">Download</NavItem>
-                </Nav>
+                <div style={{marginBottom: '5px'}}>
+                    <Nav bsStyle="tabs" activeKey="1">
+                        <NavItem eventKey="1">Basic view</NavItem>
+                        <NavItem eventKey="2">Tabular</NavItem>
+                        <NavItem eventKey="3">Class view</NavItem>
+                        <NavItem eventKey="4">Download <Glyphicon glyph="download-alt" /></NavItem>
+                    </Nav>
+                </div>
                 <div id="return-link">
                     <Link to={'/proteins'}>
-                        Return to list of proteins
+                        <Glyphicon glyph="triangle-left" />Return to list of proteins
                     </Link>
                 </div>
                 <div>

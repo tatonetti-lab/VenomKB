@@ -14,7 +14,7 @@ import { getProteinsIdx, getSpeciesIdx } from './index/helpers/api_fetch';
 import './index/styles/venomkb.css';
 
 // Require images so webpack knows to move them to dist
-import './index/img/favicon.ico';
+import './index/img/favicons/favicons';
 
 getProteinsIdx().then((proteins) => {
     getSpeciesIdx().then((species) => {

@@ -12,9 +12,6 @@ class Proteins extends React.Component {
             species: props.species,
             filteredProteins: []
         };
-
-        // this.handleSelectChange = this.handleSelectChange.bind(this);
-        // this.filterProteins = this.filterProteins.bind(this);
     }
 
     componentWillMount() {

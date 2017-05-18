@@ -7,7 +7,7 @@
     "start": "npm run dev2",
     "api": "node ./index/bin/www",
     "dev": "node venomkb.server.js",
-    "build": "rimraf dist && webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "build": "rimraf dist && webpack --config ./webpack.config.js --progress --profile --colors",
     "eslint": "eslint .",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
