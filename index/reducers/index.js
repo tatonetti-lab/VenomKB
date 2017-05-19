@@ -1,5 +1,6 @@
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
+import { reducer as searchReducer } from 'redux-search';
 import * as types from '../actions/types';
 // import { getProtein } from '../helpers/api_fetch';
 
@@ -130,6 +131,7 @@ const rootReducer = combineReducers({
         selectedProtein,
         currentProtein
     }),
+    search: searchReducer,
     filter,
     routing
 });

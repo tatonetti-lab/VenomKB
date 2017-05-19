@@ -44,7 +44,7 @@ LinkButton.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const { selectedProtein, currentProtein } = state;
+    const { selectedProtein, currentProtein } = state.inMemory;
     const {
         isFetching,
         lastUpdated,
