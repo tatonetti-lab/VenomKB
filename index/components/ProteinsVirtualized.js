@@ -9,8 +9,10 @@ class ProteinsVirtualized extends PureComponent {
     constructor(props) {
         super(props);
 
+        this.proteins = props.proteins;
+
         this.state = {
-            proteins: props.proteins,
+            filteredProteins: this.proteins,
             disableHeader: false,
             headerHeight: 30,
             height: 800,
@@ -22,19 +24,14 @@ class ProteinsVirtualized extends PureComponent {
             rowCount: this.props.proteins.length,
             sortBy: 'name', // 'venomkb_id'
             sortDirection: SortDirection.DESC, // SortDirection.ASC
-            useDynamicRowHeight: false
+            useDynamicRowHeight: false,
+            search: ''
         };
 
         this._headerRenderer = this._headerRenderer.bind(this);
         this._isSortEnabled = this._isSortEnabled.bind(this);
         this._linkButtonRenderer = this._linkButtonRenderer.bind(this);
         this._sort = this._sort.bind(this);
-
-        this.updateTable = this.updateTable.bind(this);
-    }
-
-    updateTable() {
-        this.setState({ rowCount: this.props.proteins.length });
     }
 
     _linkButtonRenderer({ cellData }) {
@@ -60,8 +57,18 @@ class ProteinsVirtualized extends PureComponent {
         );
     }
 
+    updateSearch(event) {
+        const filtered = this.proteins.filter((test) => {
+            return test.name.indexOf(event.target.value) !== -1;
+        });
+        this.setState({
+            search: event.target.value,
+            filteredProteins: filtered
+        });
+    }
+
     render() {
-        const list = List(this.props.proteins);
+        const list = List(this.state.filteredProteins);
 
         const sortedList = this._isSortEnabled()
             ? list
@@ -78,44 +85,53 @@ class ProteinsVirtualized extends PureComponent {
         return (
             <AutoSizer disableHeight>
                 {({ width }) => (
-                    <Table
-                        disableHeader={this.state.disableHeader}
-                        headerHeight={this.state.headerHeight}
-                        width={width}
-                        height={this.state.height}
-                        rowCount={this.state.proteins.length}
-                        rowGetter={rowGetter}
-                        rowHeight={this.state.rowHeight}
-                        sort={this._sort}
-                        sortBy={this.state.sortBy}
-                        sortDirection={this.state.sortDirection}
-                    >
-                        <Column
-                            cellRenderer={this._linkButtonRenderer}
-                            width={this.state.col1width}
-                            dataKey="venomkb_id"
-                            headerRenderer={this._headerRenderer}
-                        />
-                        <Column
-                            label="VenomKB ID"
-                            dataKey="venomkb_id"
-                            width={this.state.col2width}
-                            headerRenderer={this._headerRenderer}
-                        />
-                        <Column
-                            label="Name"
-                            dataKey="name"
-                            width={this.state.col3width}
-                            headerRenderer={this._headerRenderer}
-                        />
-                        <Column
-                            label="Data type"
-                            dataKey="venomkb_id"
-                            width={this.state.col4width}
-                            headerRenderer={this._headerRenderer}
-                            cellRenderer={this._dataTypeRenderer}
-                        />
-                    </Table>
+                    <div>
+                        <div id="search-bar">
+                            <input
+                                className="input"
+                                value={this.state.search}
+                                onChange={this.updateSearch.bind(this)}
+                            />
+                        </div>
+                        <Table
+                            disableHeader={this.state.disableHeader}
+                            headerHeight={this.state.headerHeight}
+                            width={width}
+                            height={this.state.height}
+                            rowCount={this.state.filteredProteins.length}
+                            rowGetter={rowGetter}
+                            rowHeight={this.state.rowHeight}
+                            sort={this._sort}
+                            sortBy={this.state.sortBy}
+                            sortDirection={this.state.sortDirection}
+                        >
+                            <Column
+                                cellRenderer={this._linkButtonRenderer}
+                                width={this.state.col1width}
+                                dataKey="venomkb_id"
+                                headerRenderer={this._headerRenderer}
+                            />
+                            <Column
+                                label="VenomKB ID"
+                                dataKey="venomkb_id"
+                                width={this.state.col2width}
+                                headerRenderer={this._headerRenderer}
+                            />
+                            <Column
+                                label="Name"
+                                dataKey="name"
+                                width={this.state.col3width}
+                                headerRenderer={this._headerRenderer}
+                            />
+                            <Column
+                                label="Data type"
+                                dataKey="venomkb_id"
+                                width={this.state.col4width}
+                                headerRenderer={this._headerRenderer}
+                                cellRenderer={this._dataTypeRenderer}
+                            />
+                        </Table>
+                    </div>
                 )}
             </AutoSizer>
         );
@@ -152,7 +168,9 @@ class ProteinsVirtualized extends PureComponent {
 }
 
 ProteinsVirtualized.propTypes = {
-    proteins: PropTypes.array
+    proteins: PropTypes.array,
+    search: PropTypes.string,
+    filteredProteins: PropTypes.array
 };
 
 export default (ProteinsVirtualized);
