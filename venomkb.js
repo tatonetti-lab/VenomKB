@@ -18,7 +18,12 @@ import './index/img/favicons/favicons';
 
 getProteinsIdx().then((proteins) => {
     getSpeciesIdx().then((species) => {
-        const store = configureStore({proteins, species});
+        const store = configureStore({
+            resources: {
+                proteins,
+                species
+            }
+        });
         const history = syncHistoryWithStore(browserHistory, store);
 
         render(

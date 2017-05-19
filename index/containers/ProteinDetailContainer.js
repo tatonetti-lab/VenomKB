@@ -121,7 +121,8 @@ ProteinDetailContainer.propTypes = {
 
 
 const mapStateToProps = (state) => {
-    const { selectedProtein, currentProtein, species } = state;
+    const { selectedProtein, currentProtein } = state.inMemory;
+    const { species } = state.resources;
     const {
         isFetching,
         lastUpdated,

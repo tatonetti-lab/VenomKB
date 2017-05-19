@@ -122,11 +122,15 @@ function currentProtein(state = { }, action) {
 }
 
 const rootReducer = combineReducers({
-    proteins,
-    species,
+    resources: combineReducers({
+        proteins,
+        species
+    }),
+    inMemory: combineReducers({
+        selectedProtein,
+        currentProtein
+    }),
     filter,
-    selectedProtein,
-    currentProtein,
     routing
 });
 
