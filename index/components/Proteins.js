@@ -37,7 +37,12 @@ class Proteins extends React.Component {
                             proteinsToFilter={this.filteredProteins}
                             onChange={this.handleSearchChange}
                         />
-
+                        {/*
+                        <input
+                            onChange={event => searchProtein(event.target.value)}
+                            placeholder="Search..."
+                        />
+                        */}
                         <div className="checkbox-list" id="search-options">
                             <div id="num-results">{numResults} results found</div>
                         </div>
@@ -61,7 +66,8 @@ Proteins.propTypes = {
     onAddProtein: PropTypes.func,
     onRemoveProtein: PropTypes.func,
     updateProtein: PropTypes.func,
-    moveProtein: PropTypes.func
+    moveProtein: PropTypes.func,
+    searchProtein: PropTypes.func
 };
 
 export default (Proteins);
