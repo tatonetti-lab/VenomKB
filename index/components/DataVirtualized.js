@@ -5,14 +5,14 @@ import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-vi
 
 import LinkButton from './LinkButton';
 
-class ProteinsVirtualized extends PureComponent {
+class DataVirtualized extends PureComponent {
     constructor(props) {
         super(props);
 
-        this.proteins = props.proteins;
+        this.data = props.data;
 
         this.state = {
-            filteredProteins: this.proteins,
+            filteredData: this.data,
             disableHeader: false,
             headerHeight: 30,
             height: 800,
@@ -21,7 +21,7 @@ class ProteinsVirtualized extends PureComponent {
             col3width: 500,
             col4width: 100,
             rowHeight: 45,
-            rowCount: this.props.proteins.length,
+            rowCount: this.props.data.length,
             sortBy: 'name', // 'venomkb_id'
             sortDirection: SortDirection.DESC, // SortDirection.ASC
             useDynamicRowHeight: false,
@@ -64,17 +64,17 @@ class ProteinsVirtualized extends PureComponent {
     }
 
     updateSearch(event) {
-        const filtered = this.proteins.filter((test) => {
+        const filtered = this.data.filter((test) => {
             return test.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1;
         });
         this.setState({
             search: event.target.value,
-            filteredProteins: filtered
+            filteredData: filtered
         });
     }
 
     render() {
-        const list = List(this.state.filteredProteins);
+        const list = List(this.state.filteredData);
 
         const sortedList = this._isSortEnabled()
             ? list
@@ -112,7 +112,7 @@ class ProteinsVirtualized extends PureComponent {
                                 headerHeight={this.state.headerHeight}
                                 width={width}
                                 height={this.state.height}
-                                rowCount={this.state.filteredProteins.length}
+                                rowCount={this.state.filteredData.length}
                                 rowGetter={rowGetter}
                                 rowHeight={this.state.rowHeight}
                                 sort={this._sort}
@@ -182,10 +182,10 @@ class ProteinsVirtualized extends PureComponent {
     }
 }
 
-ProteinsVirtualized.propTypes = {
-    proteins: PropTypes.array,
+DataVirtualized.propTypes = {
+    data: PropTypes.array,
     search: PropTypes.string,
-    filteredProteins: PropTypes.array
+    filteredData: PropTypes.array
 };
 
-export default (ProteinsVirtualized);
+export default (DataVirtualized);

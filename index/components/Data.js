@@ -1,12 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+// import SearchBar from './SearchBar';
+import DataVirtualized from './DataVirtualized';
 
-const Data = () =>
-	<div>
+class Data extends React.Component {
+    constructor(props) {
+        super(props);
 
-	<div className="jumbotron">
-		<h2>Data</h2>
-	</div>
-	</div>;
+        this.state = {
+            proteins: props.proteins,
+            species: props.species,
+            index: props.index
+        };
+    }
 
+    render() {
+        return (
+            <div>
+                <h2>Search for VenomKB data</h2>
+                <div id="proteins-virtualized">
+                    <DataVirtualized
+                        data={this.state.index}
+                    />
+                </div>
+            </div>
+        );
+    }
+}
 
-export default Data;
+Data.propTypes = {
+    proteins: PropTypes.array,
+    species: PropTypes.array,
+    index: PropTypes.array,
+    search: PropTypes.string
+};
+
+export default (Data);

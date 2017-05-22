@@ -6,19 +6,24 @@ import { Nav, NavItem, Image, Col, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import SequenceBox from '../components/SequenceBox';
-import OutLinks from '../components/OutLinks';
+// import OutLinks from '../components/OutLinks';
 
 class ProteinDetailContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            currentProteinId: this.props.params.index
+        };
+
         this.handleRefreshClick = this.handleRefreshClick.bind(this);
     }
 
-    componentDidMount() {
-        const { dispatch, selectedProtein } = this.props;
-        dispatch(fetchProtein(selectedProtein));
+    componentWillMount() {
+        console.log('DISPATCHING SELECT_PROTEIN FROM ProteinDetailContainer.componentWillMount()');
+        this.props.dispatch(selectProtein(this.state.currentProteinId));
+        console.log('DISPATCHING FETCH_PROTEIN FROM ProteinDetailContainer.componentWillMount()');
+        this.props.dispatch(fetchProtein(this.state.currentProteinId));
     }
 
     componentDidUpdate(prevProps) {
@@ -26,11 +31,6 @@ class ProteinDetailContainer extends Component {
             const { dispatch, selectedProtein } = this.props;
             dispatch(fetchProtein(selectedProtein));
         }
-    }
-
-    handleChange(nextProtein) {
-        this.props.dispatch(selectProtein(nextProtein));
-        this.props.dispatch(fetchProtein(nextProtein));
     }
 
     handleRefreshClick(e) {
@@ -48,7 +48,16 @@ class ProteinDetailContainer extends Component {
     }
 
     render() {
-        const { selectedProtein, name, out_links, aa_sequence, description, venom_ref, isFetching } = this.props;
+        const {
+            selectedProtein,
+            name,
+            // out_links,
+            aa_sequence,
+            description,
+            venom_ref,
+            isFetching } = this.props;
+        console.log('RENDERING... FETCHING: ', isFetching);
+        console.log('             NAME UNDEFINED: ', (name === undefined));
         return (
             <div>
                 <div style={{marginBottom: '5px'}}>
@@ -60,12 +69,12 @@ class ProteinDetailContainer extends Component {
                     </Nav>
                 </div>
                 <div id="return-link">
-                    <Link to={'/proteins'}>
+                    <Link to={'/data'}>
                         <Glyphicon glyph="triangle-left" />Return to list of proteins
                     </Link>
                 </div>
                 <div>
-                    {!isFetching &&
+                    {(!isFetching && !(name === undefined)) &&
                         <div>
                             <Col xs={12} md={12}>
                                 <Image className="pull-right" src={"http://www.rcsb.org/pdb/images/5MIM_bio_r_250.jpg"} thumbnail />
@@ -88,7 +97,7 @@ class ProteinDetailContainer extends Component {
 
                                     <Col xs={12} md={12}>
                                         <h3>External databases</h3>
-                                        <OutLinks links={out_links} />
+                                        {/* <OutLinks links={out_links} /> */}
                                     </Col>
                                 </div>
                             }
@@ -116,7 +125,8 @@ ProteinDetailContainer.propTypes = {
     name: PropTypes.string,
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,
-    species: PropTypes.array
+    species: PropTypes.array,
+    params: PropTypes.object
 };
 
 

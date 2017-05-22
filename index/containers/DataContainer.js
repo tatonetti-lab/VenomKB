@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { addProtein, removeProtein, updateProtein, moveProtein } from '../actions';
-import { createSearchAction } from 'redux-search';
-import Proteins from '../components/Proteins';
+import Data from '../components/Data';
 
 const mapStateToProps = (state) => {
     return {
@@ -19,13 +18,12 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(updateProtein(id, updates)),
         moveProtein: (dragIndex, hoverIndex, protein) =>
             dispatch(moveProtein(dragIndex, hoverIndex, protein)),
-        searchProtein: createSearchAction('proteins')
     };
 };
 
-const ProteinsContainer = connect(
+const DataContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Proteins);
+)(Data);
 
-export default ProteinsContainer;
+export default DataContainer;

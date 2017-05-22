@@ -5,22 +5,20 @@ import Home from '../components/Home';
 import About from '../components/About';
 import Contact from '../components/Contact';
 import Publications from '../components/Publications';
-import Data from '../components/Data';
 import Download from '../components/Download';
 
-import ProteinsContainer from '../containers/ProteinsContainer';
+import DataContainer from '../containers/DataContainer';
 import ProteinDetailContainer from '../containers/ProteinDetailContainer';
 
 
 export default (
-	<Route path="/" component={App}>
-		<IndexRoute component={Home} />
-		<Route path="/about" component={About} />
-		<Route path="/contact" component={Contact} />
-		<Route path="/publications" component={Publications} />
-		<Route path="/data" component={Data} />
-		<Route path="/download" component={Download} />
-		<Route path="/proteins" component={ProteinsContainer} />
-		<Route path="/proteins/:index" component={ProteinDetailContainer} />
-	</Route>
+    <Route path="/" component={App}>
+        <IndexRoute component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/publications" component={Publications} />
+        <Route path="/data" component={DataContainer} />
+        <Route path="/download" component={Download} />
+        <Route path="/:index" component={ProteinDetailContainer} />
+    </Route>
 );

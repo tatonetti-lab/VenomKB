@@ -92,6 +92,7 @@ function proteinDetail(state = {
     isFetching: false,
     json: {}
 }, action) {
+    console.log(action.type, 'IN proteinDetail()');
     switch (action.type) {
         case types.REQUEST_PROTEIN:
             return Object.assign({}, state, {
