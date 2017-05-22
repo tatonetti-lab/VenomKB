@@ -16,12 +16,52 @@ import './index/styles/venomkb.css';
 // Require images so webpack knows to move them to dist
 import './index/img/favicons/favicons';
 
+const buildIndex = (proteins, species) => {
+    const idx = [];
+
+    // find species that go along with each protein
+    for (let i = 0; i < proteins.length; i++) {
+        const p = proteins[i];
+
+        const species_ref = p.venom_ref.replace('V', 'S');
+
+        const thisProtSpecies = species.find((specie) => {
+            return specie.venomkb_id === species_ref;
+        });
+
+        const name = p.name + ' (' + thisProtSpecies.name + ')';
+        const thisprot = {
+            name: name,
+            venomkb_id: p.venomkb_id,
+            data_type: 'Protein'
+        };
+        idx.push(thisprot);
+    }
+
+    // add the species
+    for (let i = 0; i < species.length; i++) {
+        const s = species[i];
+
+        const thisspec = {
+            name: s.name,
+            venomkb_id: s.venomkb_id,
+            data_type: 'Species'
+        };
+        idx.push(thisspec);
+    }
+
+    return idx;
+};
+
 getProteinsIdx().then((proteins) => {
     getSpeciesIdx().then((species) => {
+        const index = buildIndex(proteins, species);
+
         const store = configureStore({
             resources: {
                 proteins,
-                species
+                species,
+                index
             }
         });
         const history = syncHistoryWithStore(browserHistory, store);

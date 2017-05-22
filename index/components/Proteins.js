@@ -10,6 +10,7 @@ class Proteins extends React.Component {
         this.state = {
             proteins: props.proteins,
             species: props.species,
+            index: props.index
         };
     }
 
@@ -18,11 +19,9 @@ class Proteins extends React.Component {
             <div>
                 <h2>Search for VenomKB data</h2>
                 <div id="proteins-virtualized">
-                    <div>
-                        <ProteinsVirtualized
-                            proteins={this.state.proteins}
-                        />
-                    </div>
+                    <ProteinsVirtualized
+                        proteins={this.state.index}
+                    />
                 </div>
             </div>
         );
@@ -32,6 +31,7 @@ class Proteins extends React.Component {
 Proteins.propTypes = {
     proteins: PropTypes.array,
     species: PropTypes.array,
+    index: PropTypes.array,
     onAddProtein: PropTypes.func,
     onRemoveProtein: PropTypes.func,
     updateProtein: PropTypes.func,

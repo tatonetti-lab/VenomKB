@@ -26,7 +26,7 @@ router.post('/', (req, res, next) => {
 
 /* GET /proteins/index */
 router.get('/index', (req, res, next) => {
-  protein.find({}, {venomkb_id: 1, name: 1}).exec((err, proteins_ind) => {
+  protein.find({}, {venomkb_id: 1, name: 1, venom_ref: 1}).exec((err, proteins_ind) => {
     if (err) return next(err);
     res.json(proteins_ind);
   });

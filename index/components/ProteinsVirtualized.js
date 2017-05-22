@@ -35,7 +35,7 @@ class ProteinsVirtualized extends PureComponent {
     }
 
     _linkButtonRenderer({ cellData }) {
-        if(cellData === '') {
+        if (cellData === '') {
             return <div></div>;
         }
 
@@ -47,19 +47,25 @@ class ProteinsVirtualized extends PureComponent {
     }
 
     _dataTypeRenderer({ cellData }) {
-        if (cellData.charAt(0) === 'P') {
-            return (
-                <div>Protein</div>
-            );
+        switch (cellData.charAt(0)) {
+            case 'P':
+                return (
+                    <div>Protein</div>
+                );
+            case 'S':
+                return (
+                    <div>Species</div>
+                );
+            default:
+                return (
+                    <div>Unknown</div>
+                );
         }
-        return (
-            <div>Unknown</div>
-        );
     }
 
     updateSearch(event) {
         const filtered = this.proteins.filter((test) => {
-            return test.name.indexOf(event.target.value) !== -1;
+            return test.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1;
         });
         this.setState({
             search: event.target.value,
@@ -83,57 +89,66 @@ class ProteinsVirtualized extends PureComponent {
         const rowGetter = ({ index }) => this._getDatum(sortedList, index);
 
         return (
-            <AutoSizer disableHeight>
-                {({ width }) => (
-                    <div>
-                        <div id="search-bar">
+            <div>
+                <div id="search-bar-wrapper">
+                    <div id="search">
+                        <div id="search-control">
                             <input
                                 className="input"
                                 value={this.state.search}
                                 onChange={this.updateSearch.bind(this)}
                             />
+                            <div id="clear-input">
+                                x
+                            </div>
                         </div>
-                        <Table
-                            disableHeader={this.state.disableHeader}
-                            headerHeight={this.state.headerHeight}
-                            width={width}
-                            height={this.state.height}
-                            rowCount={this.state.filteredProteins.length}
-                            rowGetter={rowGetter}
-                            rowHeight={this.state.rowHeight}
-                            sort={this._sort}
-                            sortBy={this.state.sortBy}
-                            sortDirection={this.state.sortDirection}
-                        >
-                            <Column
-                                cellRenderer={this._linkButtonRenderer}
-                                width={this.state.col1width}
-                                dataKey="venomkb_id"
-                                headerRenderer={this._headerRenderer}
-                            />
-                            <Column
-                                label="VenomKB ID"
-                                dataKey="venomkb_id"
-                                width={this.state.col2width}
-                                headerRenderer={this._headerRenderer}
-                            />
-                            <Column
-                                label="Name"
-                                dataKey="name"
-                                width={this.state.col3width}
-                                headerRenderer={this._headerRenderer}
-                            />
-                            <Column
-                                label="Data type"
-                                dataKey="venomkb_id"
-                                width={this.state.col4width}
-                                headerRenderer={this._headerRenderer}
-                                cellRenderer={this._dataTypeRenderer}
-                            />
-                        </Table>
                     </div>
-                )}
-            </AutoSizer>
+                </div>
+                <AutoSizer disableHeight>
+                    {({ width }) => (
+                        <div>
+                            <Table
+                                disableHeader={this.state.disableHeader}
+                                headerHeight={this.state.headerHeight}
+                                width={width}
+                                height={this.state.height}
+                                rowCount={this.state.filteredProteins.length}
+                                rowGetter={rowGetter}
+                                rowHeight={this.state.rowHeight}
+                                sort={this._sort}
+                                sortBy={this.state.sortBy}
+                                sortDirection={this.state.sortDirection}
+                            >
+                                <Column
+                                    cellRenderer={this._linkButtonRenderer}
+                                    width={this.state.col1width}
+                                    dataKey="venomkb_id"
+                                    headerRenderer={this._headerRenderer}
+                                />
+                                <Column
+                                    label="VenomKB ID"
+                                    dataKey="venomkb_id"
+                                    width={this.state.col2width}
+                                    headerRenderer={this._headerRenderer}
+                                />
+                                <Column
+                                    label="Name"
+                                    dataKey="name"
+                                    width={this.state.col3width}
+                                    headerRenderer={this._headerRenderer}
+                                />
+                                <Column
+                                    label="Data type"
+                                    dataKey="venomkb_id"
+                                    width={this.state.col4width}
+                                    headerRenderer={this._headerRenderer}
+                                    cellRenderer={this._dataTypeRenderer}
+                                />
+                            </Table>
+                        </div>
+                    )}
+                </AutoSizer>
+            </div>
         );
     }
 
