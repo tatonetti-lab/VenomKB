@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-// import { selectProtein, fetchProtein } from '../actions';
 
 class LinkButton extends React.Component {
     constructor(props) {
@@ -11,17 +10,6 @@ class LinkButton extends React.Component {
         this.state = {
             linkedId: props.linkedId,
         };
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        /*
-        console.log('DISPATCHING SELECT_PROTEIN FROM LinkButton.handleClick()');
-        this.props.dispatch(selectProtein(this.props.linkedId));
-        console.log('DISPATCHING FETCH_PROTEIN FROM LinkButton.handleClick()');
-        this.props.dispatch(fetchProtein(this.props.linkedId));
-        */
     }
 
     render() {

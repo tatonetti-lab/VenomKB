@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectProtein, fetchProtein } from '../actions';
-import { Nav, NavItem, Image, Col, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router';
+import { Nav, NavItem, Glyphicon } from 'react-bootstrap';
 
-import SequenceBox from '../components/SequenceBox';
-// import OutLinks from '../components/OutLinks';
+import DataBasicView from '../components/DataBasicView';
 
-class ProteinDetailContainer extends Component {
+class DataDetailContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -40,22 +39,16 @@ class ProteinDetailContainer extends Component {
         dispatch(fetchProtein(selectedProtein));
     }
 
-    speciesName(query_vkbid) {
-        const foundSpecies = this.props.species.find((element) => {
-            return element.venomkb_id === query_vkbid;
-        });
-        return foundSpecies.name;
-    }
-
     render() {
         const {
             selectedProtein,
             name,
-            // out_links,
+            out_links,
             aa_sequence,
             description,
             venom_ref,
-            isFetching } = this.props;
+            isFetching,
+            species } = this.props;
         console.log('RENDERING... FETCHING: ', isFetching);
         console.log('             NAME UNDEFINED: ', (name === undefined));
         return (
@@ -73,40 +66,25 @@ class ProteinDetailContainer extends Component {
                         <Glyphicon glyph="triangle-left" />Return to list of proteins
                     </Link>
                 </div>
+
                 <div>
-                    {(!isFetching && !(name === undefined)) &&
-                        <div>
-                            <Col xs={12} md={12}>
-                                <Image className="pull-right" src={"http://www.rcsb.org/pdb/images/5MIM_bio_r_250.jpg"} thumbnail />
-                                <h1>{name}</h1>
-                                <h3>{selectedProtein}</h3>
-                                <h4>Organism: {venom_ref.replace('V', 'S')} ({this.speciesName(venom_ref.replace('V', 'S'))})</h4>
-                                <p>
-                                    {description}
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                </p>
-                            </Col>
-
-                            {!(name === undefined) &&
-                                <div>
-                                    <Col xs={12} md={12}>
-                                        <SequenceBox
-                                            aaSequence={aa_sequence}
-                                        />
-                                    </Col>
-
-                                    <Col xs={12} md={12}>
-                                        <h3>External databases</h3>
-                                        {/* <OutLinks links={out_links} /> */}
-                                    </Col>
-                                </div>
-                            }
-                        </div>
-                    }
                     {isFetching && name === undefined &&
-                        <div>
-                            <h1>Loading...</h1>
-                        </div>
+                     <div>
+                         <h1>Loading...</h1>
+                     </div>
+                    }
+
+                    {(!isFetching && !(name === undefined)) &&
+                     <DataBasicView
+                         selectedDatum={selectedProtein}
+                         name={name}
+                         out_links={out_links}
+                         aa_sequence={aa_sequence}
+                         description={description}
+                         venom_ref={venom_ref}
+                         isFetching={isFetching}
+                         species={species}
+                     />
                     }
                 </div>
             </div>
@@ -114,8 +92,7 @@ class ProteinDetailContainer extends Component {
     }
 }
 
-
-ProteinDetailContainer.propTypes = {
+DataDetailContainer.propTypes = {
     selectedProtein: PropTypes.string.isRequired,
     description: PropTypes.string,
     out_links: PropTypes.object,
@@ -163,4 +140,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(ProteinDetailContainer);
+export default connect(mapStateToProps)(DataDetailContainer);

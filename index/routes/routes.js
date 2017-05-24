@@ -8,7 +8,7 @@ import Publications from '../components/Publications';
 import Download from '../components/Download';
 
 import DataContainer from '../containers/DataContainer';
-import ProteinDetailContainer from '../containers/ProteinDetailContainer';
+import DataDetailContainer from '../containers/DataDetailContainer';
 
 
 export default (
@@ -19,6 +19,6 @@ export default (
         <Route path="/publications" component={Publications} />
         <Route path="/data" component={DataContainer} />
         <Route path="/download" component={Download} />
-        <Route path="/:index" component={ProteinDetailContainer} />
+        <Route path="/:index" component={DataDetailContainer} />
     </Route>
 );
