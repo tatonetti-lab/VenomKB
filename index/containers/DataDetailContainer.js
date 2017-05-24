@@ -26,22 +26,22 @@ class DataDetailContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedProtein !== prevProps.selectedProtein) {
-            const { dispatch, selectedProtein } = this.props;
-            dispatch(fetchProtein(selectedProtein));
+        if (this.props.selectedData !== prevProps.selectedData) {
+            const { dispatch, selectedData } = this.props;
+            dispatch(fetchProtein(selectedData));
         }
     }
 
     handleRefreshClick(e) {
         e.preventDefault();
 
-        const { dispatch, selectedProtein } = this.props;
-        dispatch(fetchProtein(selectedProtein));
+        const { dispatch, selectedData } = this.props;
+        dispatch(fetchProtein(selectedData));
     }
 
     render() {
         const {
-            selectedProtein,
+            selectedData,
             name,
             out_links,
             aa_sequence,
@@ -76,7 +76,7 @@ class DataDetailContainer extends Component {
 
                     {(!isFetching && !(name === undefined)) &&
                      <DataBasicView
-                         selectedDatum={selectedProtein}
+                         selectedDatum={selectedData}
                          name={name}
                          out_links={out_links}
                          aa_sequence={aa_sequence}
@@ -93,7 +93,7 @@ class DataDetailContainer extends Component {
 }
 
 DataDetailContainer.propTypes = {
-    selectedProtein: PropTypes.string.isRequired,
+    selectedData: PropTypes.string.isRequired,
     description: PropTypes.string,
     out_links: PropTypes.object,
     isFetching: PropTypes.bool.isRequired,
@@ -108,7 +108,7 @@ DataDetailContainer.propTypes = {
 
 
 const mapStateToProps = (state) => {
-    const { selectedProtein, currentProtein } = state.inMemory;
+    const { selectedData, currentData } = state.inMemory;
     const { species } = state.resources;
     const {
         isFetching,
@@ -118,7 +118,7 @@ const mapStateToProps = (state) => {
         aa_sequence,
         description,
         venom_ref
-    } = currentProtein || {
+    } = currentData || {
         isFetching: true,
         name: '',
         out_links: [],
@@ -128,7 +128,7 @@ const mapStateToProps = (state) => {
     };
 
     return {
-        selectedProtein,
+        selectedData,
         out_links,
         aa_sequence,
         isFetching,

@@ -79,7 +79,7 @@ const species = (state = [], action) => {
 };
 
 // Set venomkb_id to a new value
-function selectedProtein(state = 'P5453929', action) {
+function selectedData(state = 'P5453929', action) {
     switch (action.type) {
         case types.SELECT_PROTEIN:
             return action.venomkb_id;
@@ -109,7 +109,7 @@ function proteinDetail(state = {
     }
 }
 
-function currentProtein(state = { }, action) {
+function currentData(state = { }, action) {
     switch (action.type) {
         case types.RECEIVE_PROTEIN:
         case types.REQUEST_PROTEIN:
@@ -129,8 +129,8 @@ const rootReducer = combineReducers({
         species
     }),
     inMemory: combineReducers({
-        selectedProtein,
-        currentProtein
+        selectedData,
+        currentData
     }),
     search: searchReducer,
     filter,

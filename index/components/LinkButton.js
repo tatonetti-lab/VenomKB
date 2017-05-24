@@ -27,7 +27,7 @@ class LinkButton extends React.Component {
 }
 
 LinkButton.propTypes = {
-    selectedProtein: PropTypes.string.isRequired,
+    selectedData: PropTypes.string.isRequired,
     json: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
     lastUpdated: PropTypes.number,
@@ -36,7 +36,7 @@ LinkButton.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    const { selectedProtein, currentProtein } = state.inMemory;
+    const { selectedData, currentProtein } = state.inMemory;
     const {
         isFetching,
         lastUpdated,
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
     };
 
     return {
-        selectedProtein,
+        selectedData,
         json,
         isFetching,
         lastUpdated
