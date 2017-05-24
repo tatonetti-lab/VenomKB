@@ -1,18 +1,6 @@
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import { reducer as searchReducer } from 'redux-search';
 import * as types from '../actions/types';
-// import { getProtein } from '../helpers/api_fetch';
-
-// reducer for handling filter on displayed proteins
-const filter = (state = '', action) => {
-    switch (action.type) {
-        case types.FILTER:
-            return action.filter;
-        default:
-            return state;
-    }
-};
 
 // reducer for handling actions on list of all proteins
 const proteins = (state = [], action) => {
@@ -81,24 +69,24 @@ const species = (state = [], action) => {
 // Set venomkb_id to a new value
 function selectedData(state = 'P5453929', action) {
     switch (action.type) {
-        case types.SELECT_PROTEIN:
+        case types.SELECT_DATA:
             return action.venomkb_id;
         default:
             return state;
     }
 }
 
-function proteinDetail(state = {
+function dataDetail(state = {
     isFetching: false,
     json: {}
 }, action) {
     console.log(action.type, 'IN proteinDetail()');
     switch (action.type) {
-        case types.REQUEST_PROTEIN:
+        case types.REQUEST_DATA:
             return Object.assign({}, state, {
                 isFetching: true
             });
-        case types.RECEIVE_PROTEIN:
+        case types.RECEIVE_DATA:
             return Object.assign({}, state, action.json);
         default:
             return {
@@ -111,9 +99,9 @@ function proteinDetail(state = {
 
 function currentData(state = { }, action) {
     switch (action.type) {
-        case types.RECEIVE_PROTEIN:
-        case types.REQUEST_PROTEIN:
-            return Object.assign({}, state, proteinDetail(state[action.json], action));
+        case types.RECEIVE_DATA:
+        case types.REQUEST_DATA:
+            return Object.assign({}, state, dataDetail(state[action.json], action));
         default:
             return {
                 isFetching: false,
@@ -132,8 +120,6 @@ const rootReducer = combineReducers({
         selectedData,
         currentData
     }),
-    search: searchReducer,
-    filter,
     routing
 });
 

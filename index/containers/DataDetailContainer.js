@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectProtein, fetchProtein } from '../actions';
+import { selectData, fetchData } from '../actions';
 import { Link } from 'react-router';
 import { Nav, NavItem, Glyphicon } from 'react-bootstrap';
 
@@ -12,23 +12,24 @@ class DataDetailContainer extends Component {
         super(props);
 
         this.state = {
-            currentProteinId: this.props.params.index
+            currentVenomkbId: this.props.params.index,
+            dataType: this.props.params.index.charAt(0)
         };
 
         this.handleRefreshClick = this.handleRefreshClick.bind(this);
     }
 
     componentWillMount() {
-        console.log('DISPATCHING SELECT_PROTEIN FROM ProteinDetailContainer.componentWillMount()');
-        this.props.dispatch(selectProtein(this.state.currentProteinId));
-        console.log('DISPATCHING FETCH_PROTEIN FROM ProteinDetailContainer.componentWillMount()');
-        this.props.dispatch(fetchProtein(this.state.currentProteinId));
+        console.log('DISPATCHING SELECT_DATA FROM DataDetailContainer.componentWillMount()');
+        this.props.dispatch(selectData(this.state.currentVenomkbId));
+        console.log('DISPATCHING FETCH_DATA FROM DataDetailContainer.componentWillMount()');
+        this.props.dispatch(fetchData(this.state.currentVenomkbId));
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.selectedData !== prevProps.selectedData) {
             const { dispatch, selectedData } = this.props;
-            dispatch(fetchProtein(selectedData));
+            dispatch(fetchData(selectedData));
         }
     }
 
@@ -36,7 +37,7 @@ class DataDetailContainer extends Component {
         e.preventDefault();
 
         const { dispatch, selectedData } = this.props;
-        dispatch(fetchProtein(selectedData));
+        dispatch(fetchData(selectedData));
     }
 
     render() {
@@ -49,6 +50,7 @@ class DataDetailContainer extends Component {
             venom_ref,
             isFetching,
             species } = this.props;
+        console.log(this.props);
         console.log('RENDERING... FETCHING: ', isFetching);
         console.log('             NAME UNDEFINED: ', (name === undefined));
         return (
@@ -77,6 +79,7 @@ class DataDetailContainer extends Component {
                     {(!isFetching && !(name === undefined)) &&
                      <DataBasicView
                          selectedDatum={selectedData}
+                         dataType={this.state.dataType}
                          name={name}
                          out_links={out_links}
                          aa_sequence={aa_sequence}

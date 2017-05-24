@@ -9,10 +9,8 @@ class DataBasicView extends Component {
     constructor(props) {
         super(props);
 
-        const dataType = this.props.selectedDatum.charAt(0);
-
         this.state = {
-            'data_type': dataType
+            dataType: props.dataType
         };
     }
 
@@ -33,7 +31,9 @@ class DataBasicView extends Component {
             venom_ref,
         } = this.props;
 
-        switch (this.state.data_type) {
+        console.log('Data type:', this.state.dataType);
+
+        switch (this.state.dataType) {
             case 'P':
                 return (
                     <div>
@@ -82,6 +82,7 @@ class DataBasicView extends Component {
 
 DataBasicView.propTypes = {
     selectedDatum: PropTypes.string.isRequired,
+    dataType: PropTypes.string.isRequired,
     description: PropTypes.string,
     out_links: PropTypes.object,
     name: PropTypes.string.isRequired,
