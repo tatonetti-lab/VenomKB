@@ -26,6 +26,15 @@ class DataDetailContainer extends Component {
         this.props.dispatch(fetchData(this.state.currentVenomkbId));
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props.params !== nextProps.params) {
+            console.log('DISPATCHING SELECT_DATA FROM DataDetailContainer.componentWillMount()');
+            this.props.dispatch(selectData(this.state.currentVenomkbId));
+            console.log('DISPATCHING FETCH_DATA FROM DataDetailContainer.componentWillMount()');
+            this.props.dispatch(fetchData(this.state.currentVenomkbId));
+        }
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.selectedData !== prevProps.selectedData) {
             const { dispatch, selectedData } = this.props;
@@ -44,6 +53,7 @@ class DataDetailContainer extends Component {
         const {
             selectedData,
             name,
+            common_name,
             out_links,
             aa_sequence,
             description,
@@ -53,6 +63,7 @@ class DataDetailContainer extends Component {
         console.log(this.props);
         console.log('RENDERING... FETCHING: ', isFetching);
         console.log('             NAME UNDEFINED: ', (name === undefined));
+        console.log(this.props);
         return (
             <div>
                 <div style={{marginBottom: '5px'}}>
@@ -81,6 +92,7 @@ class DataDetailContainer extends Component {
                          selectedDatum={selectedData}
                          dataType={this.state.dataType}
                          name={name}
+                         common_name={common_name}
                          out_links={out_links}
                          aa_sequence={aa_sequence}
                          description={description}
@@ -103,6 +115,7 @@ DataDetailContainer.propTypes = {
     lastUpdated: PropTypes.number,
     dispatch: PropTypes.func.isRequired,
     name: PropTypes.string,
+    common_name: PropTypes.string,
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,
     species: PropTypes.array,
@@ -117,6 +130,7 @@ const mapStateToProps = (state) => {
         isFetching,
         lastUpdated,
         name,
+        common_name,
         out_links,
         aa_sequence,
         description,
@@ -124,6 +138,7 @@ const mapStateToProps = (state) => {
     } = currentData || {
         isFetching: true,
         name: '',
+        common_name: '',
         out_links: [],
         aa_sequence: '',
         description: '',
@@ -138,6 +153,7 @@ const mapStateToProps = (state) => {
         lastUpdated,
         description,
         name,
+        common_name,
         venom_ref,
         species
     };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Col } from 'react-bootstrap';
-
+import { Link } from 'react-router';
 import SequenceBox from '../components/SequenceBox';
 import OutLinks from '../components/OutLinks';
 
@@ -31,17 +31,24 @@ class DataBasicView extends Component {
             venom_ref,
         } = this.props;
 
+        const common_name = this.props.common_name;
+        console.log('Common name: ', common_name);
+
         console.log('Data type:', this.state.dataType);
 
         switch (this.state.dataType) {
             case 'P':
+                const species_link = '/' + (venom_ref.replace('V', 'S'));
+
                 return (
                     <div>
                         <Col xs={12} md={12}>
                             <Image className="pull-right" src={"http://www.rcsb.org/pdb/images/5MIM_bio_r_250.jpg"} thumbnail />
                             <h1>{name}</h1>
-                            <h3>{selectedDatum}</h3>
-                            <h4>Organism: {venom_ref.replace('V', 'S')} ({this.speciesName(venom_ref.replace('V', 'S'))})</h4>
+                            <h3>ID: {selectedDatum}</h3>
+                            <h4>
+                                Organism: <Link to={species_link}>({this.speciesName(venom_ref.replace('V', 'S'))}) ({venom_ref.replace('V', 'S')})</Link>
+                            </h4>
                             <p>
                                 {description}
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -67,7 +74,11 @@ class DataBasicView extends Component {
             case 'S':
                 return (
                     <div>
-                        TODO - Species
+                        <Col xs={12} md={12}>
+                            <h1>{name}</h1>
+                            <h3>ID: {selectedDatum}</h3>
+                            <h4>Common name: {common_name}</h4>
+                        </Col>
                     </div>
                 );
             default:
@@ -82,6 +93,7 @@ class DataBasicView extends Component {
 
 DataBasicView.propTypes = {
     selectedDatum: PropTypes.string.isRequired,
+    common_name: PropTypes.string,
     dataType: PropTypes.string.isRequired,
     description: PropTypes.string,
     out_links: PropTypes.object,
