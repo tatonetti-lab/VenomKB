@@ -19,7 +19,7 @@ class SequenceBox extends React.Component {
 
     render() {
         return (
-            <div style={{border: '1px solid', margin: '10px', padding: '5px'}}>
+            <div className="jdr-box">
                 <h4>Amino Acid Sequence</h4>
                 {this.state.brokenSequence}
             </div>

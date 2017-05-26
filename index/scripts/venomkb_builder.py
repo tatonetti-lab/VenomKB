@@ -9,9 +9,12 @@ from tqdm import tqdm
 from vkb_collections import *
 import dbinit_helpers
 
-CLIENT = MongoClient('mongodb://54.198.136.17:27017')
+PASSWORD = 'RambXyx6'
+ADMIN_USER = 'venomkb-admin'
+CLIENT = MongoClient('mongodb://54.221.23.226:27017')
 VENOMKB = CLIENT['venomkb-staging']
-TEST_VENOMKB = CLIENT['venomkb-out-test']
+# TEST_VENOMKB = CLIENT['venomkb-out-test']
+VENOMKB.authenticate(ADMIN_USER, PASSWORD)
 
 UNIPROT_BASE = 'http://www.uniprot.org/uniprot/'
 TOXPROT_PATH = UNIPROT_BASE +\
@@ -75,7 +78,12 @@ class VenomKB(object):
                     # TODO: `make_outlinks`  <=== still need to write this method
                     self.proteins.append(_new_p)
             elif k == 'species':
-                pass
+                for spec in cur:
+                    _new_s = Species(vkbid=spec.get('venomkb_id'),
+                                     name=spec.get('name'),
+                                     mongoid=spec.get('_id'),
+                                     ols=spec.get('out_links'))
+                    self.species.append(_new_s)
             elif k == 'venoms':
                 for ven in cur:
                     _new_v = Venom(vkbid=ven.get('venomkb_id'),
@@ -93,6 +101,8 @@ class VenomKB(object):
 
     def replace_database(self):
         """Delete mongodb data and write local data to empty database"""
+        if True:
+            return
         _out_db = VENOMKB
         _proteins_conn = _out_db['proteins']
         _species_conn = _out_db['species']

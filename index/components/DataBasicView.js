@@ -7,6 +7,8 @@ import OutLinks from '../components/OutLinks';
 import { connect } from 'react-redux';
 import { selectData, fetchData } from '../actions';
 
+import VenomDetail from '../components/VenomDetail.js';
+
 class DataBasicView extends Component {
     constructor(props) {
         super(props);
@@ -39,14 +41,11 @@ class DataBasicView extends Component {
             aa_sequence,
             description,
             venom_ref,
+            venom
         } = this.props;
 
         const common_name = this.props.common_name;
-        console.log('Common name: ', common_name);
-
-        console.log('Data type:', this.state.dataType);
         const dataType = this.props.selectedDatum.charAt(0);
-        console.log('Data type (props): ', dataType);
 
         switch (dataType) {
             case 'P':
@@ -90,6 +89,10 @@ class DataBasicView extends Component {
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
                             <h4>Common name: {common_name}</h4>
+
+                            <VenomDetail
+                                venom={venom}
+                            />
                         </Col>
                     </div>
                 );
@@ -112,6 +115,7 @@ DataBasicView.propTypes = {
     name: PropTypes.string.isRequired,
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,
+    venom: PropTypes.object,
     species: PropTypes.array,
     dispatch: PropTypes.func.isRequired
 };
