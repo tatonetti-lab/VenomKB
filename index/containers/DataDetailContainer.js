@@ -22,8 +22,6 @@ class DataDetailContainer extends Component {
     componentWillMount() {
         console.log('DISPATCHING SELECT_DATA FROM DataDetailContainer.componentWillMount()');
         this.props.dispatch(selectData(this.state.currentVenomkbId));
-        console.log('DISPATCHING FETCH_DATA FROM DataDetailContainer.componentWillMount()');
-        this.props.dispatch(fetchData(this.state.currentVenomkbId));
     }
 
     componentDidUpdate(prevProps) {
