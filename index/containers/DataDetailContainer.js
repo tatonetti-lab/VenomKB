@@ -26,15 +26,6 @@ class DataDetailContainer extends Component {
         this.props.dispatch(fetchData(this.state.currentVenomkbId));
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        if (this.props.params !== nextProps.params) {
-            console.log('DISPATCHING SELECT_DATA FROM DataDetailContainer.componentWillMount()');
-            this.props.dispatch(selectData(this.state.currentVenomkbId));
-            console.log('DISPATCHING FETCH_DATA FROM DataDetailContainer.componentWillMount()');
-            this.props.dispatch(fetchData(this.state.currentVenomkbId));
-        }
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.selectedData !== prevProps.selectedData) {
             const { dispatch, selectedData } = this.props;

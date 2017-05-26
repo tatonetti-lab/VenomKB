@@ -4,6 +4,8 @@ import { Image, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 import SequenceBox from '../components/SequenceBox';
 import OutLinks from '../components/OutLinks';
+import { connect } from 'react-redux';
+import { selectData, fetchData } from '../actions';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -12,6 +14,8 @@ class DataBasicView extends Component {
         this.state = {
             dataType: props.dataType
         };
+
+        this.loadSpeciesFromProtein = this.loadSpeciesFromProtein.bind(this);
     }
 
     speciesName(query_vkbid) {
@@ -19,6 +23,12 @@ class DataBasicView extends Component {
             return element.venomkb_id === query_vkbid;
         });
         return foundSpecies.name;
+    }
+
+    loadSpeciesFromProtein() {
+        const { venom_ref } = this.props;
+        this.props.dispatch(selectData(venom_ref.replace('V', 'S')));
+        this.props.dispatch(fetchData(venom_ref.replace('V', 'S')));
     }
 
     render() {
@@ -35,8 +45,10 @@ class DataBasicView extends Component {
         console.log('Common name: ', common_name);
 
         console.log('Data type:', this.state.dataType);
+        const dataType = this.props.selectedDatum.charAt(0);
+        console.log('Data type (props): ', dataType);
 
-        switch (this.state.dataType) {
+        switch (dataType) {
             case 'P':
                 const species_link = '/' + (venom_ref.replace('V', 'S'));
 
@@ -47,7 +59,7 @@ class DataBasicView extends Component {
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
                             <h4>
-                                Organism: <Link to={species_link}>({this.speciesName(venom_ref.replace('V', 'S'))}) ({venom_ref.replace('V', 'S')})</Link>
+                                Organism: <Link to={species_link} onClick={this.loadSpeciesFromProtein}>({this.speciesName(venom_ref.replace('V', 'S'))}) ({venom_ref.replace('V', 'S')})</Link>
                             </h4>
                             <p>
                                 {description}
@@ -100,7 +112,16 @@ DataBasicView.propTypes = {
     name: PropTypes.string.isRequired,
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,
-    species: PropTypes.array
+    species: PropTypes.array,
+    dispatch: PropTypes.func.isRequired
 };
 
-export default DataBasicView;
+const mapStateToProps = (state) => {
+    const { selectedData, currentData } = state.inMemory;
+    return {
+        selectedData,
+        currentData
+    };
+};
+
+export default connect(mapStateToProps)(DataBasicView);
