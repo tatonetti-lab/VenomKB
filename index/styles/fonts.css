@@ -1,0 +1,9 @@
+@font-face {
+    font-family: myriad;
+    src: url('MYRIADAT.TTF');
+}
+@font-face {
+    font-family: myriad;
+    src: url('MYRIADAS.TTF');
+    font-weight: bold;
+}

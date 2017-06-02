@@ -71,6 +71,10 @@ module.exports = {
                 use: [
                     'file-loader'
                 ]
+            },
+            {
+                test: /\.ttf$/,
+                use: 'url-loader'
             }
         ]
     }

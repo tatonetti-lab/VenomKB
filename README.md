@@ -1,51 +1,66 @@
-# README
-A web app version of VenomKB - a knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.
+# VenomKB
+- - - 
 
-## Installing the app
+Web app version of VenomKB - a knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.
 
-0. ```npm install```
-0. Configure mongo
+## To-do prior to release of v2.0.0
+- - -
+
+- [ ] Add support for species images
+- [ ] Add support for protein images
+- [ ] Integrate literature predications into data views
+- [ ] Add "systemic effects" data
+- [ ] Add "molecular effects" data
+- [ ] Deploy to web
+
+## Installation
+- - -
+
+```
+npm install
+```
 
 ## MongoDB setup
+- - -
 
-Currently, the database is on an unsecured AWS EC2 server located at mongodb://54.198.136.17/venomkb-staging
+Currently, the database is on an unsecured AWS EC2 server located at `mongodb://54.221.23.226/venomkb-staging`
 
 Once things are tightened up a bit, we will secure this.
 
-
-
 ## Running the app
+- - -
 
-There are two ways to run the app:
+To test the app in developer mode:
+```
+npm start
+```
 
-0. ```npm start```
-0. ```mongod``` to start the mongo service if you are using a local server. ... add configuration file ... goto mongodb setup 
-0. ```npm run "api"``` to start the api.
+To build the app for production:
+```
+npm build
+```
+
+The application will be deposited into the `index/dist/` directory.
 
 ## Run tests
+- - -
+
 ```
 npm test
 ```
 
-## View database records
-
-List of proteins - http://localhost:3000/proteins
-Single protein - http://localhost:3000/proteins/P000001745 {issue: throws error for a runtime error}
-
-## Build it
-
-```
-`npm run build` and the files will be deposited into the /index/dist/ folder
-```
+(Note: there currently aren't any tests to run)
 
 ## Reserved Files
+- - -
 
-Folder contains .eslintrc, .eslintignore and .babelrc files in addition to .gitignore. These fiels are to provide linting instructions, ignore files for linting and ensure babel uses ES2015 and React transforms respectively. 
+Folder contains .eslintrc, .eslintignore and .babelrc files in addition to .gitignore. These files are to provide linting instructions, ignore files for linting, and ensure babel uses ES2015 and React transforms respectively. 
 
 http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/
 
 
 ### Features
+- - -
 
 * ES6 - 7 Support with Babel
 * Redux dev tools to help you keep track of the app's state

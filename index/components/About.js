@@ -7,7 +7,7 @@ const About = () =>
             <h2>About VenomKB</h2>
 
             <Panel bsStyle="primary">
-                <h4>Current version: 2.0-alpha</h4>
+                <h4>Current version: 2.0.0-alpha</h4>
             </Panel>
 
             <p>
