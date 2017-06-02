@@ -20,7 +20,6 @@ class DataDetailContainer extends Component {
     }
 
     componentWillMount() {
-        // console.log('DISPATCHING SELECT_DATA FROM DataDetailContainer.componentWillMount()');
         this.props.dispatch(selectData(this.state.currentVenomkbId));
     }
 
@@ -33,7 +32,6 @@ class DataDetailContainer extends Component {
 
     handleRefreshClick(e) {
         e.preventDefault();
-
         const { dispatch, selectedData } = this.props;
         dispatch(fetchData(selectedData));
     }
@@ -50,10 +48,6 @@ class DataDetailContainer extends Component {
             venom,
             isFetching,
             species } = this.props;
-        // console.log(this.props);
-        // console.log('RENDERING... FETCHING: ', isFetching);
-        // console.log('             NAME UNDEFINED: ', (name === undefined));
-        // console.log(this.props);
         return (
             <div>
                 <div style={{marginBottom: '5px'}}>

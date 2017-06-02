@@ -8,7 +8,7 @@ class VenomDetail extends Component {
 
         this.state = {
             venom: this.props.venom,
-            proteins: this.props.venom.proteins
+            proteins: this.props.venom.proteins,
         };
 
         this.proteinsList = this.proteinsList.bind(this);
@@ -18,7 +18,9 @@ class VenomDetail extends Component {
         const proteins = this.props.venom.proteins;
         const proteinsListItems = proteins.map((protein, index) =>
             <li key={index}>
-                <Link to={'/' + protein}>
+                <Link
+                    to={'/' + protein}
+                    onClick={() => this.props.onProteinClick(protein)}>
                     {protein}
                 </Link>
             </li>
@@ -31,7 +33,7 @@ class VenomDetail extends Component {
 
         return(
             <div className="jdr-box">
-                <h4>{venom.name}</h4>
+                <h3 style={{paddingBottom: '5px', marginTop: '5px'}}>{venom.name}</h3>
                 <h4>Protein components:</h4>
                 <div className="proteins-list">
                     <div>
@@ -44,7 +46,8 @@ class VenomDetail extends Component {
 }
 
 VenomDetail.propTypes = {
-    venom: PropTypes.object
+    venom: PropTypes.object,
+    onProteinClick: PropTypes.func
 };
 
 export default VenomDetail;

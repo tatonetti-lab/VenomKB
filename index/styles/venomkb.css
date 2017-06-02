@@ -338,3 +338,7 @@ footer {
 .proteins-list {
   font-family: monospace;
 }
+
+#num-results {
+  float: right;
+}

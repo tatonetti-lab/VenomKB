@@ -33,6 +33,11 @@ class DataBasicView extends Component {
         this.props.dispatch(fetchData(venom_ref.replace('V', 'S')));
     }
 
+    loadProteinFromSpecies(e) {
+        this.props.dispatch(selectData(e));
+        this.props.dispatch(fetchData(e));
+    }
+
     render() {
         const {
             selectedDatum,
@@ -86,12 +91,14 @@ class DataBasicView extends Component {
                 return (
                     <div>
                         <Col xs={12} md={12}>
+                            <Image className="pull-right" src={"https://www.itsnature.org/wp-content/uploads/2010/06/Bothrops-atrox-2.jpg"} thumbnail />
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
                             <h4>Common name: {common_name}</h4>
 
                             <VenomDetail
                                 venom={venom}
+                                onProteinClick={this.loadProteinFromSpecies.bind(this)}
                             />
                         </Col>
                     </div>

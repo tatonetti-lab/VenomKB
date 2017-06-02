@@ -13,6 +13,8 @@ class DataVirtualized extends PureComponent {
 
         this.state = {
             filteredData: this.data,
+            proteinsAreVisible: true,
+            speciesAreVisible: true,
             disableHeader: false,
             headerHeight: 30,
             height: 800,
@@ -27,6 +29,8 @@ class DataVirtualized extends PureComponent {
             useDynamicRowHeight: false,
             search: ''
         };
+
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 
         this._headerRenderer = this._headerRenderer.bind(this);
         this._isSortEnabled = this._isSortEnabled.bind(this);
@@ -73,6 +77,40 @@ class DataVirtualized extends PureComponent {
         });
     }
 
+    handleCheckboxChange(value) {
+        console.log('Checkbox change: ');
+        console.log(value);
+        switch (value) {
+            case 'Species':
+                const boolPreS = this.state.speciesAreVisible;
+                this.setState({speciesAreVisible: (!boolPreS)});
+                break;
+            case 'Proteins':
+                const boolPreP = this.state.proteinsAreVisible;
+                this.setState({proteinsAreVisible: (!boolPreP)});
+                break;
+            default:
+                break;
+        }
+
+        const showProtein = this.state.proteinsAreVisible;
+        const showSpecies = this.state.speciesAreVisible;
+        const filtered = this.data.filter((test) => {
+            if (showProtein && test.data_type === 'Protein') {
+                return true;
+            } else if (showSpecies && test.data_type === 'Species') {
+                return true;
+            }
+            return false;
+        });
+
+        this.setState({
+            filteredData: filtered
+        });
+
+        return true;
+    }
+
     render() {
         const list = List(this.state.filteredData);
 
@@ -102,7 +140,30 @@ class DataVirtualized extends PureComponent {
                                 x
                             </div>
                         </div>
+                        <div className="checkbox-list" style={{paddingTop: '5px'}}>
+                            <label className="checkbox-inline">
+                                <input
+                                    type="checkbox"
+                                    className="checkbox-control"
+                                    onChange={this.handleCheckboxChange.bind(this, 'Species')}
+                                    checked={this.state.speciesAreVisible}
+                                />
+                                <span className="checkbox-label">Show species</span>
+                            </label>
+                            <label className="checkbox-inline">
+                                <input
+                                    type="checkbox"
+                                    className="checkbox-control"
+                                    onChange={this.handleCheckboxChange.bind(this, 'Proteins')}
+                                    checked={this.state.proteinsAreVisible}
+                                />
+                                <span className="checkbox-label">Show proteins</span>
+                            </label>
+                        <div id="num-results">{this.state.filteredData.length} results</div>
                     </div>
+
+                    </div>
+
                 </div>
                 <AutoSizer disableHeight>
                     {({ width }) => (
