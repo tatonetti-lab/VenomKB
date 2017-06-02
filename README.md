@@ -1,5 +1,7 @@
 # VenomKB
 
+![VenomKB splash](https://github.com/JDRomano2/venomkb/blob/master/index/img/figure_rev2_web.png)
+
 Web app version of VenomKB - a knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.
 
 ## To-do prior to release of v2.0.0
