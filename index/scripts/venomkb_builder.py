@@ -74,7 +74,8 @@ class VenomKB(object):
                     _new_p = Protein(aa_sequence=prot.get('aa_sequence'),
                                      vkbid=prot.get('venomkb_id'),
                                      name=prot.get('name'),
-                                     mongoid=prot.get('_id'))
+                                     mongoid=prot.get('_id'),
+                                     ols=prot.get('out_links'))
                     # TODO: `make_outlinks`  <=== still need to write this method
                     self.proteins.append(_new_p)
             elif k == 'species':

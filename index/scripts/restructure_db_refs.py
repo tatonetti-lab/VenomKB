@@ -1,6 +1,7 @@
 from __future__ import print_function
 from pymongo import MongoClient
 import ipdb
+from tqdm import tqdm
 
 from venomkb_builder import VenomKB
 
@@ -41,6 +42,7 @@ for s in VKB.species:
     )
 """
 
+"""
 # Embed venom in species document
 for s in VKB.species:
     # find venom
@@ -59,6 +61,43 @@ for s in VKB.species:
         {
             '$set': {
                 'venom': ven
+            }
+        }
+    )
+"""
+
+def get_attr_if_exists(dict_obj, attr_name):
+    try:
+        return dict_obj[attr_name]
+    except KeyError:
+        return None
+
+for p in tqdm(VKB.proteins):
+    # find protein
+    prot = VKB.mongo_connection.proteins.find_one({'venomkb_id': p.venomkb_id})
+
+    out_links = {}
+    for _, ol in prot['out_links'].iteritems():
+        name = ol['db_name']
+        attributes = {}
+        if isinstance(ol['db_obj'], unicode):
+            cur_id = ol['db_obj']
+            attributes['name'] = None
+            attributes['term'] = None
+        else:
+            attributes['name'] = get_attr_if_exists(ol['db_obj'], 'entry name')
+            attributes['term'] = get_attr_if_exists(ol['db_obj'], 'term')
+            cur_id = ol['db_id']
+        out_links[name] = {
+            'id': cur_id,
+            'attributes': attributes
+        }
+
+    VKB.mongo_connection.proteins.update_one(
+        {'_id': p._mongo_id},
+        {
+            '$set': {
+                'out_links': out_links
             }
         }
     )

@@ -16,7 +16,7 @@ class OutLinks extends React.Component {
         for (const key in outLinks) {
             if (outLinks.hasOwnProperty(key)) {
                 links.push(
-                    <li>{key}: {outLinks[key].db_obj.id}</li>
+                    <li>{key}: {outLinks[key].id}</li>
                 );
             }
         }
