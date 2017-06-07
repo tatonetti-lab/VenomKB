@@ -48,7 +48,10 @@ class DataDetailContainer extends Component {
             venom,
             taxonomic_lineage,
             isFetching,
-            species } = this.props;
+            species,
+            pdb_image_url,
+            pdb_structure_known
+         } = this.props;
         return (
             <div>
                 <div style={{marginBottom: '5px'}}>
@@ -86,6 +89,8 @@ class DataDetailContainer extends Component {
                          taxonomic_lineage={taxonomic_lineage}
                          isFetching={isFetching}
                          species={species}
+                         pdb_image_url={pdb_image_url}
+                         pdb_structure_known={pdb_structure_known}
                      />
                     }
                 </div>
@@ -108,7 +113,9 @@ DataDetailContainer.propTypes = {
     venom: PropTypes.object,
     species: PropTypes.array,
     params: PropTypes.object,
-    taxonomic_lineage: PropTypes.array
+    taxonomic_lineage: PropTypes.array,
+    pdb_image_url: PropTypes.string,
+    pdb_structure_known: PropTypes.bool
 };
 
 
@@ -125,7 +132,9 @@ const mapStateToProps = (state) => {
         description,
         venom_ref,
         venom,
-        taxonomic_lineage
+        taxonomic_lineage,
+        pdb_image_url,
+        pdb_structure_known
     } = currentData || {
         isFetching: true,
         name: '',
@@ -135,7 +144,9 @@ const mapStateToProps = (state) => {
         description: '',
         venom_ref: '',
         venom: {},
-        taxonomic_lineage: []
+        taxonomic_lineage: [],
+        pdb_image_url: '',
+        pdb_structure_known: false
     };
 
     return {
@@ -150,7 +161,9 @@ const mapStateToProps = (state) => {
         venom_ref,
         venom,
         species,
-        taxonomic_lineage
+        taxonomic_lineage,
+        pdb_image_url,
+        pdb_structure_known
     };
 };
 

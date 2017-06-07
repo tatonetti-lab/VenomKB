@@ -352,3 +352,7 @@ pre.taxonomy-detail {
   border: none;
   background-color: #ffffff;
 }
+
+.bootstrap-image-resize {
+  width: 100%;
+}

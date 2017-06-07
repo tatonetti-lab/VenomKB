@@ -9,6 +9,7 @@ import { selectData, fetchData } from '../actions';
 
 import VenomDetail from '../components/VenomDetail.js';
 import TaxonomyDetail from '../components/TaxonomyDetail.js';
+import ProteinImage from '../components/ProteinImage.js';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -48,7 +49,9 @@ class DataBasicView extends Component {
             description,
             venom_ref,
             venom,
-            taxonomic_lineage
+            taxonomic_lineage,
+            pdb_image_url,
+            pdb_structure_known
         } = this.props;
 
         const common_name = this.props.common_name;
@@ -60,8 +63,7 @@ class DataBasicView extends Component {
 
                 return (
                     <div>
-                        <Col xs={12} md={12} style={{'margin-bottom': '50px'}}>
-                            <Image className="pull-right" src={"http://www.rcsb.org/pdb/images/5MIM_bio_r_250.jpg"} thumbnail />
+                        <Col xs={12} md={9} style={{'margin-bottom': '50px'}}>
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
                             <h4>
@@ -71,6 +73,13 @@ class DataBasicView extends Component {
                                 {description}
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                             </p>
+                        </Col>
+
+                        <Col xs={6} md={3}>
+                            <ProteinImage
+                                pdb_image_url={pdb_image_url}
+                                structure_known={pdb_structure_known}
+                            />
                         </Col>
 
                         {!(name === undefined) &&
@@ -139,7 +148,9 @@ DataBasicView.propTypes = {
     venom: PropTypes.object,
     taxonomic_lineage: PropTypes.array,
     species: PropTypes.array,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    pdb_image_url: PropTypes.string,
+    pdb_structure_known: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
