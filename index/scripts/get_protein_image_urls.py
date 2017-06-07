@@ -47,13 +47,13 @@ for p in VKB.proteins:
 
         if best_pdb_id != "":    
             image_url_index.append([
-                p._mongo_id,
+                p._mongo_id.__str__(),
                 known_3d_structure,
                 "{0}{1}{2}".format(PDB_IMG_URL_PREFIX, best_pdb_id, PDB_IMG_URL_SUFFIX)
             ])
         else:
             image_url_index.append([
-                p._mongo_id,
+                p._mongo_id.__str__(),
                 known_3d_structure,
                 ""
             ])
@@ -61,5 +61,5 @@ for p in VKB.proteins:
         pass
 
 
-with open('image_url_index.json', 'r') as fp:
+with open('image_url_index.json', 'w') as fp:
     json.dump(image_url_index, fp)
