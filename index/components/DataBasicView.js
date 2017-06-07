@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { selectData, fetchData } from '../actions';
 
 import VenomDetail from '../components/VenomDetail.js';
+import TaxonomyDetail from '../components/TaxonomyDetail.js';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -46,7 +47,8 @@ class DataBasicView extends Component {
             aa_sequence,
             description,
             venom_ref,
-            venom
+            venom,
+            taxonomic_lineage
         } = this.props;
 
         const common_name = this.props.common_name;
@@ -58,7 +60,7 @@ class DataBasicView extends Component {
 
                 return (
                     <div>
-                        <Col xs={12} md={12}>
+                        <Col xs={12} md={12} style={{'margin-bottom': '50px'}}>
                             <Image className="pull-right" src={"http://www.rcsb.org/pdb/images/5MIM_bio_r_250.jpg"} thumbnail />
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
@@ -96,6 +98,18 @@ class DataBasicView extends Component {
                             <h3>ID: {selectedDatum}</h3>
                             <h4>Common name: {common_name}</h4>
 
+                            <h3>Taxonomy</h3>
+                            {(taxonomic_lineage !== undefined) &&
+                                <TaxonomyDetail
+                                    taxonomic_lineage={taxonomic_lineage}
+                                />
+                            }
+                            {(taxonomic_lineage === undefined) &&
+                                <div>
+                                    No data available!
+                                </div>
+                            }
+
                             <VenomDetail
                                 venom={venom}
                                 onProteinClick={this.loadProteinFromSpecies.bind(this)}
@@ -123,6 +137,7 @@ DataBasicView.propTypes = {
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,
     venom: PropTypes.object,
+    taxonomic_lineage: PropTypes.array,
     species: PropTypes.array,
     dispatch: PropTypes.func.isRequired
 };
