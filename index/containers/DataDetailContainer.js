@@ -46,6 +46,7 @@ class DataDetailContainer extends Component {
             description,
             venom_ref,
             venom,
+            taxonomic_lineage,
             isFetching,
             species } = this.props;
         return (
@@ -82,6 +83,7 @@ class DataDetailContainer extends Component {
                          description={description}
                          venom_ref={venom_ref}
                          venom={venom}
+                         taxonomic_lineage={taxonomic_lineage}
                          isFetching={isFetching}
                          species={species}
                      />
@@ -105,7 +107,8 @@ DataDetailContainer.propTypes = {
     venom_ref: PropTypes.string,
     venom: PropTypes.object,
     species: PropTypes.array,
-    params: PropTypes.object
+    params: PropTypes.object,
+    taxonomic_lineage: PropTypes.array
 };
 
 
@@ -121,7 +124,8 @@ const mapStateToProps = (state) => {
         aa_sequence,
         description,
         venom_ref,
-        venom
+        venom,
+        taxonomic_lineage
     } = currentData || {
         isFetching: true,
         name: '',
@@ -130,7 +134,8 @@ const mapStateToProps = (state) => {
         aa_sequence: '',
         description: '',
         venom_ref: '',
-        venom: {}
+        venom: {},
+        taxonomic_lineage: []
     };
 
     return {
@@ -144,7 +149,8 @@ const mapStateToProps = (state) => {
         common_name,
         venom_ref,
         venom,
-        species
+        species,
+        taxonomic_lineage
     };
 };
 

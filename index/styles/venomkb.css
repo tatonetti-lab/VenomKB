@@ -347,3 +347,8 @@ footer {
 #num-results {
   float: right;
 }
+
+pre.taxonomy-detail {
+  border: none;
+  background-color: #ffffff;
+}
