@@ -23,6 +23,10 @@ class ProteinImage extends Component {
                         }
                         {!this.props.pdb_structure_known &&
                             <div>
+                                <Image
+                                    className="bootstrap-image-resize"
+                                    src="./index/img/protein_placeholder.png"
+                                />
                                 <small><i>No exact structure in PDB - similar structure shown above</i></small>
                             </div>
                         }

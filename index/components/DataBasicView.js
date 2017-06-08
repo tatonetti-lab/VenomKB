@@ -63,7 +63,7 @@ class DataBasicView extends Component {
 
                 return (
                     <div>
-                        <Col xs={12} md={9} style={{'margin-bottom': '50px'}}>
+                        <Col xs={12} md={9} style={{'marginBottom': '50px'}}>
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
                             <h4>
