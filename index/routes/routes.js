@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from '../components/App';
 import Home from '../components/Home';
 import About from '../components/About';
+import AboutOntology from '../components/AboutOntology';
 import Contact from '../components/Contact';
 import Publications from '../components/Publications';
 import Download from '../components/Download';
@@ -16,6 +17,7 @@ export default (
     <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="/about" component={About} />
+        <Route path="/about/ontology" component={AboutOntology} />
         <Route path="/contact" component={Contact} />
         <Route path="/publications" component={Publications} />
         <Route path="/data" component={DataContainer} />

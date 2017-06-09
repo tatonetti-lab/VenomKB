@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/index/styles/venomkb.css">
 
+	<!-- jquery needed for bootstrap javascript -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<!-- check out: https://medium.com/tech-angels-publications/bundle-your-favicons-with-webpack-b69d834b2f53 -->
@@ -36,12 +38,12 @@
 
 				<ul class="nav navbar-nav">
 					<li><a href="/" routerLinkActive="active">Home</a></li>
-					<li><a href="/about" routerLinkActive="active">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Why venoms?</a></li>
-							<li><a href="#">Ontology</a></li>
+							<li><a href="/about">About VenomKB</a></li>
+							<li><a href="/about/whyvenoms">Why venoms?</a></li>
+							<li><a href="/about/ontology">Ontology</a></li>
 						</ul>
 					</li>
 					<li><a href="/contact" routerLinkActive="active">Contact</a></li>
@@ -56,7 +58,7 @@
 		</nav>
 	</header>
 
-	<div class="container">
+	<div class="container" id="main-wrapper">
 
 		<main>
 
@@ -71,8 +73,8 @@
 		<div class="container">
 
 			<div class="container bottom-logos">
-				<img src="/index/img/tlab_black.svg" height=48 class="pull-left" />
-				<img src="/index/img/286OfficialColumbiaLogo.svg" height=48 class="pull-right" />
+				<img src="/tlab_black.svg" height=48 class="pull-left" />
+				<img src="/286OfficialColumbiaLogo.svg" height=48 class="pull-right" />
 			</div>
 			
 			<div class="bottom-text">

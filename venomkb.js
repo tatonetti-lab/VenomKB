@@ -11,10 +11,10 @@ import Root from './index/containers/Root';
 // handle api calls from within app
 import { getProteinsIdx, getSpeciesIdx } from './index/helpers/api_fetch';
 
+// Require things that webpack needs to move to dist
 import './index/styles/venomkb.css';
-
-// Require images so webpack knows to move them to dist
 import './index/img/favicons/favicons';
+import './index/img/images';
 
 const buildIndex = (proteins, species) => {
     const idx = [];

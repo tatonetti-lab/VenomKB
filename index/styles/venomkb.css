@@ -324,3 +324,15 @@ pre.taxonomy-detail {
 .bootstrap-image-resize {
   width: 100%;
 }
+
+.jdr-button-right-align {
+  float: right;
+}
+
+.run-tools-button {
+  margin-top: 8px;
+}
+
+.sequence-text {
+  font-family: monospace;
+}

@@ -13,7 +13,8 @@ class DataDetailContainer extends Component {
 
         this.state = {
             currentVenomkbId: this.props.params.index,
-            dataType: this.props.params.index.charAt(0)
+            dataType: this.props.params.index.charAt(0),
+            viewType: 'basic'
         };
 
         this.handleRefreshClick = this.handleRefreshClick.bind(this);
@@ -77,23 +78,27 @@ class DataDetailContainer extends Component {
                     }
 
                     {(!isFetching && !(name === undefined)) &&
-                     <DataBasicView
-                         selectedDatum={selectedData}
-                         dataType={this.state.dataType}
-                         name={name}
-                         common_name={common_name}
-                         out_links={out_links}
-                         aa_sequence={aa_sequence}
-                         description={description}
-                         venom_ref={venom_ref}
-                         venom={venom}
-                         taxonomic_lineage={taxonomic_lineage}
-                         isFetching={isFetching}
-                         species={species}
-                         pdb_image_url={pdb_image_url}
-                         pdb_structure_known={pdb_structure_known}
-                         species_image_url={species_image_url}
-                     />
+                        <div>
+                            {(this.state.viewType === 'basic') &&
+                            <DataBasicView
+                                selectedDatum={selectedData}
+                                dataType={this.state.dataType}
+                                name={name}
+                                common_name={common_name}
+                                out_links={out_links}
+                                aa_sequence={aa_sequence}
+                                description={description}
+                                venom_ref={venom_ref}
+                                venom={venom}
+                                taxonomic_lineage={taxonomic_lineage}
+                                isFetching={isFetching}
+                                species={species}
+                                pdb_image_url={pdb_image_url}
+                                pdb_structure_known={pdb_structure_known}
+                                species_image_url={species_image_url}
+                            />
+                            }
+                        </div>
                     }
                 </div>
             </div>
@@ -118,7 +123,8 @@ DataDetailContainer.propTypes = {
     taxonomic_lineage: PropTypes.array,
     pdb_image_url: PropTypes.string,
     pdb_structure_known: PropTypes.bool,
-    species_image_url: PropTypes.string
+    species_image_url: PropTypes.string,
+    viewType: PropTypes.string
 };
 
 
@@ -138,7 +144,7 @@ const mapStateToProps = (state) => {
         taxonomic_lineage,
         pdb_image_url,
         pdb_structure_known,
-        species_image_url
+        species_image_url,
     } = currentData || {
         isFetching: true,
         name: '',
