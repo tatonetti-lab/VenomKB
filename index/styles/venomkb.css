@@ -1,10 +1,9 @@
-.active {
-    color: #FFF !;
+html {
+  min-height: 100%;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.active {
+    color: #FFF !;
 }
 
 body {
@@ -12,6 +11,8 @@ body {
     line-height: 1.5;
     padding: 0;
     height: 100%;
+    min-height: 100%;
+    position: relative;
 }
 
 
@@ -25,6 +26,10 @@ main {
     padding: 50px 50px;
 }
 
+#main-wrapper {
+  height: 100%;
+  min-height: 100%;
+}
 
 .bottom-logos {
     margin: auto;
@@ -48,58 +53,28 @@ button {
 }
 
 footer {
+    clear: both;
+    z-index: 10;
+
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
     margin-top: 45px;
     margin-bottom: 5px;
     padding-top: 5px;
     padding-left: 15px;
     padding-right: 15px;
+
     border-top: 1px solid #eaeaea;
     color: #777777;
-    bottom: 0;
     background-color: #FFF;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
 }
-
-.footer-box {
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-.bottom-nav {
-    float: right;
-}
-
 
 
 /* REACT VIRTUALIZED */
 /* Collection default theme */
-
-.ReactVirtualized__Collection {
-}
-
-.ReactVirtualized__Collection__innerScrollContainer {
-}
-
-/* Grid default theme */
-
-.ReactVirtualized__Grid {
-}
-
-.ReactVirtualized__Grid__innerScrollContainer {
-}
-
-/* Table default theme */
-
-.ReactVirtualized__Table {
-}
-
-.ReactVirtualized__Table__Grid {
-}
 
 .ReactVirtualized__Table__headerRow {
   font-weight: 700;
@@ -180,13 +155,6 @@ footer {
   width: 1em;
   fill: currentColor;
 }
-
-/* List default theme */
-
-.ReactVirtualized__List {
-}
-
-
 
 
 /* REACT VIRTUALIZED SELECT */

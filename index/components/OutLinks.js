@@ -15,8 +15,9 @@ class OutLinks extends React.Component {
         const links = [];
         for (const key in outLinks) {
             if (outLinks.hasOwnProperty(key)) {
+                const term = (outLinks[key].id === null) ? outLinks[key].attributes.name : outLinks[key].id;
                 links.push(
-                    <li>{key}: {outLinks[key].id}</li>
+                    <li>{key}: {term}</li>
                 );
             }
         }
