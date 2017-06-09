@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 import SequenceBox from '../components/SequenceBox';
 import OutLinks from '../components/OutLinks';
@@ -10,6 +10,7 @@ import { selectData, fetchData } from '../actions';
 import VenomDetail from '../components/VenomDetail.js';
 import TaxonomyDetail from '../components/TaxonomyDetail.js';
 import ProteinImage from '../components/ProteinImage.js';
+import SpeciesImage from '../components/SpeciesImage.js';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -51,7 +52,8 @@ class DataBasicView extends Component {
             venom,
             taxonomic_lineage,
             pdb_image_url,
-            pdb_structure_known
+            pdb_structure_known,
+            species_image_url
         } = this.props;
 
         const common_name = this.props.common_name;
@@ -71,7 +73,6 @@ class DataBasicView extends Component {
                             </h4>
                             <p>
                                 {description}
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                             </p>
                         </Col>
 
@@ -101,8 +102,8 @@ class DataBasicView extends Component {
             case 'S':
                 return (
                     <div>
-                        <Col xs={12} md={12}>
-                            <Image className="pull-right" src={"https://www.itsnature.org/wp-content/uploads/2010/06/Bothrops-atrox-2.jpg"} thumbnail />
+                        <Col xs={12} md={7}>
+                            {/* <Image className="pull-right" src={"https://www.itsnature.org/wp-content/uploads/2010/06/Bothrops-atrox-2.jpg"} thumbnail /> */}
                             <h1>{name}</h1>
                             <h3>ID: {selectedDatum}</h3>
                             <h4>Common name: {common_name}</h4>
@@ -118,11 +119,21 @@ class DataBasicView extends Component {
                                     No data available!
                                 </div>
                             }
+                        </Col>
+
+                        <Col xs={6} md={5}>
+                            <SpeciesImage
+                                species_image_url={species_image_url}
+                            />
+                        </Col>
+
+                        <Col xs={12} md={12}>
 
                             <VenomDetail
                                 venom={venom}
                                 onProteinClick={this.loadProteinFromSpecies.bind(this)}
                             />
+
                         </Col>
                     </div>
                 );
@@ -150,7 +161,8 @@ DataBasicView.propTypes = {
     species: PropTypes.array,
     dispatch: PropTypes.func.isRequired,
     pdb_image_url: PropTypes.string,
-    pdb_structure_known: PropTypes.bool
+    pdb_structure_known: PropTypes.bool,
+    species_image_url: PropTypes.string
 };
 
 const mapStateToProps = (state) => {

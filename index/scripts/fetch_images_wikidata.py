@@ -6,6 +6,7 @@ import json
 import requests
 import ipdb
 from tqdm import tqdm
+import urllib
 
 from venomkb_builder import VenomKB
 
@@ -28,6 +29,8 @@ WIKIDATA_SEARCH_URL_SUFFIX = "&language=en&format=json"
 WIKIDATA_FETCH_IMAGE_URL_PREFIX = WIKIDATA_API_BASE + "action=wbgetclaims&entity="
 WIKIDATA_FETCH_IMAGE_URL_SUFFIX = "&property=P18&format=json"
 
+WIKIMEDIA_PREFIX = "https://commons.wikimedia.org/w/api.php?action=query&prop=imageinfo&iiprop=url&redirects&format=json&iiurlwidth=250&titles=File:"
+
 def image_search(name):
     s_name_formatted = name.replace(" ", "%20")
     s_search_url = WIKIDATA_SEARCH_URL_PREFIX + s_name_formatted + WIKIDATA_SEARCH_URL_SUFFIX
@@ -37,8 +40,14 @@ def fetch_from_wd_id(wdid):
     s_fetch_url = WIKIDATA_FETCH_IMAGE_URL_PREFIX + wdid + WIKIDATA_FETCH_IMAGE_URL_SUFFIX
     return requests.get(s_fetch_url)
 
+def wikimedia_url_from_fname(fname):
+    x = requests.get(WIKIMEDIA_PREFIX + fname)
+    response = json.loads(x.text)
+    response_pages = response['query']['pages']
+    return response_pages[response_pages.keys()[0]]['imageinfo'][0]['url']
+
 species_image_map = []
-for s in VKB.species:
+for s in tqdm(VKB.species):
     # look for a species page
     r = image_search(s.name)
     if len(json.loads(r.text)['search']) == 0:
@@ -69,9 +78,18 @@ for s in VKB.species:
     except KeyError:
         continue
     filename_processed = filename.replace(" ", "_")
-    full_image_url = 'https://commons.wikimedia.org/wiki/file:' + filename_processed
+    full_image_url = wikimedia_url_from_fname(filename_processed)
     species_image_map.append([
         s._mongo_id,
         s.name,
         full_image_url
     ])
+
+for x in species_image_map:
+    extension = x[2].split('.')[-1]
+    out_f_name = '../img/species/' + x[1].replace(" ", "_") + '.' + extension
+    urllib.urlretrieve(x[2], out_f_name)
+
+# write map to file
+with open('species_image_map.pkl', 'wb') as fp:
+    pickle.dump(species_image_map, fp)

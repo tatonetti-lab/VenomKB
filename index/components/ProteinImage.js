@@ -23,10 +23,6 @@ class ProteinImage extends Component {
                         }
                         {!this.props.pdb_structure_known &&
                             <div>
-                                <Image
-                                    className="bootstrap-image-resize"
-                                    src="./index/img/protein_placeholder.png"
-                                />
                                 <small><i>No exact structure in PDB - similar structure shown above</i></small>
                             </div>
                         }
@@ -34,6 +30,10 @@ class ProteinImage extends Component {
                 }
                 {(this.props.pdb_image_url === '') &&
                     <div>
+                        <Image
+                            className="bootstrap-image-resize"
+                            src="./index/img/protein_placeholder.png"
+                        />
                         <small><i>No known 3D structure in PDB and no similar sequences found.</i></small>
                     </div>
                 }

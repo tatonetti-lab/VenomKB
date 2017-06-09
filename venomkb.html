@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/index/styles/venomkb.css">
 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	<!-- check out: https://medium.com/tech-angels-publications/bundle-your-favicons-with-webpack-b69d834b2f53 -->
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 	<link rel="icon" type="image/png" href="/favicon-32x32.png">
@@ -35,6 +37,13 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/" routerLinkActive="active">Home</a></li>
 					<li><a href="/about" routerLinkActive="active">About</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Why venoms?</a></li>
+							<li><a href="#">Ontology</a></li>
+						</ul>
+					</li>
 					<li><a href="/contact" routerLinkActive="active">Contact</a></li>
 					<li><a href="/publications" routerLinkActive="active">Publications</a></li>
 				</ul>
