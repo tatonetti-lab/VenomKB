@@ -52,7 +52,8 @@ class DataDetailContainer extends Component {
             species,
             pdb_image_url,
             pdb_structure_known,
-            species_image_url
+            species_image_url,
+            literature_predications
          } = this.props;
         return (
             <div>
@@ -96,6 +97,7 @@ class DataDetailContainer extends Component {
                                 pdb_image_url={pdb_image_url}
                                 pdb_structure_known={pdb_structure_known}
                                 species_image_url={species_image_url}
+                                predications={literature_predications}
                             />
                             }
                         </div>
@@ -124,7 +126,8 @@ DataDetailContainer.propTypes = {
     pdb_image_url: PropTypes.string,
     pdb_structure_known: PropTypes.bool,
     species_image_url: PropTypes.string,
-    viewType: PropTypes.string
+    viewType: PropTypes.string,
+    literature_predications: PropTypes.array
 };
 
 
@@ -145,6 +148,7 @@ const mapStateToProps = (state) => {
         pdb_image_url,
         pdb_structure_known,
         species_image_url,
+        literature_predications
     } = currentData || {
         isFetching: true,
         name: '',
@@ -157,7 +161,8 @@ const mapStateToProps = (state) => {
         taxonomic_lineage: [],
         pdb_image_url: '',
         pdb_structure_known: false,
-        species_image_url: ''
+        species_image_url: '',
+        literature_predications: []
     };
 
     return {
@@ -175,7 +180,8 @@ const mapStateToProps = (state) => {
         taxonomic_lineage,
         pdb_image_url,
         pdb_structure_known,
-        species_image_url
+        species_image_url,
+        literature_predications
     };
 };
 

@@ -11,6 +11,9 @@ import Root from './index/containers/Root';
 // handle api calls from within app
 import { getProteinsIdx, getSpeciesIdx } from './index/helpers/api_fetch';
 
+// Require CSS in packages
+import 'react-table/react-table.css';
+
 // Require things that webpack needs to move to dist
 import './index/styles/venomkb.css';
 import './index/img/favicons/favicons';

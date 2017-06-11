@@ -11,6 +11,7 @@ import VenomDetail from '../components/VenomDetail.js';
 import TaxonomyDetail from '../components/TaxonomyDetail.js';
 import ProteinImage from '../components/ProteinImage.js';
 import SpeciesImage from '../components/SpeciesImage.js';
+import PredicationsBox from '../components/PredicationsBox';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -53,8 +54,11 @@ class DataBasicView extends Component {
             taxonomic_lineage,
             pdb_image_url,
             pdb_structure_known,
-            species_image_url
+            species_image_url,
+            predications
         } = this.props;
+
+        console.log(predications);
 
         const common_name = this.props.common_name;
         const dataType = this.props.selectedDatum.charAt(0);
@@ -90,6 +94,16 @@ class DataBasicView extends Component {
                                     aaSequence={aa_sequence}
                                 />
                             </Col>
+
+                            <Col xs={12} md={12}>
+                                <PredicationsBox
+                                    predications={predications}
+                                />
+                            </Col>
+
+                            <div
+                                style={{'marginTop': '12px'}}
+                            />
 
                             <Col xs={12} md={12}>
                                 <h3>External databases</h3>
@@ -128,12 +142,16 @@ class DataBasicView extends Component {
                         </Col>
 
                         <Col xs={12} md={12}>
-
                             <VenomDetail
                                 venom={venom}
                                 onProteinClick={this.loadProteinFromSpecies.bind(this)}
                             />
+                        </Col>
 
+                        <Col xs={12} md={12}>
+                                <PredicationsBox
+                                    predications={predications}
+                                />
                         </Col>
                     </div>
                 );
@@ -162,7 +180,8 @@ DataBasicView.propTypes = {
     dispatch: PropTypes.func.isRequired,
     pdb_image_url: PropTypes.string,
     pdb_structure_known: PropTypes.bool,
-    species_image_url: PropTypes.string
+    species_image_url: PropTypes.string,
+    predications: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
