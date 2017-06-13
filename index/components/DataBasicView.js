@@ -6,6 +6,7 @@ import SequenceBox from '../components/SequenceBox';
 import OutLinks from '../components/OutLinks';
 import { connect } from 'react-redux';
 import { selectData, fetchData } from '../actions';
+import ReactTooltip from 'react-tooltip';
 
 import VenomDetail from '../components/VenomDetail.js';
 import TaxonomyDetail from '../components/TaxonomyDetail.js';
@@ -71,6 +72,19 @@ class DataBasicView extends Component {
                     <div>
                         <Col xs={12} md={9} style={{'marginBottom': '50px'}}>
                             <h1>{name}</h1>
+                            Annotation score: <img
+                                src={'/5_star.png'}
+                                style={{
+                                    'height': '15px',
+                                    'position': 'relative',
+                                    'top': '-3px',
+                                    'margin-right': '3px'
+                                }}
+                            /><span
+                                className="glyphicon glyphicon-info-sign"
+                                data-tip="1-5 scale - represents the completeness of this data item"
+                            />
+                            <ReactTooltip />
                             <h3>ID: {selectedDatum}</h3>
                             <h4>
                                 Organism: <Link to={species_link} onClick={this.loadSpeciesFromProtein}>({this.speciesName(venom_ref.replace('V', 'S'))}) ({venom_ref.replace('V', 'S')})</Link>
@@ -93,6 +107,14 @@ class DataBasicView extends Component {
                                 <SequenceBox
                                     aaSequence={aa_sequence}
                                 />
+                            </Col>
+
+                            <Col xs={12} md={12}>
+                                <h3>Gene Ontology annotations</h3>
+                            </Col>
+
+                            <Col xs={12} md={12}>
+                                <h3>Related publications</h3>
                             </Col>
 
                             <Col xs={12} md={12}>
@@ -153,6 +175,7 @@ class DataBasicView extends Component {
                                     predications={predications}
                                 />
                         </Col>
+
                     </div>
                 );
             default:

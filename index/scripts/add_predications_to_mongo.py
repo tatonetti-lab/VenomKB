@@ -36,18 +36,22 @@ for i, p in tqdm(preds.iterrows()):
     p_dict['id_pred'] = uuid.uuid4()  # use for comparison later, if needed
     protein_predications.setdefault(vkbid, []).append(p_dict)
 
+ipdb.set_trace()
+
 species_predications = {}
 for s in tqdm(VKB.species):
     db_rep_spec = VKB.mongo_connection.species.find_one({'_id': s._mongo_id})
     found_predications = None
-    this_species = {}
+    this_species = []
     for p in db_rep_spec['venom']['proteins']:            
         try:
             found_predications = protein_predications[p]
         except KeyError:
             continue
         # this time, we make a dict of proteins
-        this_species[p] = found_predications
+        for pp in found_predications:
+            pp['vkb_protein_ref'] = p
+        this_species.extend(found_predications)
     species_predications[s.venomkb_id] = this_species
 
 # We've aggregated the predications, now we add them to the model
@@ -57,6 +61,7 @@ for k, v in tqdm(protein_predications.iteritems()):
         v_list = v
     else:
         v_list.append(v)
+    ipdb.set_trace()
     VKB.mongo_connection.proteins.update_one(
         {'venomkb_id': k},
         {

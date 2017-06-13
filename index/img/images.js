@@ -5,3 +5,11 @@ const imagesContext = require.context(
 );
 
 imagesContext.keys().forEach(imagesContext);
+
+const ratingImagesContext = require.context(
+    '!!file-loader?name=./ratings/[name].[ext]!.',
+    true,
+    /\.(png|svg)$/
+);
+
+ratingImagesContext.keys().forEach(ratingImagesContext);
