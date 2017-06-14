@@ -9,12 +9,13 @@ class DataVirtualized extends PureComponent {
     constructor(props) {
         super(props);
 
-        this.data = props.data;
-
         this.state = {
-            filteredData: this.data,
-            proteinsAreVisible: true,
-            speciesAreVisible: true,
+            data: props.data,
+            filteredData: props.data,
+            visibleTypes: {
+                'P': true,
+                'S': true
+            },
             disableHeader: false,
             headerHeight: 30,
             height: 800,
@@ -31,8 +32,10 @@ class DataVirtualized extends PureComponent {
         };
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
 
         this._headerRenderer = this._headerRenderer.bind(this);
+        this._idLinkRenderer = this._idLinkRenderer.bind(this);
         this._isSortEnabled = this._isSortEnabled.bind(this);
         this._linkButtonRenderer = this._linkButtonRenderer.bind(this);
         this._sort = this._sort.bind(this);
@@ -47,6 +50,12 @@ class DataVirtualized extends PureComponent {
             <LinkButton
                 linkedId={cellData}
             />
+        );
+    }
+
+    _idLinkRenderer({ cellData }) {
+        return (
+            <a href={cellData}>{cellData}</a>
         );
     }
 
@@ -67,48 +76,58 @@ class DataVirtualized extends PureComponent {
         }
     }
 
-    updateSearch(event) {
-        const filtered = this.data.filter((test) => {
-            return test.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1;
-        });
+    handleSearchChange(event) {
+        const filteredData = this.state.data.filter( (entry) => {
+            // Is the data type checked?
+            let typeChecked = false;
+            // For each data type...
+            for (const thisDataType in this.state.visibleTypes) {
+                // If that data type is visible...
+                if (this.state.visibleTypes[thisDataType]) {
+                    // Set to true if current item matches the data type
+                    if (entry.venomkb_id.charAt(0) === thisDataType) {
+                        typeChecked = true;
+                    }
+                }
+            }
+
+            if (event.target.value === '') {
+                return typeChecked;
+            }
+            return entry.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1;
+        }, this);
+
         this.setState({
             search: event.target.value,
-            filteredData: filtered
+            filteredData: filteredData
         });
     }
 
-    handleCheckboxChange(value) {
-        console.log('Checkbox change: ');
-        console.log(value);
-        switch (value) {
-            case 'Species':
-                const boolPreS = this.state.speciesAreVisible;
-                this.setState({speciesAreVisible: (!boolPreS)});
-                break;
-            case 'Proteins':
-                const boolPreP = this.state.proteinsAreVisible;
-                this.setState({proteinsAreVisible: (!boolPreP)});
-                break;
-            default:
-                break;
-        }
+    handleCheckboxChange(dataType) {
+        // first, toggle the checkbox
+        const changedTypes = this.state.visibleTypes;
+        changedTypes[dataType] = !this.state.visibleTypes[dataType];
+        this.setState({visibleTypes: changedTypes});
 
-        const showProtein = this.state.proteinsAreVisible;
-        const showSpecies = this.state.speciesAreVisible;
-        const filtered = this.data.filter((test) => {
-            if (showProtein && test.data_type === 'Protein') {
-                return true;
-            } else if (showSpecies && test.data_type === 'Species') {
-                return true;
+        // then, filter rows the same way we did in handleSearchChange
+        const filteredData = this.state.data.filter((entry) => {
+            let typeChecked = false;
+            for (const thisDataType in this.state.visibleTypes) {
+                if (this.state.visibleTypes[thisDataType]) {
+                    if (entry.venomkb_id.charAt(0) === thisDataType) {
+                        typeChecked = true;
+                    }
+                }
             }
-            return false;
-        });
+            if (this.state.search === '') {
+                return typeChecked;
+            }
+            return entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        }, this);
 
         this.setState({
-            filteredData: filtered
+            filteredData: filteredData
         });
-
-        return true;
     }
 
     render() {
@@ -134,7 +153,7 @@ class DataVirtualized extends PureComponent {
                             <input
                                 className="input"
                                 value={this.state.search}
-                                onChange={this.updateSearch.bind(this)}
+                                onChange={this.handleSearchChange.bind(this)}
                             />
                             <div id="clear-input">
                                 x
@@ -145,8 +164,8 @@ class DataVirtualized extends PureComponent {
                                 <input
                                     type="checkbox"
                                     className="checkbox-control"
-                                    onChange={this.handleCheckboxChange.bind(this, 'Species')}
-                                    checked={this.state.speciesAreVisible}
+                                    onChange={this.handleCheckboxChange.bind(this, 'S')}
+                                    checked={this.state.visibleTypes.S}
                                 />
                                 <span className="checkbox-label">Show species</span>
                             </label>
@@ -154,8 +173,8 @@ class DataVirtualized extends PureComponent {
                                 <input
                                     type="checkbox"
                                     className="checkbox-control"
-                                    onChange={this.handleCheckboxChange.bind(this, 'Proteins')}
-                                    checked={this.state.proteinsAreVisible}
+                                    onChange={this.handleCheckboxChange.bind(this, 'P')}
+                                    checked={this.state.visibleTypes.P}
                                 />
                                 <span className="checkbox-label">Show proteins</span>
                             </label>
@@ -169,6 +188,7 @@ class DataVirtualized extends PureComponent {
                     {({ width }) => (
                         <div>
                             <Table
+                                ref="venomsTable"
                                 disableHeader={this.state.disableHeader}
                                 headerHeight={this.state.headerHeight}
                                 width={width}
@@ -191,6 +211,7 @@ class DataVirtualized extends PureComponent {
                                     dataKey="venomkb_id"
                                     width={this.state.col2width}
                                     headerRenderer={this._headerRenderer}
+                                    cellRenderer={this._idLinkRenderer}
                                 />
                                 <Column
                                     label="Name"
