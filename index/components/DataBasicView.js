@@ -59,8 +59,6 @@ class DataBasicView extends Component {
             predications
         } = this.props;
 
-        console.log(predications);
-
         const common_name = this.props.common_name;
         const dataType = this.props.selectedDatum.charAt(0);
 
@@ -106,6 +104,7 @@ class DataBasicView extends Component {
                             <Col xs={12} md={12}>
                                 <SequenceBox
                                     aaSequence={aa_sequence}
+                                    fastaLabel={selectedDatum + ': ' + name + ' (' + this.speciesName(venom_ref.replace('V', 'S')) + ')'}
                                 />
                             </Col>
 
@@ -141,6 +140,18 @@ class DataBasicView extends Component {
                         <Col xs={12} md={7}>
                             {/* <Image className="pull-right" src={"https://www.itsnature.org/wp-content/uploads/2010/06/Bothrops-atrox-2.jpg"} thumbnail /> */}
                             <h1>{name}</h1>
+                            Annotation score: <img
+                                src={'/5_star.png'}
+                                style={{
+                                    'height': '15px',
+                                    'position': 'relative',
+                                    'top': '-3px',
+                                    'margin-right': '3px'
+                                }}
+                            /><span
+                                className="glyphicon glyphicon-info-sign"
+                                data-tip="1-5 scale - represents the completeness of this data item"
+                            />
                             <h3>ID: {selectedDatum}</h3>
                             <h4>Common name: {common_name}</h4>
 

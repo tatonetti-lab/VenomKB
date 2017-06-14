@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
 
-import LinkButton from './LinkButton';
+// import LinkButton from './LinkButton';
 
 class DataVirtualized extends PureComponent {
     constructor(props) {
@@ -19,7 +19,7 @@ class DataVirtualized extends PureComponent {
             disableHeader: false,
             headerHeight: 30,
             height: 800,
-            col1width: 80,
+            col1width: 50,
             col2width: 120,
             col3width: 500,
             col4width: 100,
@@ -41,6 +41,7 @@ class DataVirtualized extends PureComponent {
         this._sort = this._sort.bind(this);
     }
 
+    /*
     _linkButtonRenderer({ cellData }) {
         if (cellData === '') {
             return <div></div>;
@@ -50,6 +51,21 @@ class DataVirtualized extends PureComponent {
             <LinkButton
                 linkedId={cellData}
             />
+        );
+    }
+    */
+
+    _linkButtonRenderer({cellData}) {
+        if (cellData === '') {
+            return <div></div>;
+        }
+
+        return (
+            <div style={{'margin-left': '12px'}}>
+                <input
+                    type="checkbox"
+                />
+            </div>
         );
     }
 

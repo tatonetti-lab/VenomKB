@@ -10,7 +10,7 @@ class SpeciesImage extends Component {
     render() {
         return (
             <div className="jdr-box">
-                {(this.props.species_image_url !== '') &&
+                {(this.props.species_image_url !== undefined) &&
                     <div>
                         <Image
                             className="bootstrap-image-resize"
@@ -18,12 +18,13 @@ class SpeciesImage extends Component {
                         />
                     </div>
                 }
-                {(this.props.species_image_url === '') &&
+                {(this.props.species_image_url === undefined) &&
                     <div>
                         <Image
                             className="bootstrap-image-resize"
-                            src="./index/img/protein_placeholder.png"
+                            src="/not-available.png"
                         />
+                        <center><small><i>We don't have an image for this species yet!</i></small></center>
                     </div>
                 }
             </div>

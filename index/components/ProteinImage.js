@@ -19,16 +19,20 @@ class ProteinImage extends Component {
                         />
                         {this.props.pdb_structure_known &&
                             <div>
-                                <small><i>Exact structure found in PDB</i></small>
+                                <center>
+                                    <small><i>Exact structure found in PDB</i></small>
+                                </center>
                             </div>
                         }
                         {!this.props.pdb_structure_known &&
                             <div>
-                                <small><i>No exact structure in PDB - similar structure shown above </i></small><span
-                                className="glyphicon glyphicon-info-sign"
-                                data-tip="Similar structure identified using PDB's BLAST API"
-                            />
-                            <ReactTooltip />
+                                <center>
+                                    <small><i>No exact structure in PDB - similar structure shown above </i></small><span
+                                        className="glyphicon glyphicon-info-sign"
+                                        data-tip="Similar structure identified using PDB's BLAST API"
+                                    />
+                                    <ReactTooltip />
+                                </center>
                             </div>
                         }
                     </div>
@@ -39,11 +43,13 @@ class ProteinImage extends Component {
                             className="bootstrap-image-resize"
                             src="/not-available.png"
                         />
-                        <small><i>No known 3D structure in PDB and no similar sequences found </i></small><span
-                                className="glyphicon glyphicon-info-sign"
-                                data-tip="No BLASTp results with e <= 1e-10 in PDB"
+                        <center>
+                            <small><i>No known 3D structure in PDB and no similar sequences found </i></small><span
+                                    className="glyphicon glyphicon-info-sign"
+                                    data-tip="No BLASTp results with e <= 1e-10 in PDB"
                             />
                             <ReactTooltip />
+                        </center>
                     </div>
                 }
             </div>
