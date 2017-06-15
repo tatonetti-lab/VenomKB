@@ -1,0 +1,80 @@
+[
+    {
+        "name": "Ophiophagus hannah complete genome",
+        "venomkb_id": "",
+        "species_ref": "",
+        "project_homepage": "",
+        "assembly_platform": "",
+        "out_links": {
+            "ncbi_genome": {
+                "id": 10842,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/10842"
+            }
+        }
+    },
+    {
+        "name": "Python bivittatus complete genome",
+        "venomkb_id": "",
+        "species_ref": "",
+        "project_homepage": "",
+        "assembly_platform": "",
+        "out_links": {
+            "ncbi_genome": {
+                "id": 17893,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/17893"
+            }
+        }
+    },
+    {
+        "name": "Apis mellifera complete genome",
+        "venomkb_id": "",
+        "species_ref": "",
+        "project_homepage": "",
+        "assembly_platform": "",
+        "out_links": {
+            "ncbi_genome": {
+                "id": 48,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/48"
+            }
+        }
+    },
+    {
+        "name": "Ophiophagus hannah complete genome",
+        "venomkb_id": "",
+        "species_ref": "",
+        "project_homepage": "",
+        "assembly_platform": "",
+        "out_links": {
+            "ncbi_genome": {
+                "id": 10842,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/10842"
+            }
+        }
+    },
+    {
+        "name": "Ophiophagus hannah complete genome",
+        "venomkb_id": "",
+        "species_ref": "",
+        "project_homepage": "",
+        "assembly_platform": "",
+        "out_links": {
+            "ncbi_genome": {
+                "id": 10842,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/10842"
+            }
+        }
+    },
+    {
+        "name": "Ophiophagus hannah complete genome",
+        "venomkb_id": "",
+        "species_ref": "",
+        "project_homepage": "",
+        "assembly_platform": "",
+        "out_links": {
+            "ncbi_genome": {
+                "id": 10842,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/10842"
+            }
+        }
+    }
+]

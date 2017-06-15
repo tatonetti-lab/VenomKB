@@ -4,6 +4,7 @@ import App from '../components/App';
 import Home from '../components/Home';
 import About from '../components/About';
 import AboutOntology from '../components/AboutOntology';
+import AboutVenoms from '../components/AboutVenoms';
 import Contact from '../components/Contact';
 import Publications from '../components/Publications';
 import Download from '../components/Download';
@@ -18,6 +19,7 @@ export default (
         <IndexRoute component={Home} />
         <Route path="/about" component={About} />
         <Route path="/about/ontology" component={AboutOntology} />
+        <Route path="/about/whyvenoms" component={AboutVenoms} />
         <Route path="/contact" component={Contact} />
         <Route path="/publications" component={Publications} />
         <Route path="/data" component={DataContainer} />
