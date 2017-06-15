@@ -11,6 +11,8 @@
     "eslint": "eslint .",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
+    "prod": "node ./server/index.js",
+    "production": "concurrently \"npm run prod\" \"npm run api\"",
     "dev2": "concurrently \"npm run dev\" \"npm run api\""
   },
   "keywords": [
@@ -44,6 +46,7 @@
     "js-search": "^1.4.2",
     "mongoose": "^4.5.10",
     "morgan": "~1.7.0",
+    "pm2": "^2.5.0",
     "prop-types": "^15.5.9",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
@@ -94,6 +97,7 @@
     "sass-loader": "^3.2.0",
     "stats-webpack-plugin": "^0.3.1",
     "style-loader": "^0.13.2",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "url-loader": "^0.5.7",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"

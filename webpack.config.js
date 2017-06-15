@@ -4,6 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -32,7 +33,8 @@ module.exports = {
           'process.env.NODE_ENV': JSON.stringify('development'),
           'process.env.VENOMKB_STAGING_PW': process.env.VENOMKB_STAGING_PW
         }),
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new UglifyJSPlugin()
     ],
     module: {
         rules: [
