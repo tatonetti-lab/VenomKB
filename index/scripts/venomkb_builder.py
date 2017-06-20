@@ -8,6 +8,7 @@ from pymongo import MongoClient
 from tqdm import tqdm
 from vkb_collections import *
 import dbinit_helpers
+import xmltodict
 
 PASSWORD = 'RambXyx6'
 ADMIN_USER = 'venomkb-admin'
@@ -21,16 +22,25 @@ TOXPROT_PATH = UNIPROT_BASE +\
                '?query=annotation%3A%28type%3A"tissue+specificity"+venom%29&sort=score'
 
 
+def vkb_upid_map():
+    """Load a premade map from VenomKB IDs to corresponding Toxprot IDs"""
+    with open('frozen_data/uniprot_to_vkb_map.txt', 'r') as fp:
+        raw_map = fp.readlines()
+    list_map = [list(reversed(x.strip().split(','))) for x in raw_map]
+    return dict((k, v) for (k, v) in list_map)
+
+
 class VenomKB(object):
     """Holds all data records for VenomKB and supports searching"""
     def __init__(self):
         self.proteins = []
-        self.venoms = []
+        self.genomes = []
         self.species = []
         self.molecular_effects = []
         self.systemic_effects = []
         self.mongo_connection = VENOMKB
         self._id_generator = IdGenerator()  # TODO: Store seed with database for reproducability
+        self.vkb_to_upid_map = vkb_upid_map()
 
     def find_record_by_venomkb_id(self, vkbid):
         """Find a record given semi-semantic VenomKB identifier"""
@@ -39,8 +49,8 @@ class VenomKB(object):
             return [p for p in self.proteins if p.venomkb_id == vkbid][0]
         elif _prefix == 'S':
             return [s for s in self.species if s.venomkb_id == vkbid][0]
-        elif _prefix == 'V':
-            return [v for v in self.venoms if v.venomkb_id == vkbid][0]
+        elif _prefix == 'G':
+            return [g for g in self.genomes if v.venomkb_id == vkbid][0]
         raise LookupError('ID not found in VenomKB')
 
     def add_new_entry(self, objtype=Collection, vkbid=None, name=None,
@@ -56,8 +66,8 @@ class VenomKB(object):
             self.proteins.append(new_entry)
         elif objtype == Species:
             self.species.append(new_entry)
-        elif objtype == Venom:
-            self.venoms.append(new_entry)
+        elif objtype == Genome:
+            self.genomes.append(new_entry)
         return new_entry
 
     def load_database(self):
@@ -65,7 +75,7 @@ class VenomKB(object):
         mongo_collections = {
             'proteins': VENOMKB['proteins'],
             'species': VENOMKB['species'],
-            'venoms': VENOMKB['venoms']
+            'genomes': VENOMKB['genomes']
         }
         for k, val in mongo_collections.iteritems():
             cur = val.find()
@@ -85,12 +95,53 @@ class VenomKB(object):
                                      mongoid=spec.get('_id'),
                                      ols=spec.get('out_links'))
                     self.species.append(_new_s)
-            elif k == 'venoms':
+            elif k == 'genomes':
                 for ven in cur:
-                    _new_v = Venom(vkbid=ven.get('venomkb_id'),
+                    _new_v = Genome(vkbid=ven.get('venomkb_id'),
                                    name=ven.get('name'),
                                    mongoid=ven.get('_id'))
-                    self.venoms.append(_new_v)
+                    self.genomes.append(_new_v)
+
+    def add_to_existing(self, vkbid, new_key, new_value, replace_if_exist=False):
+        type_code = vkbid[0]
+        mongo_rep = None
+        ipdb.set_trace()
+        if type_code == 'P':
+            mongo_rep = self.mongo_connection.proteins.find_one({'venomkb_id': vkbid})
+        if type_code == 'S':
+            mongo_rep = self.mongo_connection.species.find_one({'venomkb_id': vkbid})
+        if type_code == 'G':
+            mongo_rep = self.mongo_connection.genomes.find_one({'venomkb_id': vkbid})
+        if new_key in mongo_rep.keys() and replace_if_exist == False:
+            print("Error: Key already exists--skipping: {0}, {1}, {2}".format(vkbid, new_key, new_value))
+            return
+        if type_code == 'P':
+            self.mongo_connection.proteins.update_one(
+                {'_id': mongo_rep['_id']},
+                {
+                    '$set': {
+                        new_key: new_value
+                    }
+                }
+            )
+        if type_code == 'S':
+            self.mongo_connection.species.update_one(
+                {'_id': mongo_rep['_id']},
+                {
+                    '$set': {
+                        new_key: new_value
+                    }
+                }
+            )
+        if type_code == 'G':
+            self.mongo_connection.genomes.update_one(
+                {'_id': mongo_rep['_id']},
+                {
+                    '$set': {
+                        new_key: new_value
+                    }
+                }
+            )
 
     def wipe_database_contents(self):
         """Clear contents of every collection in venomkb"""
@@ -98,7 +149,7 @@ class VenomKB(object):
             return
         VENOMKB['proteins'].delete_many({})
         VENOMKB['species'].delete_many({})
-        VENOMKB['venoms'].delete_many({})
+        VENOMKB['genomes'].delete_many({})
 
     def replace_database(self):
         """Delete mongodb data and write local data to empty database"""
@@ -107,12 +158,12 @@ class VenomKB(object):
         _out_db = VENOMKB
         _proteins_conn = _out_db['proteins']
         _species_conn = _out_db['species']
-        _venoms_conn = _out_db['venoms']
+        _genomes_conn = _out_db['genomes']
 
         print("INFO: Removing current database contents")
         _proteins_conn.delete_many({})
         _species_conn.delete_many({})
-        _venoms_conn.delete_many({})
+        _genomes_conn.delete_many({})
 
         print("INFO: Adding new proteins")
         for _out_p in self.proteins:
@@ -122,10 +173,10 @@ class VenomKB(object):
         for _out_s in self.species:
             _new_mongo_id = _species_conn.insert_one(_out_s.to_json())
             _out_s._mongo_id = _new_mongo_id.inserted_id
-        print("INFO: Adding new venoms")
-        for _out_v in self.venoms:
-            _new_mongo_id = _venoms_conn.insert_one(_out_v.to_json())
-            _out_v._mongo_id = _new_mongo_id.inserted_id
+        print("INFO: Adding new genomes")
+        for _out_g in self.genomes:
+            _new_mongo_id = _genomes_conn.insert_one(_out_g.to_json())
+            _out_g._mongo_id = _new_mongo_id.inserted_id
 
     def update_database(self):
         """Update mongodb records that differ from local records"""
@@ -140,8 +191,22 @@ class VenomKB(object):
         assert len(matching_proteins) == 1
         return matching_proteins[0]
 
+    def get_uniprot_id(self, vkbid):
+        return self.vkb_to_upid_map[vkbid]
+
+    def get_record_from_toxprot(self, vkbid, record_tag):
+        tpid = self.get_uniprot_id(vkbid)
+        toxprot_request = "http://www.uniprot.org/uniprot/{0}.xml".format(tpid)
+        toxprot_xml = requests.get(toxprot_request)
+        etree_repr = etree.fromstring(toxprot_xml.content)
+        entry = etree_repr[0]
+        matches = [x for x in entry if x.tag.split('}')[-1] == record_tag]
+        matches = [xmltodict.parse(etree.tostring(x)) for x in matches]
+        return matches
+
+    """
     def populate_from_toxprot(self):
-        """Read all useful data from toxprot into the abstract database model"""
+        # Read all useful data from toxprot into the abstract database model
         toxprot_req = requests.get(TOXPROT_PATH + '&format=list')
         toxprot = toxprot_req.text.split('\n')
         peptides = {}  # PROTEINS INDEXED BY UNIPROT ID
@@ -247,7 +312,7 @@ class VenomKB(object):
                 p_vkbid = self.find_protein_by_uniprot_acc(a_uniprot_acc)
                 p_record = self.find_record_by_venomkb_id(p_vkbid)
                 p_record.venom_ref = cur_venom.venomkb_id
-
+    """
 
 if __name__ == "__main__":
     db = VenomKB()
