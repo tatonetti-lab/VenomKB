@@ -7,4 +7,9 @@ router.get('/', function(req, res, next) {
   res.send('Hello (API) World!');
 });
 
+/* GET index of items in VenomKB */
+router.get('/index', function(req, res, next) {
+  
+});
+
 module.exports = router;

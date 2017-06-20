@@ -1,9 +1,15 @@
 [
     {
         "name": "Ophiophagus hannah complete genome",
-        "venomkb_id": "",
-        "species_ref": "",
+        "venomkb_id": "G6069703",
+        "species_ref": "S5462960",
         "project_homepage": "",
+        "literature_reference": {
+            "pmid": "24297900",
+            "title": "",
+            "authors": "",
+            "citation": ""
+        },
         "assembly_platform": "",
         "out_links": {
             "ncbi_genome": {
@@ -13,24 +19,17 @@
         }
     },
     {
-        "name": "Python bivittatus complete genome",
-        "venomkb_id": "",
-        "species_ref": "",
-        "project_homepage": "",
-        "assembly_platform": "",
-        "out_links": {
-            "ncbi_genome": {
-                "id": 17893,
-                "link": "https://www.ncbi.nlm.nih.gov/genome/17893"
-            }
-        }
-    },
-    {
         "name": "Apis mellifera complete genome",
-        "venomkb_id": "",
-        "species_ref": "",
+        "venomkb_id": "G3863526",
+        "species_ref": "S4876300",
         "project_homepage": "",
         "assembly_platform": "",
+        "literature_reference": {
+            "pmid": "17073008",
+            "title": "",
+            "authors": "",
+            "citation": ""
+        },
         "out_links": {
             "ncbi_genome": {
                 "id": 48,
@@ -39,11 +38,17 @@
         }
     },
     {
-        "name": "Ophiophagus hannah complete genome",
-        "venomkb_id": "",
-        "species_ref": "",
+        "name": "Conus bullatus complete genome",
+        "venomkb_id": "G3307719",
+        "species_ref": "S6678150",
         "project_homepage": "",
         "assembly_platform": "",
+        "literature_reference": {
+            "pmid": "21266071",
+            "title": "",
+            "authors": "",
+            "citation": ""
+        },
         "out_links": {
             "ncbi_genome": {
                 "id": 10842,
@@ -52,28 +57,59 @@
         }
     },
     {
-        "name": "Ophiophagus hannah complete genome",
-        "venomkb_id": "",
-        "species_ref": "",
-        "project_homepage": "",
+        "name": "Mesobuthus martensii complete genome",
+        "venomkb_id": "G7259315",
+        "species_ref": "S0822281",
+        "project_homepage": "http://lifecenter.sgst.cn/main/en/scorpion.jsp",
         "assembly_platform": "",
+        "literature_reference": {
+            "pmid": "24129506",
+            "title": "",
+            "authors": "",
+            "citation": ""
+        },
         "out_links": {
             "ncbi_genome": {
-                "id": 10842,
-                "link": "https://www.ncbi.nlm.nih.gov/genome/10842"
+                "id": 14571,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/14571"
             }
         }
     },
     {
-        "name": "Ophiophagus hannah complete genome",
-        "venomkb_id": "",
+        "name": "Stegodyphus mimosarum complete genome",
+        "venomkb_id": "G5725214",
         "species_ref": "",
-        "project_homepage": "",
+        "project_homepage": "https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA222714",
         "assembly_platform": "",
+        "literature_reference": {
+            "pmid": "21266071",
+            "title": "",
+            "authors": "",
+            "citation": ""
+        },
         "out_links": {
             "ncbi_genome": {
-                "id": 10842,
-                "link": "https://www.ncbi.nlm.nih.gov/genome/10842"
+                "id": 12925,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/12925"
+            }
+        }
+    },
+    {
+        "name": "Nasonia vitripennis complete genome",
+        "venomkb_id": "G8125748",
+        "species_ref": "",
+        "project_homepage": "http://hymenopteragenome.org/nasonia/",
+        "assembly_platform": "",
+        "literature_reference": {
+            "pmid": "20075255",
+            "title": "",
+            "authors": "",
+            "citation": ""
+        },
+        "out_links": {
+            "ncbi_genome": {
+                "id": 449,
+                "link": "https://www.ncbi.nlm.nih.gov/genome/449"
             }
         }
     }

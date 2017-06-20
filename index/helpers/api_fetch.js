@@ -2,12 +2,14 @@ import fetch from 'isomorphic-fetch';
 
 const PROTEINS_URL = 'http://localhost:3001/proteins';
 const PROTEINS_IDX_URL = 'http://localhost:3001/proteins/index';
+const GENOMES_URL = 'http://localhost:3001/genomess';
+const GENOMES_IDX_URL = 'http://localhost:3001/genomess/index';
+const SPECIES_URL = 'http://localhost:3001/species';
+const SPECIES_IDX_URL = 'http://localhost:3001/species/index';
 const jsonHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 };
-const SPECIES_URL = 'http://localhost:3001/species';
-const SPECIES_IDX_URL = 'http://localhost:3001/species/index';
 
 export async function getProteins() {
     try {
@@ -114,6 +116,28 @@ export async function deleteProtein(id) {
 
         return await response.json();
     } catch(e) {
+        throw e;
+    }
+}
+
+export async function getGenomes() {
+    try {
+        const options = { mode: 'cors', method: 'GET' };
+        const response = await fetch(GENOMES_URL, options);
+
+        return await response.json();
+    } catch(e) {
+        throw e;
+    }
+}
+
+export async function getgenomesIdx() {
+    try {
+        const options = { mode: 'cors', method: 'GET' };
+        const response = await fetch(GENOMES_IDX_URL, options);
+
+        return await response.json();
+    } catch (e) {
         throw e;
     }
 }

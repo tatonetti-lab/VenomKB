@@ -8,9 +8,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const routes = require('./routes/index');
-const venoms = require('./routes/venoms');
 const proteins = require('./routes/proteins');
 const species = require('./routes/species');
+const genomes = require('./routes/genomes');
 
 const app = express();
 
@@ -24,26 +24,6 @@ mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@54.221.23.2
   .catch((err) => console.error(err));
 
 
-// Test to see if we can connect and get Venoms
-// const VenomSchema = new mongoose.Schema({
-//   _id: String,
-//   venomkb_id: String,
-//   species: String
-// });
-
-// // the schema is useless so far
-// // we need to create a model using it
-// var Venom = mongoose.model('Venom', VenomSchema, 'venoms');
-
-// // get all the venoms
-// Venom.find({}, function(err, venoms) {
-//   if (err) throw err;
-//   // object of all the users
-//   console.log('find all venoms');
-//   console.log(venoms);
-// });
-
-
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));
 app.use(logger('dev'));
@@ -53,9 +33,9 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/', routes);
-app.use('/venoms', venoms);
 app.use('/proteins', proteins);
 app.use('/species', species);
+app.use('/genomes', genomes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

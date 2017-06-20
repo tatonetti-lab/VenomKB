@@ -41,20 +41,6 @@ class DataVirtualized extends PureComponent {
         this._sort = this._sort.bind(this);
     }
 
-    /*
-    _linkButtonRenderer({ cellData }) {
-        if (cellData === '') {
-            return <div></div>;
-        }
-
-        return (
-            <LinkButton
-                linkedId={cellData}
-            />
-        );
-    }
-    */
-
     _linkButtonRenderer({cellData}) {
         if (cellData === '') {
             return <div></div>;
@@ -110,7 +96,7 @@ class DataVirtualized extends PureComponent {
             if (event.target.value === '') {
                 return typeChecked;
             }
-            return entry.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1;
+            return (entry.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1 && typeChecked);
         }, this);
 
         this.setState({
@@ -138,7 +124,7 @@ class DataVirtualized extends PureComponent {
             if (this.state.search === '') {
                 return typeChecked;
             }
-            return entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+            return (entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1) && typeChecked;
         }, this);
 
         this.setState({
