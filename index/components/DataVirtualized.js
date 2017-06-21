@@ -3,8 +3,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
 
-// import LinkButton from './LinkButton';
-
 class DataVirtualized extends PureComponent {
     constructor(props) {
         super(props);

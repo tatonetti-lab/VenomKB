@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const routes = require('./routes/index');
+const dbindexitems = require('./routes/dbindexitems');
 const proteins = require('./routes/proteins');
 const species = require('./routes/species');
 const genomes = require('./routes/genomes');
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/', routes);
+app.use('/dbindexitems', dbindexitems);
 app.use('/proteins', proteins);
 app.use('/species', species);
 app.use('/genomes', genomes);

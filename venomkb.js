@@ -9,7 +9,7 @@ import configureStore from './index/store/configureStore';
 import Root from './index/containers/Root';
 
 // handle api calls from within app
-import { getProteinsIdx, getSpeciesIdx } from './index/helpers/api_fetch';
+import { getDbIndex } from './index/helpers/api_fetch';
 
 // Require CSS in packages
 import 'react-table/react-table.css';
@@ -19,73 +19,54 @@ import './index/styles/venomkb.css';
 import './index/img/favicons/favicons';
 import './index/img/images';
 
-const buildIndex = (proteins, species) => {
-    const idx = [];
+getDbIndex().then((index) => {
+    const species = index.filter( (i) => {
+        if (i.data_type === 'Species') {
+            return true;
+        }
+        return false;
+    });
 
-    // find species that go along with each protein
-    for (let i = 0; i < proteins.length; i++) {
-        const p = proteins[i];
+    const proteins = index.filter( (i) => {
+        if (i.data_type === 'Protein') {
+            return true;
+        }
+        return false;
+    });
 
-        const species_ref = p.venom_ref.replace('V', 'S');
+    const genomes = index.filter( (i) => {
+        if (i.data_type === 'Genome') {
+            return true;
+        }
+        return false;
+    });
 
-        const thisProtSpecies = species.find((specie) => {
-            return specie.venomkb_id === species_ref;
-        });
-
-        const name = p.name + ' (' + thisProtSpecies.name + ')';
-        const thisprot = {
-            name: name,
-            venomkb_id: p.venomkb_id,
-            data_type: 'Protein'
-        };
-        idx.push(thisprot);
-    }
-
-    // add the species
-    for (let i = 0; i < species.length; i++) {
-        const s = species[i];
-
-        const thisspec = {
-            name: s.name,
-            venomkb_id: s.venomkb_id,
-            data_type: 'Species'
-        };
-        idx.push(thisspec);
-    }
-
-    return idx;
-};
-
-getProteinsIdx().then((proteins) => {
-    getSpeciesIdx().then((species) => {
-        const index = buildIndex(proteins, species);
-
-        const store = configureStore({
-            resources: {
-                proteins,
-                species,
-                index
-            }
-        });
-        const history = syncHistoryWithStore(browserHistory, store);
-
-        render(
-            <AppContainer>
-                <Root store={store} history={history} />
-            </AppContainer>,
-            document.getElementById('venomkb_root')
-        );
-
-        if (module.hot) {
-            module.hot.accept('./index/containers/Root', () => {
-                const NewRoot = require('./index/containers/Root').default;
-                render(
-                    <AppContainer>
-                        <NewRoot store={store} history={history} />
-                    </AppContainer>,
-                    document.getElementById('venomkb_root')
-                );
-            });
+    const store = configureStore({
+        resources: {
+            proteins,
+            species,
+            genomes,
+            index
         }
     });
+    const history = syncHistoryWithStore(browserHistory, store);
+
+    render(
+        <AppContainer>
+            <Root store={store} history={history} />
+        </AppContainer>,
+        document.getElementById('venomkb_root')
+    );
+
+    if (module.hot) {
+        module.hot.accept('./index/containers/Root', () => {
+            const NewRoot = require('./index/containers/Root').default;
+            render(
+                <AppContainer>
+                    <NewRoot store={store} history={history} />
+                </AppContainer>,
+                document.getElementById('venomkb_root')
+            );
+        });
+    }
 });

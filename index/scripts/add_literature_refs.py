@@ -60,5 +60,5 @@ for x in tqdm(VKB.proteins):
                     continue
     refs_out[x.venomkb_id] = refs_formatted
 
-#for k, v in refs_out.iteritems:
-    #VKB.add_to_existing(vkbid=k, new_key='literature_reference', new_value=v, replace_if_exist=True)
+for k, v in refs_out.iteritems():
+    VKB.add_to_existing(vkbid=k, new_key='literature_reference', new_value=v, replace_if_exist=True)

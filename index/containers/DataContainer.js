@@ -6,6 +6,7 @@ const mapStateToProps = (state) => {
     return {
         proteins: state.resources.proteins,
         species: state.resources.species,
+        genomes: state.resources.genomes,
         index: state.resources.index
     };
 };

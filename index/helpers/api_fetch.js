@@ -6,10 +6,22 @@ const GENOMES_URL = 'http://localhost:3001/genomess';
 const GENOMES_IDX_URL = 'http://localhost:3001/genomess/index';
 const SPECIES_URL = 'http://localhost:3001/species';
 const SPECIES_IDX_URL = 'http://localhost:3001/species/index';
+const DBINDEX_URL = 'http://localhost:3001/dbindexitems';
 const jsonHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 };
+
+export async function getDbIndex() {
+    try {
+        const options = { mode: 'cors', method: 'GET' };
+        const response = await fetch(DBINDEX_URL, options);
+
+        return await response.json();
+    } catch(e) {
+        throw e;
+    }
+}
 
 export async function getProteins() {
     try {
