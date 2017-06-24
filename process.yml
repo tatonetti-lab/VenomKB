@@ -1,0 +1,4 @@
+apps:
+    - script    : ./server/index.js
+    - script    : ./index/bin/www
+      watch     : true

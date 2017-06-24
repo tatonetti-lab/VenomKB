@@ -2,7 +2,7 @@ import * as types from './types';
 import fetch from 'isomorphic-fetch';
 
 const envi = (process.env.NODE_ENVIRONMENT === 'PRODUCTION');
-const API_BASE = envi ? 'http://34.228.236.46/api/' : 'http://localhost:3001/';
+const API_BASE = envi ? 'http://venomkb.org/api/' : 'http://localhost:3001/';
 
 // All data types merged
 export function filterTable(filter) {

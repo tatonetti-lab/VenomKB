@@ -1,3 +1,5 @@
+process.env.NODE_ENVIRONMENT = 'PRODUCTION';
+console.log('NODE_ENVIRONMENT: ', process.env.NODE_ENVIRONMENT);
 if (process.env.NODE_ENVIRONMENT === 'PRODUCTION') {
     module.exports = require('./Root.prod');
 } else {
