@@ -2,6 +2,7 @@ import { List } from 'immutable';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
+import { Image } from 'react-bootstrap';
 
 class DataVirtualized extends PureComponent {
     constructor(props) {
@@ -12,7 +13,8 @@ class DataVirtualized extends PureComponent {
             filteredData: props.data,
             visibleTypes: {
                 'P': true,
-                'S': true
+                'S': true,
+                'G': true
             },
             disableHeader: false,
             headerHeight: 30,
@@ -20,7 +22,8 @@ class DataVirtualized extends PureComponent {
             col1width: 50,
             col2width: 120,
             col3width: 500,
-            col4width: 100,
+            col4width: 120,
+            col5width: 150,
             rowHeight: 45,
             rowCount: this.props.data.length,
             sortBy: 'name', // 'venomkb_id'
@@ -36,6 +39,7 @@ class DataVirtualized extends PureComponent {
         this._idLinkRenderer = this._idLinkRenderer.bind(this);
         this._isSortEnabled = this._isSortEnabled.bind(this);
         this._linkButtonRenderer = this._linkButtonRenderer.bind(this);
+        this._annotationScoreRenderer = this._annotationScoreRenderer.bind(this);
         this._sort = this._sort.bind(this);
     }
 
@@ -68,6 +72,64 @@ class DataVirtualized extends PureComponent {
             case 'S':
                 return (
                     <div>Species</div>
+                );
+            case 'G':
+                return (
+                    <div>Genome</div>
+                );
+            default:
+                return (
+                    <div>Unknown</div>
+                );
+        }
+    }
+
+    _annotationScoreRenderer({ cellData }) {
+        switch (cellData) {
+            case 1:
+                return (
+                    <div>
+                        <Image
+                            style={{'height': '15px'}}
+                            src="1_star.png"
+                        />
+                    </div>
+                );
+            case 2:
+                return (
+                    <div>
+                        <Image
+                            style={{'height': '15px'}}
+                            src="2_star.png"
+                        />
+                    </div>
+                );
+            case 3:
+                return (
+                    <div>
+                        <Image
+                            style={{'height': '15px'}}
+                            src="3_star.png"
+                        />
+                    </div>
+                );
+            case 4:
+                return (
+                    <div>
+                        <Image
+                            style={{'height': '15px'}}
+                            src="4_star.png"
+                        />
+                    </div>
+                );
+            case 5:
+                return (
+                    <div>
+                        <Image
+                            style={{'height': '15px'}}
+                            src="5_star.png"
+                        />
+                    </div>
                 );
             default:
                 return (
@@ -178,6 +240,15 @@ class DataVirtualized extends PureComponent {
                                 />
                                 <span className="checkbox-label">Show proteins</span>
                             </label>
+                            <label className="checkbox-inline">
+                                <input
+                                    type="checkbox"
+                                    className="checkbox-control"
+                                    onChange={this.handleCheckboxChange.bind(this, 'G')}
+                                    checked={this.state.visibleTypes.G}
+                                />
+                                <span className="checkbox-label">Show genomes</span>
+                            </label>
                         <div id="num-results">{this.state.filteredData.length} results</div>
                     </div>
 
@@ -225,6 +296,13 @@ class DataVirtualized extends PureComponent {
                                     width={this.state.col4width}
                                     headerRenderer={this._headerRenderer}
                                     cellRenderer={this._dataTypeRenderer}
+                                />
+                                <Column
+                                    label="Annotation score"
+                                    dataKey="annotation_score"
+                                    width={this.state.col5width}
+                                    headerRenderer={this._headerRenderer}
+                                    cellRenderer={this._annotationScoreRenderer}
                                 />
                             </Table>
                         </div>

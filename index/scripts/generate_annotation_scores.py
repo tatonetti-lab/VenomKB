@@ -51,6 +51,8 @@ def score_species(s):
         if s['species_image_url'] != "":
             score += 1.
     score += (len(s['venom']['proteins']) * 0.05)
+    if 'taxonomic_lineage' in s.keys():
+        score += 1.2
     return score
 
 # Proteins
@@ -69,9 +71,25 @@ p_scores = rescale_uniform(p_scores, 1, 5)
 # Species
 s_scores = []
 for s in tqdm(VKB.species):
-    m_s = VKB.mongo_connection.species.find_one({"_id": p._mongo_id})
+    m_s = VKB.mongo_connection.species.find_one({"_id": s._mongo_id})
     score = score_species(m_s)
     s_scores.append(score)
 
 s_scores = convert_to_uniform(np.array(s_scores))
 s_scores = rescale_uniform(s_scores, 1, 5)
+
+p_scores = [int(round(p)) for p in p_scores]
+s_scores = [int(round(s)) for s in s_scores]
+
+s_ids = [s.venomkb_id for s in VKB.species]
+p_ids = [p.venomkb_id for p in VKB.proteins]
+
+prots = zip(p_ids, p_scores)
+specs = zip(s_ids, s_scores)
+
+# add to mongo
+for vkbid, score in prots:
+    VKB.add_to_existing(vkbid=vkbid, new_key='annotation_score', new_value=score, replace_if_exist=True)
+
+for vkbid, score in specs:
+    VKB.add_to_existing(vkbid=vkbid, new_key='annotation_score', new_value=score, replace_if_exist=True)

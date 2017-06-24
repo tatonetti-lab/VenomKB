@@ -13,6 +13,7 @@ import TaxonomyDetail from '../components/TaxonomyDetail.js';
 import ProteinImage from '../components/ProteinImage.js';
 import SpeciesImage from '../components/SpeciesImage.js';
 import PredicationsBox from '../components/PredicationsBox';
+import LiteratureRefs from '../components/LiteratureRefs';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class DataBasicView extends Component {
             pdb_image_url,
             pdb_structure_known,
             species_image_url,
+            refs,
             predications
         } = this.props;
 
@@ -76,7 +78,7 @@ class DataBasicView extends Component {
                                     'height': '15px',
                                     'position': 'relative',
                                     'top': '-3px',
-                                    'margin-right': '3px'
+                                    'marginRight': '3px'
                                 }}
                             /><span
                                 className="glyphicon glyphicon-info-sign"
@@ -112,9 +114,14 @@ class DataBasicView extends Component {
                                 <h3>Gene Ontology annotations</h3>
                             </Col>
 
+                            {!(refs === []) &&
                             <Col xs={12} md={12}>
                                 <h3>Related publications</h3>
+                                <LiteratureRefs
+                                    refs={refs}
+                                />
                             </Col>
+                            }
 
                             <Col xs={12} md={12}>
                                 <PredicationsBox
@@ -146,7 +153,7 @@ class DataBasicView extends Component {
                                     'height': '15px',
                                     'position': 'relative',
                                     'top': '-3px',
-                                    'margin-right': '3px'
+                                    'marginRight': '3px'
                                 }}
                             /><span
                                 className="glyphicon glyphicon-info-sign"
@@ -215,6 +222,7 @@ DataBasicView.propTypes = {
     pdb_image_url: PropTypes.string,
     pdb_structure_known: PropTypes.bool,
     species_image_url: PropTypes.string,
+    refs: PropTypes.array,
     predications: PropTypes.array
 };
 

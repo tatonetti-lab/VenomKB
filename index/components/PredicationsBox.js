@@ -27,7 +27,7 @@ class PredicationsBox extends React.Component {
             <div className="jdr-box">
                 <h3 style={{'display': 'inline-block'}}>Literature predications</h3><span
                     className="glyphicon glyphicon-info-sign"
-                    style={{'margin-left': '5px'}}
+                    style={{'marginLeft': '5px'}}
                     data-tip="Go to About > Predications for more information"
                 />
                 <ReactTooltip />

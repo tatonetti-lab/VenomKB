@@ -53,6 +53,7 @@ class DataDetailContainer extends Component {
             pdb_image_url,
             pdb_structure_known,
             species_image_url,
+            literature_references,
             literature_predications
          } = this.props;
         return (
@@ -67,7 +68,7 @@ class DataDetailContainer extends Component {
                 </div>
                 <div id="return-link">
                     <Link to={'/data'}>
-                        <Glyphicon glyph="triangle-left" />Return to list of proteins
+                        <Glyphicon glyph="triangle-left" />Return to search
                     </Link>
                 </div>
 
@@ -98,6 +99,7 @@ class DataDetailContainer extends Component {
                                 pdb_structure_known={pdb_structure_known}
                                 species_image_url={species_image_url}
                                 predications={literature_predications}
+                                refs={literature_references}
                             />
                             }
                         </div>
@@ -127,6 +129,7 @@ DataDetailContainer.propTypes = {
     pdb_structure_known: PropTypes.bool,
     species_image_url: PropTypes.string,
     viewType: PropTypes.string,
+    literature_references: PropTypes.array,
     literature_predications: PropTypes.array
 };
 
@@ -148,6 +151,7 @@ const mapStateToProps = (state) => {
         pdb_image_url,
         pdb_structure_known,
         species_image_url,
+        literature_references,
         literature_predications
     } = currentData || {
         isFetching: true,
@@ -162,6 +166,7 @@ const mapStateToProps = (state) => {
         pdb_image_url: '',
         pdb_structure_known: false,
         species_image_url: '',
+        literature_references: [],
         literature_predications: []
     };
 
@@ -181,6 +186,7 @@ const mapStateToProps = (state) => {
         pdb_image_url,
         pdb_structure_known,
         species_image_url,
+        literature_references,
         literature_predications
     };
 };

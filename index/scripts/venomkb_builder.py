@@ -105,7 +105,6 @@ class VenomKB(object):
     def add_to_existing(self, vkbid, new_key, new_value, replace_if_exist=False):
         type_code = vkbid[0]
         mongo_rep = None
-        ipdb.set_trace()
         if type_code == 'P':
             mongo_rep = self.mongo_connection.proteins.find_one({'venomkb_id': vkbid})
         if type_code == 'S':
