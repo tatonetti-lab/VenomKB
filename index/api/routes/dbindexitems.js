@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const dbindexitem = require('../models/dbindexitem.js');
+const dbindexitem = require('../models/Dbindexitem.js');
 
 router.get('/', (req, res, next) => {
     dbindexitem.find({}).exec((err, dbindexitems) => {
