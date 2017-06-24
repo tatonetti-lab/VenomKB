@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const protein = require('../models/protein.js');
+const protein = require('../models/Protein.js');
 
 const vkbid_reg = /P\d{7}/;
 

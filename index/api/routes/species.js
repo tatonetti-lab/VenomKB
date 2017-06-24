@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const species = require('../models/species.js');
+const species = require('../models/Species.js');
 
 const vkbid_reg = /S\d{7}/;
 
