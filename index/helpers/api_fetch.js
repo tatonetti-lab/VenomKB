@@ -1,12 +1,16 @@
 import fetch from 'isomorphic-fetch';
 
-const PROTEINS_URL = 'http://localhost:3001/proteins';
-const PROTEINS_IDX_URL = 'http://localhost:3001/proteins/index';
-const GENOMES_URL = 'http://localhost:3001/genomess';
-const GENOMES_IDX_URL = 'http://localhost:3001/genomess/index';
-const SPECIES_URL = 'http://localhost:3001/species';
-const SPECIES_IDX_URL = 'http://localhost:3001/species/index';
-const DBINDEX_URL = 'http://localhost:3001/dbindexitems';
+const envi = (process.env.NODE_ENVIRONMENT === 'PRODUCTION');
+const API_BASE = envi ? 'http://34.228.236.46/api/' : 'http://localhost:3001/';
+
+const PROTEINS_URL = API_BASE + 'proteins';
+const PROTEINS_IDX_URL = API_BASE + 'proteins/index';
+const GENOMES_URL = API_BASE + 'genomess';
+const GENOMES_IDX_URL = API_BASE + 'genomess/index';
+const SPECIES_URL = API_BASE + 'species';
+const SPECIES_IDX_URL = API_BASE + 'species/index';
+const DBINDEX_URL = API_BASE + 'dbindexitems';
+
 const jsonHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

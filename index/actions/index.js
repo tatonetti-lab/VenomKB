@@ -1,6 +1,9 @@
 import * as types from './types';
 import fetch from 'isomorphic-fetch';
 
+const envi = (process.env.NODE_ENVIRONMENT === 'PRODUCTION');
+const API_BASE = envi ? 'http://34.228.236.46/api/' : 'http://localhost:3001/';
+
 // All data types merged
 export function filterTable(filter) {
     return {
@@ -38,7 +41,7 @@ export function fetchData(venomkb_id) {
         case 'P':
             return dispatch => {
                 dispatch(requestData(venomkb_id));
-                return fetch(`http://localhost:3001/proteins/${venomkb_id}`)
+                return fetch(`${API_BASE}proteins/${venomkb_id}`)
                     .then(response => response.json())
                     .then(json => dispatch(receiveData(venomkb_id, json[0])));
             };
@@ -46,7 +49,7 @@ export function fetchData(venomkb_id) {
         case 'S':
             return dispatch => {
                 dispatch(requestData(venomkb_id));
-                return fetch(`http://localhost:3001/species/${venomkb_id}`)
+                return fetch(`${API_BASE}species/${venomkb_id}`)
                     .then(response => response.json())
                     .then(json => dispatch(receiveData(venomkb_id, json[0])));
             };

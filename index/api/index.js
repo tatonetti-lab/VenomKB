@@ -16,7 +16,6 @@ const genomes = require('./routes/genomes');
 const app = express();
 
 const VENOMKB_STAGING_PW = 'RambXyx6';
-console.log('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@54.221.23.226/venomkb-staging');
 
 // MongoDB
 mongoose.Promise = global.Promise;
