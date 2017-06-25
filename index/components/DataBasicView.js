@@ -111,15 +111,19 @@ class DataBasicView extends Component {
                             </Col>
 
                             <Col xs={12} md={12}>
-                                <h3>Gene Ontology annotations</h3>
+                                <div className="goAnnotations">
+                                    <h3>Gene Ontology annotations</h3>
+                                </div>
                             </Col>
 
                             {!(refs === []) &&
                             <Col xs={12} md={12}>
-                                <h3>Related publications</h3>
-                                <LiteratureRefs
-                                    refs={refs}
-                                />
+                                <div className="literatureRefs">
+                                    <h3>Related publications</h3>
+                                    <LiteratureRefs
+                                        refs={refs}
+                                    />
+                                </div>
                             </Col>
                             }
 
@@ -145,7 +149,6 @@ class DataBasicView extends Component {
                 return (
                     <div>
                         <Col xs={12} md={7}>
-                            {/* <Image className="pull-right" src={"https://www.itsnature.org/wp-content/uploads/2010/06/Bothrops-atrox-2.jpg"} thumbnail /> */}
                             <h1>{name}</h1>
                             Annotation score: <img
                                 src={'/5_star.png'}

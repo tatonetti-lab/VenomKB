@@ -11,14 +11,10 @@ class LiteratureRefs extends React.Component {
             <LiteratureRef
                 pmid={ref.pmid}
                 journalName={ref.journal_name}
+                firstAuthor={ref.first_author}
                 title={ref.title}
             />
         ));
-
-        refs.map((ref) => {
-            console.log('PMID: ', ref.pmid);
-            console.log('JOURNAL: ', ref.journal);
-        });
 
         return (
             <div>

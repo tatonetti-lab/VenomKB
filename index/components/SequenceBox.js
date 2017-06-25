@@ -56,7 +56,7 @@ class SequenceBox extends React.Component {
                 </div>
                 <h3>Amino Acid Sequence</h3>
                 <h4>Number of residues: {this.props.aaSequence.length}</h4>
-                <div className="sequence-text">
+                <div className="sequenceText">
                     {this.state.brokenSequence}
                 </div>
             </div>

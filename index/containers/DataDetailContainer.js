@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { selectData, fetchData } from '../actions';
 import { Link } from 'react-router';
 import { Nav, NavItem, Glyphicon } from 'react-bootstrap';
+import FileSaver from 'file-saver';
 
 import DataBasicView from '../components/DataBasicView';
 
@@ -14,10 +15,11 @@ class DataDetailContainer extends Component {
         this.state = {
             currentVenomkbId: this.props.params.index,
             dataType: this.props.params.index.charAt(0),
-            viewType: 'basic'
+            viewType: '1'
         };
 
         this.handleRefreshClick = this.handleRefreshClick.bind(this);
+        this.handleChangeView = this.handleChangeView.bind(this);
     }
 
     componentWillMount() {
@@ -35,6 +37,26 @@ class DataDetailContainer extends Component {
         e.preventDefault();
         const { dispatch, selectedData } = this.props;
         dispatch(fetchData(selectedData));
+    }
+
+    handleChangeView(e) {
+        const prevState = this.state.viewType;
+        this.setState({
+            viewType: e
+        });
+        this.state.viewType = e;
+        if (this.state.viewType === '4') {
+            this.triggerDownload();
+            this.setState({
+                viewType: prevState
+            });
+        }
+    }
+
+    triggerDownload() {
+        const data = JSON.stringify(this.props.currentData);
+        const blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
+        FileSaver.saveAs(blob, this.props.selectedData + '.json');
     }
 
     render() {
@@ -55,13 +77,18 @@ class DataDetailContainer extends Component {
             species_image_url,
             literature_references,
             literature_predications
-         } = this.props;
+        } = this.props;
+
         return (
             <div>
                 <div style={{marginBottom: '5px'}}>
-                    <Nav bsStyle="tabs" activeKey="1">
+                    <Nav
+                        bsStyle="tabs"
+                        activeKey={this.state.viewType}
+                        onSelect={this.handleChangeView}
+                    >
                         <NavItem eventKey="1">Basic view</NavItem>
-                        <NavItem eventKey="2">Tabular</NavItem>
+                        <NavItem eventKey="2">JSON</NavItem>
                         <NavItem eventKey="3">Class view</NavItem>
                         <NavItem eventKey="4">Download <Glyphicon glyph="download-alt" /></NavItem>
                     </Nav>
@@ -81,26 +108,36 @@ class DataDetailContainer extends Component {
 
                     {(!isFetching && !(name === undefined)) &&
                         <div>
-                            {(this.state.viewType === 'basic') &&
-                            <DataBasicView
-                                selectedDatum={selectedData}
-                                dataType={this.state.dataType}
-                                name={name}
-                                common_name={common_name}
-                                out_links={out_links}
-                                aa_sequence={aa_sequence}
-                                description={description}
-                                venom_ref={venom_ref}
-                                venom={venom}
-                                taxonomic_lineage={taxonomic_lineage}
-                                isFetching={isFetching}
-                                species={species}
-                                pdb_image_url={pdb_image_url}
-                                pdb_structure_known={pdb_structure_known}
-                                species_image_url={species_image_url}
-                                predications={literature_predications}
-                                refs={literature_references}
-                            />
+                            {(this.state.viewType === '1') &&
+                                <DataBasicView
+                                    selectedDatum={selectedData}
+                                    dataType={this.state.dataType}
+                                    name={name}
+                                    common_name={common_name}
+                                    out_links={out_links}
+                                    aa_sequence={aa_sequence}
+                                    description={description}
+                                    venom_ref={venom_ref}
+                                    venom={venom}
+                                    taxonomic_lineage={taxonomic_lineage}
+                                    isFetching={isFetching}
+                                    species={species}
+                                    pdb_image_url={pdb_image_url}
+                                    pdb_structure_known={pdb_structure_known}
+                                    species_image_url={species_image_url}
+                                    predications={literature_predications}
+                                    refs={literature_references}
+                                />
+                            }
+                            {(this.state.viewType === '2') &&
+                                <div>
+                                    Test: JSON
+                                </div>
+                            }
+                            {(this.state.viewType === '3') &&
+                                <div>
+                                    Test: Class view
+                                </div>
                             }
                         </div>
                     }
@@ -111,6 +148,7 @@ class DataDetailContainer extends Component {
 }
 
 DataDetailContainer.propTypes = {
+    currentData: PropTypes.object.isRequired,
     selectedData: PropTypes.string.isRequired,
     description: PropTypes.string,
     out_links: PropTypes.object,
@@ -171,6 +209,7 @@ const mapStateToProps = (state) => {
     };
 
     return {
+        currentData,
         selectedData,
         out_links,
         aa_sequence,
