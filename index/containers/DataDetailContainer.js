@@ -7,6 +7,8 @@ import { Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
 import FileSaver from 'file-saver';
 
 import DataBasicView from '../components/DataBasicView';
+import DataJSONView from '../components/DataJSONView';
+import DataClassView from '../components/DataClassView';
 
 class DataDetailContainer extends Component {
     constructor(props) {
@@ -137,14 +139,12 @@ class DataDetailContainer extends Component {
                                 />
                             }
                             {(this.state.viewType === '2') &&
-                                <div>
-                                    Test: JSON
-                                </div>
+                                <DataJSONView
+                                    currentJSON={this.props.currentData}
+                                />
                             }
                             {(this.state.viewType === '3') &&
-                                <div>
-                                    Test: Class view
-                                </div>
+                                <DataClassView/>
                             }
                         </div>
                     }
