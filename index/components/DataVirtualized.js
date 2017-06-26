@@ -26,8 +26,8 @@ class DataVirtualized extends PureComponent {
             col5width: 150,
             rowHeight: 45,
             rowCount: this.props.data.length,
-            sortBy: 'name', // 'venomkb_id'
-            sortDirection: SortDirection.DESC, // SortDirection.ASC
+            sortBy: 'annotation_score', // 'venomkb_id'
+            sortDirection: SortDirection.ASC, // SortDirection.DESC
             useDynamicRowHeight: false,
             search: ''
         };
@@ -49,7 +49,7 @@ class DataVirtualized extends PureComponent {
         }
 
         return (
-            <div style={{'margin-left': '12px'}}>
+            <div style={{'marginLeft': '12px'}}>
                 <input
                     type="checkbox"
                 />

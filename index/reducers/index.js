@@ -66,6 +66,38 @@ const species = (state = [], action) => {
     }
 };
 
+// and now for genomes
+const genomes = (state = [], action) => {
+    switch (action.type) {
+        case types.ADD_GENOME_SUCCESS:
+            return [action.genome, ...state];
+
+        case types.REMOVE_GENOME_SUCCESS:
+            return state.filter((t) => t._id !== action.todo._id );
+
+        case types.UPDATE_GENOME_SUCCESS:
+            const { updates, genome } = action;
+            return state.map(t => {
+                if (t._id === genome._id) {
+                    return Object.assign({}, genome, updates);
+                }
+                return t;
+            });
+
+        case types.MOVE_GENOME:
+            const newState = [...state];
+            newState.splice(action.dragIndex, 1);
+            return [
+                ...newState.slice(0, action.hoverIndex),
+                action.genome,
+                ...newState.slice(action.hoverIndex)
+            ];
+
+        default:
+            return state;
+    }
+};
+
 // Set venomkb_id to a new value
 function selectedData(state = 'P5453929', action) {
     switch (action.type) {
@@ -114,7 +146,8 @@ function currentData(state = { }, action) {
 const rootReducer = combineReducers({
     resources: combineReducers({
         proteins,
-        species
+        species,
+        genomes
     }),
     inMemory: combineReducers({
         selectedData,

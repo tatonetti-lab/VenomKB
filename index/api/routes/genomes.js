@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const genome = require('../models/Genome.js');
 
-const vkbid_reg = /P\d{7}/;
+const vkbid_reg = /G\d{7}/;
 
 /* GET /genomes listing. */
 router.get('/', (req, res, next) => {
