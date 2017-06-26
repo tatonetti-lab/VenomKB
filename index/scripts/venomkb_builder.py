@@ -193,14 +193,15 @@ class VenomKB(object):
     def get_uniprot_id(self, vkbid):
         return self.vkb_to_upid_map[vkbid]
 
-    def get_record_from_toxprot(self, vkbid, record_tag):
+    def get_record_from_toxprot(self, vkbid, record_tag, json=True):
         tpid = self.get_uniprot_id(vkbid)
         toxprot_request = "http://www.uniprot.org/uniprot/{0}.xml".format(tpid)
         toxprot_xml = requests.get(toxprot_request)
         etree_repr = etree.fromstring(toxprot_xml.content)
         entry = etree_repr[0]
         matches = [x for x in entry if x.tag.split('}')[-1] == record_tag]
-        matches = [xmltodict.parse(etree.tostring(x)) for x in matches]
+        if json:
+            matches = [xmltodict.parse(etree.tostring(x)) for x in matches]
         return matches
 
     """

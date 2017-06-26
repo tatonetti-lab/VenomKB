@@ -14,6 +14,7 @@ import ProteinImage from '../components/ProteinImage.js';
 import SpeciesImage from '../components/SpeciesImage.js';
 import PredicationsBox from '../components/PredicationsBox';
 import LiteratureRefs from '../components/LiteratureRefs';
+import GoAnnotations from '../components/GoAnnotations';
 
 class DataBasicView extends Component {
     constructor(props) {
@@ -58,7 +59,8 @@ class DataBasicView extends Component {
             pdb_structure_known,
             species_image_url,
             refs,
-            predications
+            predications,
+            go_annotations
         } = this.props;
 
         const common_name = this.props.common_name;
@@ -113,6 +115,9 @@ class DataBasicView extends Component {
                             <Col xs={12} md={12}>
                                 <div className="goAnnotations">
                                     <h3>Gene Ontology annotations</h3>
+                                    <GoAnnotations
+                                        annotations={go_annotations}
+                                    />
                                 </div>
                             </Col>
 
@@ -226,7 +231,8 @@ DataBasicView.propTypes = {
     pdb_structure_known: PropTypes.bool,
     species_image_url: PropTypes.string,
     refs: PropTypes.array,
-    predications: PropTypes.array
+    predications: PropTypes.array,
+    go_annotations: PropTypes.array
 };
 
 const mapStateToProps = (state) => {

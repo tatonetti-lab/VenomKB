@@ -300,6 +300,12 @@ footer {
   margin-top: 10px;
 }
 
+#issueReportBtn {
+  float: right;
+  padding-right: 15px;
+  margin-top: 5px;
+}
+
 .jdr-box{
   border-style: solid;
   border-width: 1px;
@@ -355,8 +361,6 @@ pre.taxonomy-detail {
   border-radius: 4px;
 }
 
-/* LiteratureRef styles */
-
 .litRefItem {
   margin-left: 8px;
   padding-left: 4px;
@@ -366,3 +370,23 @@ pre.taxonomy-detail {
   margin-bottom: 8px;
 }
 
+.goItem {
+  margin-left: 8px;
+  padding-left: 4px;
+  border-left: 2px solid;
+  border-color: #6D8E87;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 12px;
+}
+
+.annotationsContainer {
+  overflow: auto;
+}
+
+.annotationsTile {
+  float: left;
+  width: calc(31% + 3px);
+  margin: 10px;
+  background-color: #EEEEEE;
+}

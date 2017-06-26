@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
+import DevTools from './DevTools';
 import routes from '../routes/routes.js';
 
 export default class Root extends Component {
@@ -16,6 +17,7 @@ export default class Root extends Component {
             <Provider store={store}>
                 <div>
                     <Router history={history} routes={routes} />
+                    <DevTools />
                 </div>
             </Provider>
         );

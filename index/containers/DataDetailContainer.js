@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectData, fetchData } from '../actions';
 import { Link } from 'react-router';
-import { Nav, NavItem, Glyphicon } from 'react-bootstrap';
+import { Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
 import FileSaver from 'file-saver';
 
 import DataBasicView from '../components/DataBasicView';
@@ -76,7 +76,8 @@ class DataDetailContainer extends Component {
             pdb_structure_known,
             species_image_url,
             literature_references,
-            literature_predications
+            literature_predications,
+            go_annotations
         } = this.props;
 
         return (
@@ -92,6 +93,11 @@ class DataDetailContainer extends Component {
                         <NavItem eventKey="3">Class view</NavItem>
                         <NavItem eventKey="4">Download <Glyphicon glyph="download-alt" /></NavItem>
                     </Nav>
+                </div>
+                <div id="issueReportBtn">
+                    <Button bsSize="xsmall" style={{'backgroundColor': '#A0B4B0'}}>
+                        <i>Found an error? Click here.</i>
+                    </Button>
                 </div>
                 <div id="return-link">
                     <Link to={'/data'}>
@@ -127,6 +133,7 @@ class DataDetailContainer extends Component {
                                     species_image_url={species_image_url}
                                     predications={literature_predications}
                                     refs={literature_references}
+                                    go_annotations={go_annotations}
                                 />
                             }
                             {(this.state.viewType === '2') &&
@@ -168,7 +175,8 @@ DataDetailContainer.propTypes = {
     species_image_url: PropTypes.string,
     viewType: PropTypes.string,
     literature_references: PropTypes.array,
-    literature_predications: PropTypes.array
+    literature_predications: PropTypes.array,
+    go_annotations: PropTypes.array
 };
 
 
@@ -190,7 +198,8 @@ const mapStateToProps = (state) => {
         pdb_structure_known,
         species_image_url,
         literature_references,
-        literature_predications
+        literature_predications,
+        go_annotations
     } = currentData || {
         isFetching: true,
         name: '',
@@ -205,7 +214,8 @@ const mapStateToProps = (state) => {
         pdb_structure_known: false,
         species_image_url: '',
         literature_references: [],
-        literature_predications: []
+        literature_predications: [],
+        go_annotations: []
     };
 
     return {
@@ -226,7 +236,8 @@ const mapStateToProps = (state) => {
         pdb_structure_known,
         species_image_url,
         literature_references,
-        literature_predications
+        literature_predications,
+        go_annotations
     };
 };
 
