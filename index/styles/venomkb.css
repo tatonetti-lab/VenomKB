@@ -44,7 +44,7 @@ main {
 }
 
 .jumbotron {
-    border-radius: 	6px;
+    border-radius:   6px;
 }
 
 button {
@@ -364,4 +364,8 @@ pre.taxonomy-detail {
   border-color: #5f666a;
   margin-top: 8px;
   margin-bottom: 8px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> debug-production
