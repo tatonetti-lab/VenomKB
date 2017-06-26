@@ -6,19 +6,23 @@ class LiteratureRef extends React.Component {
         const {
             pmid,
             journalName,
-            title
+            title,
+            firstAuthor
         } = this.props;
 
         return (
-            <div className="item">
-                <div>
-                    {pmid}
+            <div className="litRefItem">
+                <div className="literaturePmid">
+                    PMID: <a href={'http://ncbi.nlm.nih.gov/pubmed/' + pmid}>{pmid}</a>
                 </div>
-                <div className="middle aligned content">
-                    {title}
+                <div className="literatureTitle">
+                    Title: {title}
                 </div>
-                <div>
-                    {journalName}
+                <div className="firstAuthorName">
+                    First Author: {firstAuthor}
+                </div>
+                <div className="literatureJournalName">
+                    Journal: {journalName}
                 </div>
             </div>
         );
@@ -27,6 +31,7 @@ class LiteratureRef extends React.Component {
 
 LiteratureRef.propTypes = {
     pmid: PropTypes.string,
+    firstAuthor: PropTypes.string,
     journalName: PropTypes.string,
     title: PropTypes.string
 };

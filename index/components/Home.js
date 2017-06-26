@@ -17,7 +17,8 @@ const Home = () =>
 		<h3>News and Updates</h3>
 		<ul id="news-items">
 			<li id="news-item">
-				<b>June 1, 2017:</b> VenomKB v2.0 is live!
+				<b>June 25, 2017:</b> VenomKB v2.0 is live! Take a few minutes to check out the new features we've added.
+                <p>If you would like to see the old version of VenomKB, click on the following link:<button className="btn btn-xs btn-default"><a href="http://54.211.253.123">VenomKB v1.0</a></button></p>
 			</li>
 		</ul>
 	</div>
