@@ -80,6 +80,13 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(zip|csv|tsv)$/i,
+                exclude: /node_modules/,
+                use: [
+                    'file-loader?name=[name].[ext]'
+                ]
+            },
+            {
                 test: /\.ttf$/,
                 use: 'url-loader'
             }

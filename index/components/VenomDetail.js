@@ -31,7 +31,7 @@ class VenomDetail extends Component {
                 <Link
                     to={'/' + protein}
                     onClick={() => this.props.onProteinClick(protein)}>
-                    {this.findProteinName(protein)}
+                    {protein + ': ' + this.findProteinName(protein)}
                 </Link>
             </li>
         );

@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 
-/*
-const inferSpeciesType = (lineage) => {
-    const taxa = lineage.map((taxon) =>
-        taxon.taxonName
-    );
+const itisBaseUrl = 'https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=';
 
-    if (taxa.includes('Serpentes')) {
-        return 'Snake';
-    } else if (taxa.includes(''))
-}
-*/
+const getItisUrl = (tsn) => {
+    return itisBaseUrl + tsn;
+};
 
 class TaxonomyDetail extends Component {
     constructor(props) {
@@ -26,10 +21,17 @@ class TaxonomyDetail extends Component {
         this.hierarchyList = this.hierarchyList.bind(this);
     }
 
+
     hierarchyList = () => {
         const lineage = this.props.taxonomic_lineage;
         const lineageItems = lineage.map((taxon, index) =>
-            <div>{Array(index).join(' ')}{taxon.rankName}: {taxon.taxonName}</div>
+            <div>
+                {Array(index).join(' ')}{taxon.rankName}: <Link
+                    href={getItisUrl(taxon.itis_tsn)}
+                    target="_blank">
+                        {taxon.taxonName}
+                    </Link>
+            </div>
         );
         return lineageItems;
     }

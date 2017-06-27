@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+function processJson(unprocessed) {
+    const mutableRep = unprocessed;
+    delete mutableRep.json;
+    delete mutableRep.isFetching;
+    delete mutableRep._id;
+    return mutableRep;
+}
+
 class DataJSONView extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +19,8 @@ class DataJSONView extends Component {
     }
 
     render() {
-        const formattedJson = JSON.stringify(this.state.currentJson, null, 2);
+        const processedJson = processJson(this.state.currentJson);
+        const formattedJson = JSON.stringify(processedJson, null, 2);
 
         return(
             <div className="jumbotron">

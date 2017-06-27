@@ -21,10 +21,12 @@ class DataBasicView extends Component {
         super(props);
 
         this.state = {
-            dataType: props.dataType
+            dataType: props.dataType,
+            currentData: props.currentData
         };
 
         this.loadSpeciesFromProtein = this.loadSpeciesFromProtein.bind(this);
+        this.getAnnotationScoreFilename = this.getAnnotationScoreFilename.bind(this);
     }
 
     speciesName(query_vkbid) {
@@ -40,9 +42,31 @@ class DataBasicView extends Component {
         this.props.dispatch(fetchData(venom_ref.replace('V', 'S')));
     }
 
+    loadSpeciesFromGenome(e) {
+        this.props.dispatch(selectData(e));
+        this.props.dispatch(selectData(e));
+    }
+
     loadProteinFromSpecies(e) {
         this.props.dispatch(selectData(e));
         this.props.dispatch(fetchData(e));
+    }
+
+    getAnnotationScoreFilename() {
+        switch (this.state.currentData.annotation_score) {
+            case 1:
+                return '/1_star.png';
+            case 2:
+                return '/2_star.png';
+            case 3:
+                return '/3_star.png';
+            case 4:
+                return '/4_star.png';
+            case 5:
+                return '/5_star.png';
+            default:
+                return 'error';
+        }
     }
 
     render() {
@@ -75,7 +99,7 @@ class DataBasicView extends Component {
                         <Col xs={12} md={9} style={{'marginBottom': '50px'}}>
                             <h1>{name}</h1>
                             Annotation score: <img
-                                src={'/5_star.png'}
+                                src={this.getAnnotationScoreFilename()}
                                 style={{
                                     'height': '15px',
                                     'position': 'relative',
@@ -152,7 +176,7 @@ class DataBasicView extends Component {
                 );
             case 'S':
                 return (
-                    <div>
+                    <div style={{'margin-top': '10px'}}>
                         <Col xs={12} md={7}>
                             <h1>{name}</h1>
                             Annotation score: <img
@@ -206,6 +230,7 @@ class DataBasicView extends Component {
                     </div>
                 );
             case 'G':
+                const species_link_g = '/' + (this.state.currentData.species_ref);
                 return (
                     <div>
                         <Col xs={12} md={7}>
@@ -225,9 +250,14 @@ class DataBasicView extends Component {
                             <h3>ID: {selectedDatum}</h3>
 
                             <h2>Project homepage</h2>
-                            <a href="http://www.google.com">
-                                http://www.google.com
+                            <a href={this.state.currentData.project_homepage}>
+                                {this.state.currentData.project_homepage}
                             </a>
+
+                            <h2>Species</h2>
+                            <h4>
+                                Organism: <Link to={species_link_g} onClick={this.loadSpeciesFromGenome}>({this.speciesName(this.state.currentData.species_ref)}) ({this.state.currentData.species_ref})</Link>
+                            </h4>
                         </Col>
                     </div>
                 );
@@ -260,7 +290,8 @@ DataBasicView.propTypes = {
     refs: PropTypes.array,
     predications: PropTypes.array,
     go_annotations: PropTypes.array,
-    proteins: PropTypes.array
+    proteins: PropTypes.array,
+    currentData: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
