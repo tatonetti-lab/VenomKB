@@ -9,19 +9,29 @@ class VenomDetail extends Component {
         this.state = {
             venom: this.props.venom,
             proteins: this.props.venom.proteins,
+            proteinsIndex: this.props.proteinsIndex
         };
 
         this.proteinsList = this.proteinsList.bind(this);
+        this.findProteinName = this.findProteinName.bind(this);
+    }
+
+    findProteinName(protein_id) {
+        const match = this.state.proteinsIndex.find((aProtein) => {
+            return protein_id === aProtein.venomkb_id;
+        });
+        return match.name.split('(')[0];
     }
 
     proteinsList = () => {
         const proteins = this.props.venom.proteins;
+
         const proteinsListItems = proteins.map((protein, index) =>
             <li key={index}>
                 <Link
                     to={'/' + protein}
                     onClick={() => this.props.onProteinClick(protein)}>
-                    {protein}
+                    {this.findProteinName(protein)}
                 </Link>
             </li>
         );
@@ -30,6 +40,8 @@ class VenomDetail extends Component {
 
     render() {
         const { venom } = this.state;
+
+        console.log(this.findProteinName(this.state.proteins[0]));
 
         return(
             <div className="jdr-box">
@@ -47,7 +59,8 @@ class VenomDetail extends Component {
 
 VenomDetail.propTypes = {
     venom: PropTypes.object,
-    onProteinClick: PropTypes.func
+    onProteinClick: PropTypes.func,
+    proteinsIndex: PropTypes.array
 };
 
 export default VenomDetail;

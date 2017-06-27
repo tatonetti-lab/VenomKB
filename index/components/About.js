@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Panel } from 'react-bootstrap';
+import { Alert, Panel, Button } from 'react-bootstrap';
 
 const About = () =>
     <div className="jumbotron">
@@ -7,7 +7,7 @@ const About = () =>
             <h2>About VenomKB</h2>
 
             <Panel bsStyle="primary">
-                <h4>Current version: 2.0.0-alpha</h4>
+                <h4>Current version: 2.0.0-beta</h4>
             </Panel>
 
             <p>
@@ -15,8 +15,9 @@ const About = () =>
             </p>
 
             <p>
-                VenomKB was designed to address the fact that these discoveries are not collected in any single location, as well as the belief that the vast majority of therapeutic uses for venom components have yet to be discovered.
+                VenomKB was designed to address the fact that these discoveries are not collected in any single location, as well as the belief that the vast majority of therapeutic uses for venom components have yet to be discovered. For more information regarding our motivation designing VenomKB, please check out the following page:
             </p>
+            <Button href="/about/whyvenoms">Why Venoms?</Button>
 
             <h3>Technical information</h3>
             <p><small>

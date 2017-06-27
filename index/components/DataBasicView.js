@@ -193,6 +193,7 @@ class DataBasicView extends Component {
                             <VenomDetail
                                 venom={venom}
                                 onProteinClick={this.loadProteinFromSpecies.bind(this)}
+                                proteinsIndex={this.props.proteins}
                             />
                         </Col>
 
@@ -202,6 +203,32 @@ class DataBasicView extends Component {
                                 />
                         </Col>
 
+                    </div>
+                );
+            case 'G':
+                return (
+                    <div>
+                        <Col xs={12} md={7}>
+                            <h1>{name}</h1>
+                            Annotation score: <img
+                                src={'/5_star.png'}
+                                style={{
+                                    'height': '15px',
+                                    'position': 'relative',
+                                    'top': '-3px',
+                                    'marginRight': '3px'
+                                }}
+                            /><span
+                                className="glyphicon glyphicon-info-sign"
+                                data-tip="1-5 scale - represents the completeness of this data item"
+                            />
+                            <h3>ID: {selectedDatum}</h3>
+
+                            <h2>Project homepage</h2>
+                            <a href="http://www.google.com">
+                                http://www.google.com
+                            </a>
+                        </Col>
                     </div>
                 );
             default:
@@ -232,14 +259,17 @@ DataBasicView.propTypes = {
     species_image_url: PropTypes.string,
     refs: PropTypes.array,
     predications: PropTypes.array,
-    go_annotations: PropTypes.array
+    go_annotations: PropTypes.array,
+    proteins: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
     const { selectedData, currentData } = state.inMemory;
+    const { proteins } = state.resources;
     return {
         selectedData,
-        currentData
+        currentData,
+        proteins
     };
 };
 

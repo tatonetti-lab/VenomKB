@@ -5,6 +5,7 @@ import { selectData, fetchData } from '../actions';
 import { Link } from 'react-router';
 import { Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
 import FileSaver from 'file-saver';
+// import SkyLight from 'react-skylight';
 
 import DataBasicView from '../components/DataBasicView';
 import DataJSONView from '../components/DataJSONView';
@@ -97,10 +98,20 @@ class DataDetailContainer extends Component {
                     </Nav>
                 </div>
                 <div id="issueReportBtn">
-                    <Button bsSize="xsmall" style={{'backgroundColor': '#A0B4B0'}}>
+                    <Button
+                        bsSize="xsmall"
+                        style={{'backgroundColor': '#A0B4B0'}}
+                        // onClick={this.refs.notifyIssue.show()}
+                    >
                         <i>Found an error? Click here.</i>
                     </Button>
                 </div>
+                {/*
+                <SkyLight
+                    ref="notifyIssue"
+                    title="Report an issue with the data on this page"
+                />
+                */}
                 <div id="return-link">
                     <Link to={'/data'}>
                         <Glyphicon glyph="triangle-left" />Return to search

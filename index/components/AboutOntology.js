@@ -26,6 +26,9 @@ const AboutOntology = () =>
                 <li>Molecular effect: "M"</li>
                 <li>Systemic effect: "Y"</li>
             </ul>
+            <p>
+                For more information about Venom Ontology check out the original research article published at <a href="https://www.ncbi.nlm.nih.gov/pubmed/27570672">https://www.ncbi.nlm.nih.gov/pubmed/27570672</a>. You can also check it out (and download it) on BioPortal at <a href="https://bioportal.bioontology.org/ontologies/CU-VO">https://bioportal.bioontology.org/ontologies/CU-VO</a>.
+            </p>
         </div>
     </div>;
 
