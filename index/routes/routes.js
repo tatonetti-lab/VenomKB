@@ -5,6 +5,7 @@ import Home from '../components/Home';
 import About from '../components/About';
 import AboutOntology from '../components/AboutOntology';
 import AboutVenoms from '../components/AboutVenoms';
+import AboutApi from '../components/AboutApi';
 import Contact from '../components/Contact';
 import Publications from '../components/Publications';
 import Download from '../components/Download';
@@ -20,6 +21,7 @@ export default (
         <Route path="/about" component={About} />
         <Route path="/about/ontology" component={AboutOntology} />
         <Route path="/about/whyvenoms" component={AboutVenoms} />
+        <Route path="/about/api" components={AboutApi} />
         <Route path="/contact" component={Contact} />
         <Route path="/publications" component={Publications} />
         <Route path="/data" component={DataContainer} />

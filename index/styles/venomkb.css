@@ -394,3 +394,8 @@ pre.taxonomy-detail {
 .classView {
   margin: 16px;
 }
+
+.hr {
+  border-top: 2px solid;
+  border-color: #333333;
+}
