@@ -10,9 +10,9 @@ from vkb_collections import *
 import dbinit_helpers
 import xmltodict
 
-PASSWORD = 'RambXyx6'
+PASSWORD = os.environ['VENOMKB_STAGING_PW']
 ADMIN_USER = 'venomkb-admin'
-CLIENT = MongoClient('mongodb://54.221.23.226:27017')
+CLIENT = MongoClient(os.environ['MONGO_ADDR'])
 VENOMKB = CLIENT['venomkb-staging']
 # TEST_VENOMKB = CLIENT['venomkb-out-test']
 VENOMKB.authenticate(ADMIN_USER, PASSWORD)

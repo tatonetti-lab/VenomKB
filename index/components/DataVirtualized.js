@@ -2,7 +2,30 @@ import { List } from 'immutable';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
+import Slider from 'rc-slider';
 import { Image } from 'react-bootstrap';
+import Tooltip from 'rc-tooltip';
+
+import 'rc-slider/assets/index.css';
+
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+const Handle = Slider.Handle;
+
+const handle = (pro) => {
+    const { value, dragging, index, ...restProps } = pro;
+    return (
+        <Tooltip
+            prefixCls="rc-slider-tooltip"
+            overlay={value}
+            visible={dragging}
+            placement="top"
+            key={index}
+        >
+            <Handle value={value} {...restProps} />
+        </Tooltip>
+    );
+};
 
 class DataVirtualized extends PureComponent {
     constructor(props) {
@@ -29,11 +52,15 @@ class DataVirtualized extends PureComponent {
             sortBy: 'annotation_score', // 'venomkb_id'
             sortDirection: SortDirection.ASC, // SortDirection.DESC
             useDynamicRowHeight: false,
-            search: ''
+            search: '',
+            minScore: 1,
+            maxScore: 5
         };
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.filterData = this.filterData.bind(this);
 
         this._headerRenderer = this._headerRenderer.bind(this);
         this._idLinkRenderer = this._idLinkRenderer.bind(this);
@@ -138,6 +165,41 @@ class DataVirtualized extends PureComponent {
         }
     }
 
+    filterData() {
+        console.log(this.state.minScore);
+        console.log(this.state.maxScore);
+        const filteredData = this.state.data.filter((entry) => {
+            let typeChecked = false;
+            for (const thisDataType in this.state.visibleTypes) {
+                if (this.state.visibleTypes[thisDataType]) {
+                    if (entry.venomkb_id.charAt(0) === thisDataType) {
+                        typeChecked = true;
+                    }
+                }
+            }
+            if (!(this.state.minScore <= entry.annotation_score && this.state.maxScore >= entry.annotation_score)) {
+                typeChecked = false;
+            }
+            if (this.state.search === '') {
+                return typeChecked;
+            }
+            return (entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1) && typeChecked;
+        }, this);
+
+        this.setState({
+            filteredData: filteredData
+        });
+    }
+
+    handleSliderChange(event) {
+        const min = event[0];
+        const max = event[1];
+        this.state.minScore = min;
+        this.state.maxScore = max;
+
+        this.filterData();
+    }
+
     handleSearchChange(event) {
         const filteredData = this.state.data.filter( (entry) => {
             // Is the data type checked?
@@ -210,6 +272,7 @@ class DataVirtualized extends PureComponent {
         return (
             <div>
                 <div id="search-bar-wrapper">
+
                     <div id="search">
                         <div id="search-control">
                             <input
@@ -249,12 +312,26 @@ class DataVirtualized extends PureComponent {
                                 />
                                 <span className="checkbox-label">Show genomes</span>
                             </label>
-                        <div id="num-results">{this.state.filteredData.length} results</div>
-                    </div>
-
+                            <label className="checkbox-inline" style={{'marginLeft': '20px'}}>
+                                <span style={{'width': '100px', 'pull': 'right'}}>
+                                    <Range
+                                        dots
+                                        step={1}
+                                        defaultValue={[1, 5]}
+                                        min={1}
+                                        max={5}
+                                        onChange={this.handleSliderChange}
+                                        handle={handle}
+                                    />
+                                </span>
+                                <span className="checkbox-label">Filter by annotation score</span>
+                            </label>
+                            <div id="num-results">{this.state.filteredData.length} results</div>
+                        </div>
                     </div>
 
                 </div>
+
                 <AutoSizer disableHeight>
                     {({ width }) => (
                         <div>

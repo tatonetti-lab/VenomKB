@@ -15,11 +15,12 @@ const genomes = require('./routes/genomes');
 
 const app = express();
 
-const VENOMKB_STAGING_PW = 'RambXyx6';
+const VENOMKB_STAGING_PW = process.env.VENOMKB_STAGING_PW;
+const MONGO_IP = process.env.MONGO_IP;
 
 // MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@54.221.23.226/venomkb-staging')
+mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@' + MONGO_IP + '/venomkb-staging')
   .then(() =>  console.log('connection to MongoDB succesful'))
   .catch((err) => console.error(err));
 
