@@ -36,8 +36,8 @@ class DataVirtualized extends PureComponent {
             filteredData: props.data,
             visibleTypes: {
                 'P': true,
-                'S': true,
-                'G': true
+                'G': true,
+                'S': true
             },
             disableHeader: false,
             headerHeight: 30,
@@ -322,6 +322,12 @@ class DataVirtualized extends PureComponent {
                                         max={5}
                                         onChange={this.handleSliderChange}
                                         handle={handle}
+                                        trackStyle={{
+                                            backgroundColor: '#5f666a'
+                                        }}
+                                        dotStyle={{
+                                            height: '5px'
+                                        }}
                                     />
                                 </span>
                                 <span className="checkbox-label">Filter by annotation score</span>

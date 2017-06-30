@@ -30,6 +30,10 @@ class SequenceBox extends React.Component {
         FileSaver.saveAs(blob, 'fasta.txt');
     }
 
+    handleFocus(event) {
+        event.target.select();
+    }
+
     render() {
         const blastQueryUrl = blastQueryBase + this.props.aaSequence;
         return (
@@ -56,7 +60,10 @@ class SequenceBox extends React.Component {
                 </div>
                 <h3>Amino Acid Sequence</h3>
                 <h4>Number of residues: {this.props.aaSequence.length}</h4>
-                <div className="sequenceText">
+                <div
+                    className="sequenceText"
+                    onClick={this.handleFocus}
+                >
                     {this.state.brokenSequence}
                 </div>
             </div>

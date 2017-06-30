@@ -31,10 +31,12 @@ def score_protein(p):
     score = 0.
     if 'pdb_structure_known' in p.keys():
         if p['pdb_structure_known'] == True:
-            score += 1.
+            score += 3
     if 'pdb_image_url' in p.keys():
         if p['pdb_image_url'] != "":
             score += 1.
+        if 'None' in p['pdb_image_url']:
+            score -= 4
     if 'description' in p.keys():
         score += 1.
     score += (len(p['out_links']) * 0.1)
