@@ -1,0 +1,37 @@
+	@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+	@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+	@prefix prov: <http://www.w3.org/ns/prov#> .
+	@prefix :     <http://example.org#> .
+	
+	:jdr2160
+	a foaf:Person, prov:Agent;
+	foaf:givenName "Joseph";
+	foaf:familyName "Romano";
+	foaf:mbox <mailto:jdr2160@cumc.columbia.edu>;
+	.
+	
+	:venomkb
+	a prov:SoftwareAgent;
+	rdfs:label "VenomKB"^^xsd:string;
+	.
+	
+	:protein
+	a prov:Entity
+	.
+	
+	:species
+	a prov:Entity
+	.
+	
+	:venom
+	a prov:Entity
+	.
+	
+	:genome
+	a prov:Entity
+	.
+	
+	:effect
+	a prov:Entity
+	.
+	
