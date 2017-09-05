@@ -225,29 +225,33 @@ class GOgraph(Graph):
         return "{0};{1}".format(relation['type'], relation['id'])
 
 
+if __name__=="__main__":
+    print("Loading flat GO annotations...")
+    go_by_prot = []
+    if OVERWRITE:
+        for v in tqdm(VKB.proteins):
+            try:
+                mts = []
+                vkbid = v.venomkb_id
+                # fetch from venomkb API
+                r = requests.get('http://venomkb.org/api/proteins/' + vkbid)
+                ven = json.loads(r.text)[0]
+                go = ven['go_annotations']
+                go_by_prot.append({'vkbid': v.venomkb_id,
+                                   'go_annotations': go})
+            except:
+                pass
+        with open('go_annotations.pkl', 'wb') as fp:
+            pickle.dump(go_by_prot, fp)
+    else:
+        with open('go_annotations.pkl', 'rb') as fp:
+            go_by_prot = pickle.load(fp)
 
-go_by_prot = []
-if OVERWRITE:
-    for v in tqdm(VKB.proteins):
-        try:
-            mts = []
-            vkbid = v.venomkb_id
-            # fetch from venomkb API
-            r = requests.get('http://venomkb.org/api/proteins/' + vkbid)
-            ven = json.loads(r.text)[0]
-            go = ven['go_annotations']
-            go_by_prot.append({'vkbid': v.venomkb_id,
-                               'go_annotations': go})
-        except:
-            pass
-    with open('go_annotations.pkl', 'wb') as fp:
-        pickle.dump(go_by_prot, fp)
-else:
-    with open('go_annotations.pkl', 'rb') as fp:
-        go_by_prot = pickle.load(fp)
-
-g = GOgraph()
-for gbp in tqdm(go_by_prot):
-    for go in gbp['go_annotations']:
-        if not str(go['id']) in g.already_added:
-            g.add_term_with_ancestors(str(go['id']))
+    print("Using QuickGO API to build hierarchies...")
+    g = GOgraph()
+    for gbp in tqdm(go_by_prot):
+        for go in gbp['go_annotations']:
+            if not str(go['id']) in g.already_added:
+                g.add_term_with_ancestors(str(go['id']))
+    with open('go_graph.pkl', 'wb') as fp:
+        pickle.dump(g, fp)
