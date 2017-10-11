@@ -6,15 +6,15 @@
   "scripts": {
     "start": "npm run dev2",
     "api": "node ./index/bin/www",
-    "dev": "node venomkb.server.js",
+    "dev_server": "node venomkb.server.js",
     "build": "rimraf dist && webpack --config ./webpack.config.js --progress --profile --colors",
     "build2": "rimraf dist && webpack --config ./webpack.production.config.js --progress --profile --colors",
     "eslint": "eslint .",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
-    "prod": "node ./server/index.js",
-    "production": "concurrently \"npm run prod\" \"npm run api\"",
-    "dev2": "concurrently \"npm run dev\" \"npm run api\""
+    "prod_server": "node ./server/index.js",
+    "production": "concurrently \"npm run prod_server\" \"npm run api\"",
+    "dev": "concurrently \"npm run dev_server\" \"npm run api\""
   },
   "keywords": [
     "venomkb",
