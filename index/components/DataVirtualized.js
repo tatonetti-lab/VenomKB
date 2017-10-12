@@ -279,6 +279,7 @@ class DataVirtualized extends PureComponent {
                                 className="input"
                                 value={this.state.search}
                                 onChange={this.handleSearchChange.bind(this)}
+                                placeholder="Type to filter results..."
                             />
                             <div id="clear-input">
                                 x

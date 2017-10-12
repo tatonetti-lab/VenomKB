@@ -17,6 +17,8 @@ const app = express();
 
 const VENOMKB_STAGING_PW = process.env.VENOMKB_STAGING_PW;
 const MONGO_IP = process.env.MONGO_IP;
+console.log('VENOMKB_STAGING_PW: ', VENOMKB_STAGING_PW);
+console.log('MONGO_IP: ', MONGO_IP);
 
 // MongoDB
 mongoose.Promise = global.Promise;

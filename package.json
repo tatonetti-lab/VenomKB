@@ -18,11 +18,12 @@
   },
   "keywords": [
     "venomkb",
+    "venom",
     "es6",
     "react",
     "redux"
   ],
-  "author": "Joe R., Victor N.",
+  "author": "Joseph D. Romano, Victor Nwankwo",
   "license": "MIT",
   "dependencies": {
     "autoprefixer": "^6.3.6",

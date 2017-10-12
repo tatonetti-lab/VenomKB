@@ -6,9 +6,11 @@ import requests
 from lxml import etree
 from pymongo import MongoClient
 from tqdm import tqdm
-from vkb_collections import *
 import dbinit_helpers
 import xmltodict
+
+from vkb_collections import *
+
 
 PASSWORD = os.environ['VENOMKB_STAGING_PW']
 ADMIN_USER = 'venomkb-admin'
@@ -68,6 +70,8 @@ class VenomKB(object):
             self.species.append(new_entry)
         elif objtype == Genome:
             self.genomes.append(new_entry)
+        elif objtype == SystemicEffect:
+            self.systemic_effects.append(new_entry)
         return new_entry
 
     def load_database(self):
@@ -75,7 +79,8 @@ class VenomKB(object):
         mongo_collections = {
             'proteins': VENOMKB['proteins'],
             'species': VENOMKB['species'],
-            'genomes': VENOMKB['genomes']
+            'genomes': VENOMKB['genomes'],
+            'systemic_effects': VENOMKB['systemic_effects']
         }
         for k, val in mongo_collections.iteritems():
             cur = val.find()
@@ -111,6 +116,8 @@ class VenomKB(object):
             mongo_rep = self.mongo_connection.species.find_one({'venomkb_id': vkbid})
         if type_code == 'G':
             mongo_rep = self.mongo_connection.genomes.find_one({'venomkb_id': vkbid})
+        if type_code == 'E':
+            mongo_rep = self.mongo_connection.systemic_effects.find_one({'venomkb_id': vkbid})
         if new_key in mongo_rep.keys() and replace_if_exist == False:
             print("Error: Key already exists--skipping: {0}, {1}, {2}".format(vkbid, new_key, new_value))
             return
@@ -141,6 +148,15 @@ class VenomKB(object):
                     }
                 }
             )
+        if type_code == 'E':
+            self.mongo_connection.systemic_effects.update_one(
+                {'_id': mongo_rep['_id']},
+                {
+                    '$set': {
+                        new_key: new_value
+                    }
+                }
+            )
 
     def wipe_database_contents(self):
         """Clear contents of every collection in venomkb"""
@@ -149,6 +165,7 @@ class VenomKB(object):
         VENOMKB['proteins'].delete_many({})
         VENOMKB['species'].delete_many({})
         VENOMKB['genomes'].delete_many({})
+        VENOMKB['systemic_effects'].delete_many({})
 
     def replace_database(self):
         """Delete mongodb data and write local data to empty database"""
@@ -158,11 +175,13 @@ class VenomKB(object):
         _proteins_conn = _out_db['proteins']
         _species_conn = _out_db['species']
         _genomes_conn = _out_db['genomes']
+        _systemic_effects_conn = _out_db['systemic_effects']
 
         print("INFO: Removing current database contents")
         _proteins_conn.delete_many({})
         _species_conn.delete_many({})
         _genomes_conn.delete_many({})
+        _systemic_effects_conn.delete_many(({}))
 
         print("INFO: Adding new proteins")
         for _out_p in self.proteins:
@@ -176,6 +195,10 @@ class VenomKB(object):
         for _out_g in self.genomes:
             _new_mongo_id = _genomes_conn.insert_one(_out_g.to_json())
             _out_g._mongo_id = _new_mongo_id.inserted_id
+        print("INFO: Adding new genomes")
+        for _out_se in self.systemic_effects:
+            _new_mongo_id = _systemic_effects_conn.insert_one(_out_se.to_json())
+            _out_se._mongo_id = _new_mongo_id.inserted_id
 
     def update_database(self):
         """Update mongodb records that differ from local records"""
@@ -275,6 +298,7 @@ class VenomKB(object):
                                                        'taxid': spec_data['taxid']}
                         species[spec_data['taxid']]['proteins'] = [t]
                     continue
+
 
 
             #except Exception as exc:
