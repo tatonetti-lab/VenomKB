@@ -20,8 +20,6 @@ import './index/img/favicons/favicons';
 import './index/img/images';
 
 getDbIndex().then((indexData) => {
-    console.log(indexData);
-
     const species = indexData.index.filter( (i) => {
         if (i.data_type === 'Species') {
             return true;

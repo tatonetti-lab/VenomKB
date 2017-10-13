@@ -2,11 +2,13 @@ import { List } from 'immutable';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Column, Table, SortDirection, SortIndicator, AutoSizer } from 'react-virtualized';
+import Select from 'react-select';
 import Slider from 'rc-slider';
 import { Image } from 'react-bootstrap';
 import Tooltip from 'rc-tooltip';
 
 import 'rc-slider/assets/index.css';
+import 'react-select/dist/react-select.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -33,6 +35,15 @@ class DataVirtualized extends PureComponent {
 
         this.state = {
             data: props.data,
+            systemiceffects: props.systemiceffects,
+            systemiceffectsOptions: props.systemiceffects.map((x) => {
+                return {
+                    label: x.name,
+                    value: x.venomkb_id
+                };
+            }),
+            selectedSystemicEffect: null,
+            systemicEffectProteinAnnotations: null,
             filteredData: props.data,
             visibleTypes: {
                 'P': true,
@@ -60,6 +71,7 @@ class DataVirtualized extends PureComponent {
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.handleSystemicEffectFilterChange = this.handleSystemicEffectFilterChange.bind(this);
         this.filterData = this.filterData.bind(this);
 
         this._headerRenderer = this._headerRenderer.bind(this);
@@ -166,8 +178,6 @@ class DataVirtualized extends PureComponent {
     }
 
     filterData() {
-        console.log(this.state.minScore);
-        console.log(this.state.maxScore);
         const filteredData = this.state.data.filter((entry) => {
             let typeChecked = false;
             for (const thisDataType in this.state.visibleTypes) {
@@ -254,7 +264,34 @@ class DataVirtualized extends PureComponent {
         });
     }
 
+    handleSystemicEffectFilterChange(seValue) {
+        const proteinAnnotations = this.state.systemiceffects.find((se) => {
+            return seValue.value === se.venomkb_id;
+        });
+        // Modify this.state (turn off Genomes and Species, as well)
+        this.setState({
+            selectedSystemicEffect: seValue,
+            systemicEffectProteinAnnotations: proteinAnnotations.proteins,
+            visibleTypes: {
+                'P': true,
+                'G': false,
+                'S': false
+            },
+        });
+        console.log('protein annotations:', this.state.systemicEffectProteinAnnotations);
+
+        const filteredData = this.state.data.filter((entry) => {
+            return (entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1) && (this.state.systemicEffectProteinAnnotations.includes(entry.venomkb_id));
+        });
+
+        // Do as we did above
+        this.setState({
+            filteredData: filteredData
+        });
+    }
+
     render() {
+        console.log('Protein annotations:', this.state.systemicEffectProteinAnnotations);
         const list = List(this.state.filteredData);
 
         const sortedList = this._isSortEnabled()
@@ -279,7 +316,7 @@ class DataVirtualized extends PureComponent {
                                 className="input"
                                 value={this.state.search}
                                 onChange={this.handleSearchChange.bind(this)}
-                                placeholder="Type to filter results..."
+                                placeholder="Filter by name..."
                             />
                             <div id="clear-input">
                                 x
@@ -334,6 +371,15 @@ class DataVirtualized extends PureComponent {
                                 <span className="checkbox-label">Filter by annotation score</span>
                             </label>
                             <div id="num-results">{this.state.filteredData.length} results</div>
+                        </div>
+                        <div id="systemic-effect-filter">
+                            <Select
+                                placeholder="Filter by disease/phenotype association..."
+                                options={this.state.systemiceffectsOptions}
+                                onChange={this.handleSystemicEffectFilterChange}
+                                value={this.state.selectedSystemicEffect}
+                                clearable
+                            />
                         </div>
                     </div>
 
@@ -428,6 +474,7 @@ class DataVirtualized extends PureComponent {
 
 DataVirtualized.propTypes = {
     data: PropTypes.array,
+    systemiceffects: PropTypes.array,
     search: PropTypes.string,
     filteredData: PropTypes.array
 };

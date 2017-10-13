@@ -10,6 +10,7 @@ class Data extends React.Component {
         this.state = {
             proteins: props.proteins,
             species: props.species,
+            systemiceffects: props.systemiceffects,
             index: props.index
         };
     }
@@ -21,6 +22,7 @@ class Data extends React.Component {
                 <div id="proteins-virtualized">
                     <DataVirtualized
                         data={this.state.index}
+                        systemiceffects={this.state.systemiceffects}
                     />
                 </div>
             </div>
@@ -31,6 +33,7 @@ class Data extends React.Component {
 Data.propTypes = {
     proteins: PropTypes.array,
     species: PropTypes.array,
+    systemiceffects: PropTypes.array,
     index: PropTypes.array,
     search: PropTypes.string
 };
