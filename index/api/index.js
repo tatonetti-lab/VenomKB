@@ -12,6 +12,7 @@ const dbindexitems = require('./routes/dbindexitems');
 const proteins = require('./routes/proteins');
 const species = require('./routes/species');
 const genomes = require('./routes/genomes');
+const systemicEffects = require('./routes/systemicEffects');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/dbindexitems', dbindexitems);
 app.use('/proteins', proteins);
 app.use('/species', species);
 app.use('/genomes', genomes);
+app.use('/systemic-effects', systemicEffects);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -124,10 +124,10 @@ print("Inserting new data")
 for k, v in tqdm(data):
     current_doc = {
         "name": k,
-        "venomkb_id": VKB._id_generator.new_id(type=MolecularEffect),
+        "venomkb_id": VKB._id_generator.new_id(type=SystemicEffect),
         "proteins": v,
         "venoms": [],
         "eco_id": "ECO_0000322",
         "external_links": []
     }
-    VENOMKB.systemic_effects.insert_one({current_doc})
+    VENOMKB.systemiceffects.insert_one(current_doc)

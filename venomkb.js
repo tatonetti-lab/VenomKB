@@ -19,33 +19,39 @@ import './index/styles/venomkb.css';
 import './index/img/favicons/favicons';
 import './index/img/images';
 
-getDbIndex().then((index) => {
-    const species = index.filter( (i) => {
+getDbIndex().then((indexData) => {
+    console.log(indexData);
+
+    const species = indexData.index.filter( (i) => {
         if (i.data_type === 'Species') {
             return true;
         }
         return false;
     });
 
-    const proteins = index.filter( (i) => {
+    const proteins = indexData.index.filter( (i) => {
         if (i.data_type === 'Protein') {
             return true;
         }
         return false;
     });
 
-    const genomes = index.filter( (i) => {
+    const genomes = indexData.index.filter( (i) => {
         if (i.data_type === 'Genome') {
             return true;
         }
         return false;
     });
 
+    const index = indexData.index;
+    const systemiceffects = indexData.systemicEffects;
+
     const store = configureStore({
         resources: {
             proteins,
             species,
             genomes,
+            systemiceffects,
             index
         }
     });

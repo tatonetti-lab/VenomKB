@@ -61,6 +61,13 @@ export function fetchData(venomkb_id) {
                     .then(response => response.json())
                     .then(json => dispatch(receiveData(venomkb_id, json[0])));
             };
+        case 'E':
+            return dispatch => {
+                dispatch(requestData(venomkb_id));
+                return fetch(`${API_BASE}systemic-effects/${venomkb_id}`)
+                    .then(response => response.json())
+                    .then(json => dispatch(receiveData(venomkb_id, json[0])));
+            };
         default:
             return 'Error: Bad Venomkb ID passed to fetchData()';
     }

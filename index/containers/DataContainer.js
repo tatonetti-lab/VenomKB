@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
         proteins: state.resources.proteins,
         species: state.resources.species,
         genomes: state.resources.genomes,
-        index: state.resources.index
+        index: state.resources.index,
+        systemiceffects: state.resources.systemiceffects
     };
 };
 
