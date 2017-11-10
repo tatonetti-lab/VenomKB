@@ -82,13 +82,13 @@ class DataVirtualized extends PureComponent {
         this._sort = this._sort.bind(this);
     }
 
-    _linkButtonRenderer({cellData}) {
+    _linkButtonRenderer({ cellData }) {
         if (cellData === '') {
             return <div></div>;
         }
 
         return (
-            <div style={{'marginLeft': '12px'}}>
+            <div style={{ 'marginLeft': '12px' }}>
                 <input
                     type="checkbox"
                 />
@@ -129,7 +129,7 @@ class DataVirtualized extends PureComponent {
                 return (
                     <div>
                         <Image
-                            style={{'height': '15px'}}
+                            style={{ 'height': '15px' }}
                             src="1_star.png"
                         />
                     </div>
@@ -138,7 +138,7 @@ class DataVirtualized extends PureComponent {
                 return (
                     <div>
                         <Image
-                            style={{'height': '15px'}}
+                            style={{ 'height': '15px' }}
                             src="2_star.png"
                         />
                     </div>
@@ -147,7 +147,7 @@ class DataVirtualized extends PureComponent {
                 return (
                     <div>
                         <Image
-                            style={{'height': '15px'}}
+                            style={{ 'height': '15px' }}
                             src="3_star.png"
                         />
                     </div>
@@ -156,7 +156,7 @@ class DataVirtualized extends PureComponent {
                 return (
                     <div>
                         <Image
-                            style={{'height': '15px'}}
+                            style={{ 'height': '15px' }}
                             src="4_star.png"
                         />
                     </div>
@@ -165,7 +165,7 @@ class DataVirtualized extends PureComponent {
                 return (
                     <div>
                         <Image
-                            style={{'height': '15px'}}
+                            style={{ 'height': '15px' }}
                             src="5_star.png"
                         />
                     </div>
@@ -211,7 +211,7 @@ class DataVirtualized extends PureComponent {
     }
 
     handleSearchChange(event) {
-        const filteredData = this.state.data.filter( (entry) => {
+        const filteredData = this.state.data.filter((entry) => {
             // Is the data type checked?
             let typeChecked = false;
             // For each data type...
@@ -241,7 +241,7 @@ class DataVirtualized extends PureComponent {
         // first, toggle the checkbox
         const changedTypes = this.state.visibleTypes;
         changedTypes[dataType] = !this.state.visibleTypes[dataType];
-        this.setState({visibleTypes: changedTypes});
+        this.setState({ visibleTypes: changedTypes });
 
         // then, filter rows the same way we did in handleSearchChange
         const filteredData = this.state.data.filter((entry) => {
@@ -265,24 +265,30 @@ class DataVirtualized extends PureComponent {
     }
 
     handleSystemicEffectFilterChange(seValue) {
-        const proteinAnnotations = this.state.systemiceffects.find((se) => {
-            return seValue.value === se.venomkb_id;
-        });
-        // Modify this.state (turn off Genomes and Species, as well)
-        this.setState({
-            selectedSystemicEffect: seValue,
-            systemicEffectProteinAnnotations: proteinAnnotations.proteins,
-            visibleTypes: {
-                'P': true,
-                'G': false,
-                'S': false
-            },
-        });
-        console.log('protein annotations:', this.state.systemicEffectProteinAnnotations);
+        let filteredData = this.state.data;
+        if (seValue !== null) {
+            const proteinAnnotations = this.state.systemiceffects.find((se) => {
+                return seValue.value === se.venomkb_id;
+            });
+            // Modify this.state (turn off Genomes and Species, as well)
+            this.setState({
+                selectedSystemicEffect: seValue,
+                systemicEffectProteinAnnotations: proteinAnnotations.proteins,
+                visibleTypes: {
+                    'P': true,
+                    'G': false,
+                    'S': false
+                },
+            });
 
-        const filteredData = this.state.data.filter((entry) => {
-            return (entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1) && (this.state.systemicEffectProteinAnnotations.includes(entry.venomkb_id));
-        });
+            filteredData = this.state.data.filter((entry) => {
+                return (entry.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1) && (proteinAnnotations.proteins.includes(entry.venomkb_id));
+            });
+        } else {
+            this.setState({
+                selectedSystemicEffect: null
+            });
+        }
 
         // Do as we did above
         this.setState({
@@ -322,7 +328,7 @@ class DataVirtualized extends PureComponent {
                                 x
                             </div>
                         </div>
-                        <div className="checkbox-list" style={{paddingTop: '5px'}}>
+                        <div className="checkbox-list" style={{ paddingTop: '5px' }}>
                             <label className="checkbox-inline">
                                 <input
                                     type="checkbox"
@@ -350,8 +356,8 @@ class DataVirtualized extends PureComponent {
                                 />
                                 <span className="checkbox-label">Show genomes</span>
                             </label>
-                            <label className="checkbox-inline" style={{'marginLeft': '20px'}}>
-                                <span style={{'width': '100px', 'pull': 'right'}}>
+                            <label className="checkbox-inline" style={{ 'marginLeft': '20px' }}>
+                                <span style={{ 'width': '100px', 'pull': 'right' }}>
                                     <Range
                                         dots
                                         step={1}

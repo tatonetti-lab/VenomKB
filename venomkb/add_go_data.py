@@ -30,8 +30,10 @@ for x in tqdm(VKB.proteins):
     # push to global list of go_annotations
     go_annotations_out[x.venomkb_id] = this_protein
 
+'''
 for vkbid, annot_list in tqdm(go_annotations_out.iteritems()):
     VKB.add_to_existing(vkbid=vkbid,
                         new_key='go_annotations',
                         new_value=annot_list,
                         replace_if_exist=True)
+'''

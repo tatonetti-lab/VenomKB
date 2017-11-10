@@ -397,3 +397,7 @@ pre.taxonomy-detail {
   border-top: 2px solid;
   border-color: #333333;
 }
+
+#news-item {
+  padding-bottom: 6px;
+}

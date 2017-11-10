@@ -43,6 +43,7 @@ class VenomKB(object):
         self.mongo_connection = VENOMKB
         self._id_generator = IdGenerator()  # TODO: Store seed with database for reproducability
         self.vkb_to_upid_map = vkb_upid_map()
+        self.load_database()
 
     def find_record_by_venomkb_id(self, vkbid):
         """Find a record given semi-semantic VenomKB identifier"""
