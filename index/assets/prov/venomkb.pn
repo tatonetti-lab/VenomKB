@@ -1,0 +1,35 @@
+document
+  prefix foaf <http://xmlns.com/foaf/0.1/>
+  prefix tr <http://www.w3.org/TR/2018/>
+  prefix vkb <http://www.venomkb.org/>
+  prefix w3 <http://www.w3.org/>
+  prefix tp <http://www.uniprot.org/program/Toxins>
+  
+  entity(vkb:protein)
+  entity(vkb:species)
+  entity(vkb:genome)
+  entity(vkb:systemicEffect)
+  entity(vkb:molecularEffect)
+  entity(vkb:expressionProfile)
+  entity(tp:protein)
+  agent(vkb:jdr, [foaf:givenName="Joseph", prov:type='prov:Person', foaf:geekcode="GCS/IT/LS/MU/S d-(+)>++ s-:+>- a- C++$ UBCX+++(++)$ P- L+ E++$>+++ !W++ !N !o K+ w !O !M !V PS+ PE !Y !PGP t++ !5 X+ !R tv+ b++ DI D+ G+ e+++$>++++ h--- r++ y?", foaf:familyName="Romano", foaf:mbox="<mailto:jdr2160@cumc.columbia.edu>"])
+  agent(vkb:vtn, [foaf:givenName="Victor", prov:type='prov:Person', foaf:familyName="Nwankwo"])
+  activity(vkb:add_go_data, -, -)
+  activity(vkb:add_literature_refs, -, -)
+  activity(vkb:add_predications_to_mongo, -, -)
+  activity(vkb:add_taxonomic_data, -, -)
+  activity(vkb:add_uniprot_descriptions, -, -)
+  activity(vkb:build_mongo_index, -, -)
+  activity(vkb:deploy_protein_image_urls, -, -)
+  activity(vkb:deploy_species_image_urls, -, -)
+  activity(vkb:fetch_images_wikidata, -, -)
+  activity(vkb:generate_annotation_scores, -, -)
+  activity(vkb:get_protein_image_urls, -, -)
+  activity(vkb:infer_effects_go, -, -)
+  activity(vkb:infer_effects_mesh, -, -)
+  activity(vkb:make_uniprot_to_vkb_map, -, -)
+  activity(vkb:replace_protein_refs_in_venoms, -, -)
+  activity(vkb:restructure_db_refs, -, -)
+  activity(vkb:integrate_venomkb_v1, -, -)
+  wasDerivedFrom(vkb:protein, tp:protein, -, -, -)
+endDocument
