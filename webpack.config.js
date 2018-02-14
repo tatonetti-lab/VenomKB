@@ -79,7 +79,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(zip|csv|tsv)$/i,
+                test: /\.(zip|csv|tsv|pn)$/i,
                 exclude: /node_modules/,
                 use: [
                     'file-loader?name=[name].[ext]'

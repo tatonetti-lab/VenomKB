@@ -13,6 +13,8 @@ require('../assets/data/index_06272017.json.zip');
 
 require('../assets/data/venom_ontology.xml.zip');
 
+require('../assets/prov/venomkb.pn');
+
 const vkb1_title = (
 	<h3>VenomKB v1.0 data tables</h3>
 );
@@ -23,6 +25,10 @@ const vkb2_title = (
 
 const vo_title = (
 	<h3>Venom Ontology data tables</h3>
+);
+
+const prov_title = (
+	<h3>VenomKB data provenance files</h3>
 );
 
 const Download = () =>
@@ -61,6 +67,17 @@ const Download = () =>
 			<div style={{display: 'flex', justifyContent: 'center'}}>
 				<ButtonToolbar>
 					<Button bsStyle="primary" href="venom_ontology.xml.zip">Venom Ontology (OWL XML)</Button>
+				</ButtonToolbar>
+			</div>
+		</Panel>
+
+		<Panel header={prov_title} bsStyle="success">
+			<div>
+				<p><small>Last updated 02/13/2018:</small></p>
+			</div>
+			<div style={{display: 'flex', justifyContent: 'center'}}>
+				<ButtonToolbar>
+					<Button bsStyle="primary" href="venomkb.pn">PROV-N</Button>
 				</ButtonToolbar>
 			</div>
 		</Panel>
