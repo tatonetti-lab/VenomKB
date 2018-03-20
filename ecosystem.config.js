@@ -69,7 +69,7 @@ module.exports = {
             ref  : 'origin/deployment',
             repo : 'https://github.com/JDRomano2/venomkb.git',
             path : '/var/www/venomkb',
-            'post-deploy' : 'npm install && pwd && pm2 reload ecosystem.config.js --env test'
+            'post-deploy' : 'npm install && npm run build && pm2 reload ecosystem.config.js --env test'
         }
     }
 };
