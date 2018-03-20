@@ -65,7 +65,7 @@ module.exports = {
         },
         test : {
             user : 'ubuntu',
-            host : '54.165.86.64',
+            host : 'vkbtest',
             ref  : 'origin/master',
             repo : 'git@github.com:JDRomano2/venomkb.git',
             path : '/var/www/venomkb',
