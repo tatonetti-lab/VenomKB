@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
-const envi = (process.env.NODE_ENVIRONMENT === 'PRODUCTION');
-const API_BASE = envi ? 'http://venomkb.org/api/' : 'http://localhost:3001/';
+const API_BASE = 'http://54.165.86.64/api/';
+console.log(`API_BASE: ${API_BASE}`);
 
 const PROTEINS_URL = API_BASE + 'proteins';
 const PROTEINS_IDX_URL = API_BASE + 'proteins/index';
