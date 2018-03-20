@@ -66,7 +66,7 @@ module.exports = {
         test : {
             user : 'ubuntu',
             host : 'vkbtest',
-            ref  : 'origin/master',
+            ref  : 'origin/deployment',
             repo : 'git@github.com:JDRomano2/venomkb.git',
             path : '/var/www/venomkb',
             'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env test'
