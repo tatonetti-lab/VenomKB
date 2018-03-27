@@ -2,6 +2,18 @@ html {
   height: 100%;
 }
 
+.done {
+  color: green;
+}
+
+.inpr {
+  color: blue;
+}
+
+.todo {
+  color: red;
+}
+
 .active {
     color: #FFF !;
 }
